@@ -1,0 +1,47 @@
+{
+  "employee": [
+    {
+      "id": "1",
+      "name": "A",
+      "email": "robert@in.com",
+      "phone": "908908767",
+      "address": "ndn",
+      "Designation": "officer",
+      "Packege": "5LPA"
+    },
+    {
+      "id": "2",
+      "name": "B",
+      "email": "robert@in.com",
+      "phone": "908908767",
+      "Designation": "bank",
+      "Packege": "8LPA",
+      "active": false
+    },
+    {
+      "id": "3",
+      "name": "C",
+      "email": "robert@in.com",
+      "phone": "908908767",
+      "Address": "mumbai",
+      "Designation": "officer",
+      "Packege": "5LPA"
+    },
+    {
+      "id": "4",
+      "name": "D",
+      "email": "robert@in.com",
+      "phone": "908908767",
+      "Designation": "officer",
+      "Packege": "55LPA"
+    },
+    {
+      "id": "5",
+      "name": "E",
+      "email": "robert@in.com",
+      "phone": "908908767000",
+      "Designation": "offkk",
+      "Packege": "5LPA"
+    }
+  ]
+}
