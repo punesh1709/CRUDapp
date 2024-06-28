@@ -2,46 +2,66 @@
   "employee": [
     {
       "id": "1",
-      "name": "A",
+      "name": "Akash",
       "email": "robert@in.com",
       "phone": "908908767",
-      "address": "ndn",
+      "address": "mumbai",
       "Designation": "officer",
       "Packege": "5LPA"
     },
     {
       "id": "2",
-      "name": "B",
-      "email": "robert@in.com",
-      "phone": "908908767",
-      "Designation": "bank",
-      "Packege": "8LPA",
-      "active": false
+      "name": "Dann",
+      "email": "dan@in.com",
+      "phone": "908456767",
+      "address": "pune",
+      "Designation": "officer 3",
+      "Packege": "6LPA"
     },
     {
       "id": "3",
-      "name": "C",
-      "email": "robert@in.com",
+      "name": "berlin",
+      "email": "berlin@in.com",
       "phone": "908908767",
-      "Address": "mumbai",
-      "Designation": "officer",
-      "Packege": "5LPA"
+      "address": "palghar",
+      "Designation": "backend dev",
+      "Packege": "17LPA"
     },
     {
       "id": "4",
-      "name": "D",
-      "email": "robert@in.com",
-      "phone": "908908767",
-      "Designation": "officer",
-      "Packege": "55LPA"
+      "name": "Faran",
+      "email": "RRRrobert@in.com",
+      "phone": "908900000",
+      "address": "nagpur",
+      "Designation": "php dev",
+      "Packege": "7LPA"
     },
     {
       "id": "5",
-      "name": "E",
-      "email": "robert@in.com",
-      "phone": "908908767000",
-      "Designation": "offkk",
-      "Packege": "5LPA"
+      "name": "Gannu",
+      "email": "gannu@in.com",
+      "phone": "908933767",
+      "address": "navi mumbai",
+      "Designation": "web dev",
+      "Packege": "15LPA"
+    },
+    {
+      "id": "6",
+      "name": "Harry",
+      "email": "harry@in.com",
+      "phone": "33338767",
+      "address": "palghar",
+      "Designation": "helper",
+      "Packege": "11LPA"
+    },
+    {
+      "id": "7",
+      "name": "punesh",
+      "email": "punesh19@gmail.com",
+      "phone": "452865000",
+      "address": "virar",
+      "Designation": "forntend developer",
+      "Packege": "22LPA"
     }
   ]
 }

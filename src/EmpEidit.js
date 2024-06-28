@@ -1,10 +1,11 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-function EmpEidit() {
-  const { empid } = useParams();
 
-  //const [empdata, empdatachange] = useState({});
+
+
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+
+function EmpEdit() {
+  const { empid } = useParams();
 
   useEffect(() => {
     fetch("http://localhost:8000/employee/" + empid)
@@ -18,28 +19,74 @@ function EmpEidit() {
         phonechange(resp.phone);
         addresschange(resp.address);
         Designationchange(resp.Designation);
-        Packegechange(resp.Packege);
+        Packegechange(resp.Packege.replace('LPA', '')); 
         activechange(resp.isactive);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
+  }, [empid]);
 
   const [id, idchange] = useState("");
   const [name, namechange] = useState("");
   const [email, emailchange] = useState("");
   const [phone, phonechange] = useState("");
-  const [active, activechange] = useState(true);
-  const [validation, valchange] = useState(false);
   const [address, addresschange] = useState("");
   const [Designation, Designationchange] = useState("");
   const [Packege, Packegechange] = useState("");
+  const [active, activechange] = useState(true);
+  const [validation, valchange] = useState(false);
+  const [phoneValidationMessage, setPhoneValidationMessage] = useState("");
+  const [emailValidationMessage, setEmailValidationMessage] = useState("");
 
   const navigate = useNavigate();
 
+  const phoneChange = (value) => {
+    const digitOnlyValue = value.replace(/\D/g, "");
+    if (digitOnlyValue.length <= 10) {
+      phonechange(digitOnlyValue);
+      validatePhone(digitOnlyValue);
+    }
+  };
+
+  const validatePhone = (phone) => {
+    if (phone.length !== 10) {
+      setPhoneValidationMessage("Phone number must be 10 digits");
+    } else {
+      setPhoneValidationMessage("");
+    }
+  };
+
+  const packageChange = (value) => {
+    const packageValue = parseInt(value, 10);
+    Packegechange(packageValue);
+  };
+
+  const emailChange = (value) => {
+    if (/^\d/.test(value)) {
+      setEmailValidationMessage("Email cannot start with a digit");
+    } else {
+      setEmailValidationMessage("");
+      emailchange(value);
+    }
+  };
+
+  const nameChange = (value) => {
+    if (/^[a-zA-Z\s]*$/.test(value)) {
+      namechange(value);
+    } else {
+      alert("Enter Only Character");
+    }
+  };
+
   const handlesubmit = (e) => {
     e.preventDefault();
+
+    if (Packege < 3 || Packege > 25) {
+      alert("Package must be between 3 and 25 LPA");
+      return;
+    }
+
     const empdata = {
       id,
       name,
@@ -47,7 +94,7 @@ function EmpEidit() {
       phone,
       address,
       Designation,
-      Packege,
+      Packege: `${Packege}LPA`,
       active,
     };
 
@@ -64,6 +111,7 @@ function EmpEidit() {
         console.log(err.message);
       });
   };
+
   return (
     <div>
       <div className="row">
@@ -71,7 +119,7 @@ function EmpEidit() {
           <form className="container" onSubmit={handlesubmit}>
             <div className="card" style={{ textAlign: "left" }}>
               <div className="card-title">
-                <h2>Employee Edit</h2>
+                <h2 className="text-center fw-bold text-danger">Employee Edit</h2>
               </div>
               <div className="card-body">
                 <div className="row">
@@ -93,10 +141,10 @@ function EmpEidit() {
                         required
                         value={name}
                         onMouseDown={(e) => valchange(true)}
-                        onChange={(e) => namechange(e.target.value)}
+                        onChange={(e) => nameChange(e.target.value)}
                         className="form-control"
                       ></input>
-                      {name.length == 0 && validation && (
+                      {name.length === 0 && validation && (
                         <span className="text-danger">Enter the name</span>
                       )}
                     </div>
@@ -106,10 +154,14 @@ function EmpEidit() {
                     <div className="form-group">
                       <label>Email</label>
                       <input
+                        type="email"
                         value={email}
-                        onChange={(e) => emailchange(e.target.value)}
+                        onChange={(e) => emailChange(e.target.value)}
                         className="form-control"
                       ></input>
+                      {emailValidationMessage && (
+                        <div className="text-danger">{emailValidationMessage}</div>
+                      )}
                     </div>
                   </div>
 
@@ -117,13 +169,17 @@ function EmpEidit() {
                     <div className="form-group">
                       <label>Phone</label>
                       <input
+                        type="tel"
                         value={phone}
-                        onChange={(e) => phonechange(e.target.value)}
+                        onChange={(e) => phoneChange(e.target.value)}
                         className="form-control"
                       ></input>
+                      {phoneValidationMessage && (
+                        <div className="text-danger">{phoneValidationMessage}</div>
+                      )}
                     </div>
                   </div>
-                  {/* Additional */}
+
                   <div className="col-lg-12">
                     <div className="form-group">
                       <label>Address</label>
@@ -148,15 +204,15 @@ function EmpEidit() {
 
                   <div className="col-lg-12">
                     <div className="form-group">
-                      <label>Packege</label>
+                      <label>Package</label>
                       <input
+                        type="number"
                         value={Packege}
-                        onChange={(e) => Packegechange(e.target.value)}
+                        onChange={(e) => packageChange(e.target.value)}
                         className="form-control"
-                      ></input>
+                      />
                     </div>
                   </div>
-                  {/* Additional */}
 
                   <div className="col-lg-12">
                     <div className="form-check">
@@ -171,10 +227,10 @@ function EmpEidit() {
                   </div>
                   <div className="col-lg-12">
                     <div className="form-group">
-                      <button className="btn btn-success" type="submit">
+                      <button className="btn btn-success px-4" type="submit">
                         Save
                       </button>
-                      <Link to="/" className="btn btn-danger">
+                      <Link to="/" className="btn btn-danger m-3 px-4">
                         Back
                       </Link>
                     </div>
@@ -189,4 +245,4 @@ function EmpEidit() {
   );
 }
 
-export default EmpEidit;
+export default EmpEdit;
