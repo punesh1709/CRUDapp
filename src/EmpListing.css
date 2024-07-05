@@ -1,0 +1,17 @@
+/* styles.css */
+.table-header {
+  position: relative;
+}
+
+.sort-button {
+  visibility: hidden;
+  transition: visibility 0.3s;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.table-header:hover .sort-button {
+  visibility: visible;
+}

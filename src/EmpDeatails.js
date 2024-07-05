@@ -1,70 +1,120 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+// import React, { useEffect, useState } from 'react';
 
-const EmpDeatails = () => {
-  const { empid } = useParams();
+// const EmpDetails = ({ id }) => {
+//   const [empdata, setEmpdata] = useState({});
 
-  const [empdata, empdatachange] = useState({});
+//   useEffect(() => {
+//     fetch(`http://localhost:8000/employee/${id}`)
+//       .then((res) => res.json())
+//       .then((data) => {
+//         setEmpdata(data);
+//       })
+//       .catch((err) => {
+//         console.log(err.message);
+//       });
+//   }, [id]);
+
+//   return (
+//     <div>
+//       <div className="container">
+//         <div className="card row" style={{ textAlign: 'left' }}>
+//           <div className="card-title">
+//             <h2 className='text-center fw-bold text-danger'>Employee Details</h2>
+//           </div>
+//           <div className="card-body"></div>
+//           {empdata && (
+//             <table className="table">
+//               <thead>
+//                 <tr>
+//                   <th scope="col">ID</th>
+//                   <th scope="col">Name</th>
+//                   <th scope="col">Email</th>
+//                   <th scope="col">Phone</th>
+//                   <th scope="col">Address</th>
+//                   <th scope="col">Designation</th>
+//                   <th scope="col">Package</th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 <tr>
+//                   <th scope="row">{empdata.id}</th>
+//                   <td>{empdata.name}</td>
+//                   <td>{empdata.email}</td>
+//                   <td>{empdata.phone}</td>
+//                   <td>{empdata.address}</td>
+//                   <td>{empdata.Designation}</td>
+//                   <td>{empdata.Packege}</td>
+//                 </tr>
+//               </tbody>
+//             </table>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default EmpDetails;
+
+
+import React, { useEffect, useState } from 'react';
+import './EmpDetails.css'; // Import the CSS file
+
+const EmpDetails = ({ id }) => {
+  const [empdata, setEmpdata] = useState({});
 
   useEffect(() => {
-      fetch("http://localhost:8000/employee/" + empid).then((res) => {
-          return res.json();
-      }).then((resp) => {
-          empdatachange(resp);
-      }).catch((err) => {
-          console.log(err.message);
+    fetch(`http://localhost:8000/employee/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setEmpdata(data);
       })
-  }, []);
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [id]);
+
   return (
-      <div>
-        
-
-             <div className="container">
-              
-          <div className="card row" style={{ "textAlign": "left" }}>
-              <div className="card-title">
-                  <h2 className='text-center fw-bold text-danger'>Employee Details</h2>
-              </div>
-              <div className="card-body"></div>
-
-              {empdata &&
-                
-
-                <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Phone</th>
-      <th scope="col">Address</th>
-      <th scope="col">Designation</th>
-      <th scope="col">Packege</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">{empdata.id}</th>
-      <td>{empdata.name}</td>
-      <td>{empdata.email}</td>
-      <td>{empdata.phone}</td>
-     
-      <td>{empdata.address}</td>
-      <td>{empdata.Designation}</td>
-      <td>{empdata.Packege}</td>
-    </tr>
-
-    <Link className="btn btn-danger p-2 m-3" to="/">Back to Listing</Link>
-    
-  </tbody>
-</table>
-              }
+    <div className="containers">
+      <div className="cards">
+        <div className="card-titles">
+          <h2 className='text-center fw-bold text-danger'>Employee Details</h2>
+        </div>
+        {empdata && (
+          <div className="card-body">
+            <div className="detail">
+              <span className="detail-label">ID:</span>
+              <span className="detail-value">{empdata.id}</span>
+            </div>
+            <div className="detail">
+              <span className="detail-label">Name:</span>
+              <span className="detail-value">{empdata.name}</span>
+            </div>
+            <div className="detail">
+              <span className="detail-label">Email:</span>
+              <span className="detail-value">{empdata.email}</span>
+            </div>
+            <div className="detail">
+              <span className="detail-label">Phone:</span>
+              <span className="detail-value">{empdata.phone}</span>
+            </div>
+            <div className="detail">
+              <span className="detail-label">Address:</span>
+              <span className="detail-value">{empdata.address}</span>
+            </div>
+            <div className="detail">
+              <span className="detail-label">Designation:</span>
+              <span className="detail-value">{empdata.Designation}</span>
+            </div>
+            <div className="detail">
+              <span className="detail-label">Package:</span>
+              <span className="detail-value">{empdata.Packege}</span>
+            </div>
           </div>
-          </div>
-          {/* </div>
-          </div> */}
-      </div >
+        )}
+      </div>
+    </div>
   );
-}
+};
 
-export default EmpDeatails
+export default EmpDetails;

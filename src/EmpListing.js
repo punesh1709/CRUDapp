@@ -1,17 +1,36 @@
 
+
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './fontAwesome';
+import './EmpListing.css';
+import EmpCreate from './EmpCreate';
+import EmpEidit from './EmpEidit';
+// import EmpDetails from './EmpDetails';
+import { Modal, Button } from 'react-bootstrap';
+import EmpDeatails from "./EmpDeatails";
 
 function EmpListing() {
   const navigate = useNavigate();
   const [empdata, setEmpdata] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
-  const [sortPackageOrder, setSortPackageOrder] = useState(null); // Changed to null
+  const [sortPackageOrder, setSortPackageOrder] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5; // Number of items per page
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const availablePerPageOptions = [5, 10, 15];
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editEmpId, setEditEmpId] = useState(null);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [detailsEmpId, setDetailsEmpId] = useState(null);
 
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
     fetch("http://localhost:8000/employee")
       .then((res) => res.json())
       .then((resp) => {
@@ -20,10 +39,6 @@ function EmpListing() {
       .catch((err) => {
         console.log(err.message);
       });
-  }, []);
-
-  const LoadDetails = (id) => {
-    navigate(`/employee/detail/${id}`);
   };
 
   const RemoveFunction = (id) => {
@@ -33,7 +48,7 @@ function EmpListing() {
       })
         .then((res) => {
           alert("Removed successfully.");
-          window.location.reload(); // Temporary solution, consider alternatives
+          fetchData();
         })
         .catch((err) => {
           console.log(err.message);
@@ -41,9 +56,12 @@ function EmpListing() {
     }
   };
 
-  const LoadEdit = (id) => {
-    navigate(`/employee/edit/${id}`);
+  const handleShowDetailsModal = (id) => {
+    setDetailsEmpId(id);
+    setShowDetailsModal(true);
   };
+
+  const handleCloseDetailsModal = () => setShowDetailsModal(false);
 
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
@@ -52,13 +70,13 @@ function EmpListing() {
   const handleSort = () => {
     const newOrder = sortOrder === "asc" ? "desc" : "asc";
     setSortOrder(newOrder);
-    setSortPackageOrder(null); // Reset package sort order
+    setSortPackageOrder(null);
   };
 
   const handleSortPackage = () => {
     const newOrder = sortPackageOrder === "asc" ? "desc" : "asc";
     setSortPackageOrder(newOrder);
-    setSortOrder(null); // Reset name sort order
+    setSortOrder(null);
   };
 
   const sortedData = empdata
@@ -87,7 +105,6 @@ function EmpListing() {
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Pagination logic
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
   const currentData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
@@ -106,52 +123,88 @@ function EmpListing() {
     }
   };
 
+  const handleItemsPerPageChange = (event) => {
+    setItemsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(1);
+  };
+
+  const handleShowCreateModal = () => setShowCreateModal(true);
+  const handleCloseCreateModal = () => setShowCreateModal(false);
+  
+  const handleSaveAndClose = () => {
+    handleCloseCreateModal();
+    fetchData();
+  };
+
+  const handleShowEditModal = (id) => {
+    setEditEmpId(id);
+    setShowEditModal(true);
+  };
+
+  const handleCloseEditModal = () => setShowEditModal(false);
+
+  const handleUpdateAndClose = () => {
+    handleCloseEditModal();
+    fetchData();
+  };
+
   return (
     <div className="container">
-      <div className="card  w-100">
+      <div className="card w-100">
         <div className="card-title">
           <h2 className="d-flex justify-content-center fw-bold text-danger">Employee Listing</h2>
         </div>
         <div className="card-body">
           <div className="mb-3">
             <div className="d-flex justify-content-between flex-row-reverse">
-            <Link to="/employee/create" className="btn btn-success">
-              Add New (+)
-            </Link>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search by name"
-              value={searchQuery}
-              onChange={handleSearch}
-              style={{ marginTop: "10px", width: "300px" }}
-            />
-            <button
-              className="btn btn-secondary m-2"
-              onClick={handleSort}
-              style={{ marginTop: "10px" }}
-            >
-              Sort Name {sortOrder === "asc" ? "A-Z" : "Z-A"}
-            </button>
-            <button
-              className="btn btn-secondary m-2"
-              onClick={handleSortPackage}
-              style={{ marginTop: "10px" }}
-            >
-              Sort Package {sortPackageOrder === "asc" ? "High-Low" : "Low-High"}
-            </button>
+              <Button variant="success" onClick={handleShowCreateModal}>
+                Add New (+)
+              </Button>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search by name"
+                value={searchQuery}
+                onChange={handleSearch}
+                style={{ marginTop: "10px", width: "300px" }}
+              />
             </div>
           </div>
-          <table className="table table-bordered ">
-            <thead className=" text-white">
+          
+          <table className="table table-bordered">
+            <thead className="text-white">
               <tr>
-                <th className="bg-black text-white"> ID</th>
-                <th className="bg-black text-white">Name</th>
+                <th className="bg-black text-white">ID</th>
+                <th className="bg-black text-white table-header">
+                  Name
+                  <button
+                    className="btn btn-secondary bg-black border-black sort-button"
+                    onClick={handleSort}
+                  >
+                    {sortOrder === "asc" ? (
+                      <FontAwesomeIcon icon="arrow-up" />
+                    ) : (
+                      <FontAwesomeIcon icon="arrow-down" />
+                    )}
+                  </button>
+                </th>
                 <th className="bg-black text-white">Email</th>
                 <th className="bg-black text-white">Phone</th>
                 <th className="bg-black text-white">Address</th>
                 <th className="bg-black text-white">Designation</th>
-                <th className="bg-black text-white">Packege</th>
+                <th className="bg-black text-white table-header">
+                  Package
+                  <button
+                    className="btn btn-secondary bg-black border-black sort-button"
+                    onClick={handleSortPackage}
+                  >
+                    {sortPackageOrder === "asc" ? (
+                      <FontAwesomeIcon icon="arrow-down" />
+                    ) : (
+                      <FontAwesomeIcon icon="arrow-up" />
+                    )}
+                  </button>
+                </th>
                 <th className="text-center bg-black text-white">Action</th>
               </tr>
             </thead>
@@ -167,22 +220,22 @@ function EmpListing() {
                   <td>{item.Packege}</td>
                   <td className="d-flex justify-content-evenly">
                     <button
-                      onClick={() => LoadEdit(item.id)}
+                      onClick={() => handleShowEditModal(item.id)}
                       className="btn btn-success"
                     >
-                      Edit
+                      <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
                     </button>
                     <button
                       onClick={() => RemoveFunction(item.id)}
                       className="btn btn-danger"
                     >
-                      Remove
+                      <FontAwesomeIcon icon="fa-solid fa-trash" />
                     </button>
                     <button
-                      onClick={() => LoadDetails(item.id)}
+                      onClick={() => handleShowDetailsModal(item.id)}
                       className="btn btn-primary"
                     >
-                      Details
+                      <FontAwesomeIcon icon="fa-solid fa-circle-info" />
                     </button>
                   </td>
                 </tr>
@@ -208,8 +261,54 @@ function EmpListing() {
               Next
             </button>
           </div>
+          <div className="mb-3">
+            <span>Show:</span>
+            <select
+              className="form-select"
+              value={itemsPerPage}
+              onChange={handleItemsPerPageChange}
+            >
+              {availablePerPageOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option} per page
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
+
+      <Modal show={showCreateModal} onHide={handleCloseCreateModal} >
+        <Modal.Header closeButton>
+          <Modal.Title>Add New Employee</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EmpCreate onClose={handleSaveAndClose} />
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showEditModal} onHide={handleCloseEditModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Employee</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EmpEidit id={editEmpId} onClose={handleUpdateAndClose} />
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showDetailsModal} onHide={handleCloseDetailsModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Employee Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EmpDeatails id={detailsEmpId} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseDetailsModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

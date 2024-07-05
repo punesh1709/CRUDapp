@@ -1,110 +1,44 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
 
-function EmpEdit() {
-  const { empid } = useParams();
+
+
+import React, { useState, useEffect } from 'react';
+
+function EmpEidit({ id, onClose }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [designation, setDesignation] = useState('');
+  const [packageAmount, setPackageAmount] = useState('');
 
   useEffect(() => {
-    fetch("http://localhost:8000/employee/" + empid)
+    fetch(`http://localhost:8000/employee/${id}`)
       .then((res) => res.json())
-      .then((resp) => {
-        idchange(resp.id);
-        namechange(resp.name);
-        emailchange(resp.email);
-        phonechange(resp.phone);
-        addresschange(resp.address);
-        Designationchange(resp.Designation);
-        Packegechange(resp.Packege.replace('LPA', ''));
-        activechange(resp.isactive);
+      .then((data) => {
+        setName(data.name);
+        setEmail(data.email);
+        setPhone(data.phone);
+        setAddress(data.address);
+        setDesignation(data.Designation);
+        setPackageAmount(data.Packege);
       })
       .catch((err) => {
         console.log(err.message);
       });
-  }, [empid]);
+  }, [id]);
 
-  const [id, idchange] = useState("");
-  const [name, namechange] = useState("");
-  const [email, emailchange] = useState("");
-  const [phone, phonechange] = useState("");
-  const [address, addresschange] = useState("");
-  const [Designation, Designationchange] = useState("");
-  const [Packege, Packegechange] = useState("");
-  const [active, activechange] = useState(true);
-  const [validation, valchange] = useState(false);
-  const [phoneValidationMessage, setPhoneValidationMessage] = useState("");
-  const [emailValidationMessage, setEmailValidationMessage] = useState("");
-  const [addressValidationMessage, setAddressValidationMessage] = useState("");
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const updatedEmployee = { name, email, phone, address, Designation: designation, Packege: packageAmount };
 
-  const navigate = useNavigate();
-
-  const phoneChange = (value) => {
-    const digitOnlyValue = value.replace(/\D/g, "");
-    if (digitOnlyValue.length <= 10) {
-      phonechange(digitOnlyValue);
-      validatePhone(digitOnlyValue);
-    }
-  };
-
-  const validatePhone = (phone) => {
-    if (phone.length !== 10) {
-      setPhoneValidationMessage("Phone number must be 10 digits");
-    } else {
-      setPhoneValidationMessage("");
-    }
-  };
-
-  const packageChange = (value) => {
-    const packageValue = parseInt(value, 10);
-    Packegechange(packageValue);
-  };
-
-  const emailChange = (value) => {
-    if (/^\d/.test(value)) {
-      setEmailValidationMessage("Email cannot start with a digit");
-    } else {
-      setEmailValidationMessage("");
-      emailchange(value);
-    }
-  };
-
-  const addressChange = (value) => {
-    if (value.length > 150) {
-      setAddressValidationMessage("Address cannot exceed 150 characters");
-    } else if (value.length === 0) {
-      setAddressValidationMessage("Address cannot be empty");
-    } else {
-      setAddressValidationMessage("");
-      addresschange(value);
-    }
-  };
-
-  const onHandleSubmit = (e) => {
-    e.preventDefault();
-
-    if (Packege < 3 || Packege > 25) {
-      alert("Package must be between 3 and 25 LPA");
-      return;
-    }
-
-    const empdata = {
-      id,
-      name,
-      email,
-      phone,
-      address,
-      Designation,
-      Packege: `${Packege}LPA`,
-      isactive: active,
-    };
-
-    fetch("http://localhost:8000/employee/" + empid, {
-      method: "PUT",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(empdata),
+    fetch(`http://localhost:8000/employee/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedEmployee),
     })
-      .then((res) => {
-        alert("Saved successfully.");
-        navigate("/");
+      .then((res) => res.json())
+      .then(() => {
+        onClose();
       })
       .catch((err) => {
         console.log(err.message);
@@ -112,128 +46,70 @@ function EmpEdit() {
   };
 
   return (
-    <div>
-      <div className="offset-lg-3 col-lg-6">
-        <form className="container" onSubmit={onHandleSubmit}>
-          <div className="card">
-            <div className="card-title">
-              <h2 className="fw-bold text-center">Employee Edit</h2>
-            </div>
-            <div className="card-body">
-              <div className="row">
-                <div className="col-lg-12">
-                  <div className="form-group">
-                    <label>Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={name}
-                      onChange={(e) => {
-                        const value = e.target.value;
-                        if (/^[a-zA-Z\s]*$/.test(value)) {
-                          namechange(value);
-                        } else {
-                          alert("Enter Only Character");
-                        }
-                      }}
-                      className="form-control"
-                    ></input>
-                  </div>
-                </div>
-                <div className="col-lg-12">
-                  <div className="form-group">
-                    <label>Email</label>
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => emailChange(e.target.value)}
-                      className="form-control"
-                    ></input>
-                    {emailValidationMessage && (
-                      <div className="text-danger">{emailValidationMessage}</div>
-                    )}
-                  </div>
-                </div>
-                <div className="col-lg-12">
-                  <div className="form-group">
-                    <label>Phone</label>
-                    <input
-                      type="tel"
-                      value={phone}
-                      required
-                      onChange={(e) => phoneChange(e.target.value)}
-                      className="form-control"
-                    />
-                    {phoneValidationMessage && (
-                      <div className="text-danger">{phoneValidationMessage}</div>
-                    )}
-                  </div>
-                </div>
-                <div className="col-lg-12">
-                  <div className="form-group">
-                    <label>Address</label>
-                    <input
-                      value={address}
-                      required
-                      onChange={(e) => addressChange(e.target.value)}
-                      className="form-control"
-                    ></input>
-                    {addressValidationMessage && (
-                      <div className="text-danger">{addressValidationMessage}</div>
-                    )}
-                  </div>
-                </div>
-                <div className="col-lg-12">
-                  <div className="form-group">
-                    <label>Designation</label>
-                    <input
-                      value={Designation}
-                      required
-                      onChange={(e) => Designationchange(e.target.value)}
-                      className="form-control"
-                    ></input>
-                  </div>
-                </div>
-                <div className="col-lg-12">
-                  <div className="form-group">
-                    <label>Package</label>
-                    <input
-                      type="number"
-                      value={Packege}
-                      onChange={(e) => packageChange(e.target.value)}
-                      className="form-control"
-                    />
-                  </div>
-                </div>
-                <div className="col-lg-12">
-                  <div className="form-check">
-                    <input
-                      checked={active}
-                      onChange={(e) => activechange(e.target.checked)}
-                      type="checkbox"
-                      className="form-check-input"
-                    ></input>
-                    <label className="form-check-label">Is Active</label>
-                  </div>
-                </div>
-                <div className="col-lg-12">
-                  <div className="form-group">
-                    <button className="btn btn-success px-4" type="submit">
-                      Save
-                    </button>
-                    <Link to="/" className="btn btn-danger m-3 px-4">
-                      Back
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </form>
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label>Name</label>
+        <input
+          type="text"
+          className="form-control"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
       </div>
-    </div>
+      <div className="form-group">
+        <label>Email</label>
+        <input
+          type="email"
+          className="form-control"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label>Phone</label>
+        <input
+          type="text"
+          className="form-control"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label>Address</label>
+        <input
+          type="text"
+          className="form-control"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label>Designation</label>
+        <input
+          type="text"
+          className="form-control"
+          value={designation}
+          onChange={(e) => setDesignation(e.target.value)}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label>Package</label>
+        <input
+          type="text"
+          className="form-control"
+          value={packageAmount}
+          onChange={(e) => setPackageAmount(e.target.value)}
+          required
+        />
+      </div>
+      <button type="submit" className="btn btn-primary mt-3">Save</button>
+    </form>
   );
 }
 
-export default EmpEdit;
+export default EmpEidit;
