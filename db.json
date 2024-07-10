@@ -10,13 +10,13 @@
       "id": "1"
     },
     {
-      "id": "2",
       "name": "Dann",
       "email": "dan@in.com",
       "phone": "908456767",
       "address": "pune",
       "Designation": "officer 3",
-      "Packege": "6LPA"
+      "Packege": "7LPA",
+      "id": "2"
     },
     {
       "id": "3",
@@ -217,15 +217,6 @@
       "Packege": "10LPA"
     },
     {
-      "id": "9302",
-      "name": "ten",
-      "email": "ten@gmil.com",
-      "phone": "456546646",
-      "address": "kgdk",
-      "Designation": "bfk",
-      "Packege": "bkf"
-    },
-    {
       "id": "b384",
       "name": "hritidk",
       "email": "ggigi@gmail.com",
@@ -238,7 +229,7 @@
       "name": "anuja",
       "email": "yog@gmail.com",
       "phone": "4556666666",
-      "address": "ndddd",
+      "address": "goa",
       "Designation": "first",
       "Packege": "23LPA",
       "id": "7eca"
@@ -271,13 +262,13 @@
       "id": "f303"
     },
     {
-      "name": "vijay fg",
-      "email": "v@gmail.com",
-      "phone": "4454444444",
-      "address": "hhhh",
-      "Designation": "jd",
-      "Packege": "13LPA",
-      "id": "bc7e"
+      "id": "5118",
+      "name": "toxic ",
+      "email": "toxic@gmail.com",
+      "phone": "1112446854",
+      "address": "punr",
+      "Designation": "gg",
+      "Packege": "12LPA"
     }
   ]
 }
