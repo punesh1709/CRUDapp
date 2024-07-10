@@ -183,7 +183,7 @@ function EmpEidit({ id, onClose }) {
           required
         />
       </div>
-      <div className="form-group col-lg-4">
+      <div className="form-group col-lg-6">
         <label>Phone</label>
         <input
           type="text"
@@ -194,7 +194,7 @@ function EmpEidit({ id, onClose }) {
         />
       </div>
       
-      <div className="form-group col-lg-4">
+      <div className="form-group col-lg-6">
         <label>Designation</label>
         <input
           type="text"
@@ -204,7 +204,7 @@ function EmpEidit({ id, onClose }) {
           required
         />
       </div>
-      <div className="form-group col-lg-4">
+      <div className="form-group col-lg-6">
         <label>Package</label>
         <input
           type="text"
@@ -214,7 +214,7 @@ function EmpEidit({ id, onClose }) {
           required
         />
       </div>
-      <div className="form-group">
+      <div className="form-group col-lg-6">
         <label>Address</label>
         <input
           type="text"
@@ -224,10 +224,21 @@ function EmpEidit({ id, onClose }) {
           required
         />
       </div>
-      <button type="submit" className="btn btn-primary mt-3">Save</button>
+      {/* <button type="submit" className="btn btn-primary mt-3">Save</button> */}
+      <div className="col-lg-12">
+                  <div className="form-group d-flex justify-content-center">
+                    <button className="btn btn-success px-4 my-4" type="submit">
+                      Save
+                    </button>
+                    {/* <Link to="/" className="btn btn-danger m-3 px-4">
+                      Back
+                    </Link> */}
+                  </div>
+                </div>
     </form>
   );
 }
 
 export default EmpEidit;
+
 

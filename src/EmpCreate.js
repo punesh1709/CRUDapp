@@ -599,7 +599,7 @@ function EmpCreate() {
           
             
               
-                <div className="col-lg-12">
+                {/* <div className="col-lg-12">
                   <div className="form-group">
                     <label>ID</label>
                     <input
@@ -608,7 +608,7 @@ function EmpCreate() {
                       className="form-control"
                     ></input>
                   </div>
-                </div>
+                </div> */}
                 <div className="col-lg-6">
                   <div className="form-group">
                     <label>Name</label>
@@ -643,7 +643,7 @@ function EmpCreate() {
                     )}
                   </div>
                 </div>
-                <div className="col-lg-5">
+                <div className="col-lg-6">
                   <div className="form-group">
                     <label>Phone</label>
                     <input
@@ -659,7 +659,7 @@ function EmpCreate() {
                   </div>
                 </div>
                
-                <div className="col-lg-5">
+                <div className="col-lg-6">
                   <div className="form-group">
                     <label>Designation</label>
                     <input
@@ -670,7 +670,7 @@ function EmpCreate() {
                     ></input>
                   </div>
                 </div>
-                <div className="col-lg-2">
+                <div className="col-lg-6">
                   <div className="form-group">
                     <label>Package</label>
                     <input
@@ -681,7 +681,7 @@ function EmpCreate() {
                     />
                   </div>
                 </div>
-                <div className="col-lg-12">
+                <div className="col-lg-6">
                   <div className="form-group">
                     <label>Address</label>
                     <input
@@ -696,7 +696,7 @@ function EmpCreate() {
                   </div>
                 </div>
                 <div className="col-lg-12">
-                  <div className="form-group">
+                  <div className="form-group d-flex justify-content-center">
                     <button className="btn btn-success px-4 my-4" type="submit">
                       Save
                     </button>

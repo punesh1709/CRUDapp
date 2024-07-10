@@ -28,15 +28,6 @@
       "Packege": "17LPA"
     },
     {
-      "name": "Faran",
-      "email": "RRRrobert@in.com",
-      "phone": "908900000",
-      "address": "nagpur",
-      "Designation": "php dev",
-      "Packege": "9LPA",
-      "id": "4"
-    },
-    {
       "id": "5",
       "name": "Gannu",
       "email": "gannu@in.com",
@@ -118,13 +109,13 @@
       "Packege": "10LPA"
     },
     {
-      "id": "2bcb",
       "name": "groza",
       "email": "groza@gmail.com",
       "phone": "231564",
       "address": "fs",
       "Designation": "gfs",
-      "Packege": "7LPA"
+      "Packege": "9LPA",
+      "id": "2bcb"
     },
     {
       "id": "7bb7",
@@ -134,15 +125,6 @@
       "address": "hh",
       "Designation": "gifg",
       "Packege": "9LPA"
-    },
-    {
-      "id": "aaf8",
-      "name": "puneshl",
-      "email": "lll@gmail.com",
-      "phone": "1356978",
-      "address": "pune",
-      "Designation": "yy",
-      "Packege": "3LPA"
     },
     {
       "id": "af2f",
@@ -229,9 +211,9 @@
       "name": "anuja",
       "email": "yog@gmail.com",
       "phone": "4556666666",
-      "address": "goa",
-      "Designation": "first",
-      "Packege": "23LPA",
+      "address": "goa bb",
+      "Designation": "second",
+      "Packege": "24LPA",
       "id": "7eca"
     },
     {

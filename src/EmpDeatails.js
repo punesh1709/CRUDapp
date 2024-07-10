@@ -144,40 +144,42 @@ const EmpDetails = ({ id }) => {
       <form>
         <div className="form-row d-flex p-2">
           <div className="form-group col-md-6 px-2">
-            <label htmlFor="inputEmail4">Name</label>
-            <input type="email" className="form-control" id="inputEmail4" placeholder="Email" value={empdata.name} />
+            <div className='px-2'>Name</div>
+            <h6 className='border rounded p-2'>{empdata.name}</h6>
           </div>
           <div className="form-group col-md-6 px-2">
-            <label htmlFor="inputPassword4">Email</label>
-            <input type="email" className="form-control" id="inputEmail4" placeholder="Email" value={empdata.email} />
+            <div className='px-2'>Email</div>
+            <h6 className='border rounded p-2'>{empdata.email}</h6>
           </div>
         </div>
 
 
         <div className="form-row d-flex p-2">
-          <div className="form-group col-md-4 px-2">
-            <label htmlFor="inputCity">Phone</label>
-            <input type="text" className="form-control" value={empdata.phone} />
+          <div className="form-group col-md-6 px-2">
+            <div className='px-2'>Phone</div>
+           <h6 className='border rounded p-2'>{empdata.phone}</h6>
           </div>
-       
-        
-          <div className="form-group col-md-4 px-2">
-            <label htmlFor="inputCity">Designation</label>
-            <input type="text" className="form-control" value={empdata.Designation} />
+
+
+          <div className="form-group col-md-6 px-2">
+            <div className='px-2'>Designation</div>
+            <h6 className='border rounded p-2'>{empdata.Designation} </h6>
           </div>
-       
-       
-          <div className="form-group col-md-4 px-2">
-            <label htmlFor="inputCity">Package</label>
-            <input type="text" className="form-control" value={empdata.Packege} />
-          </div>
-          </div>
-       
-        <div className="form-group px-2">
-          <label htmlFor="inputAddress">Address</label>
-          <input type="text" className="form-control" value={empdata.address} />
+
+
+
         </div>
 
+        <div className="form-row d-flex p-2">
+          <div className="form-group col-md-6 px-2">
+            <div className='px-2'>Package</div>
+            <h6 className='border rounded p-2'>{empdata.Packege}</h6>
+          </div>
+          <div className="form-group col-md-6 px-2">
+            <div className='px-2' >Address</div>
+            <h6 className='border rounded p-2'>{empdata.address}</h6>
+          </div>
+        </div>
       </form>
 
     </>
