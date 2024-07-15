@@ -7,25 +7,18 @@
       "address": "mumbai",
       "Designation": "officer",
       "Packege": "20LPA",
-      "id": "1"
+      "id": "1",
+      "password": "punesh123"
     },
     {
-      "name": "Dann",
-      "email": "dan@in.com",
-      "phone": "908456767",
-      "address": "pune",
-      "Designation": "officer 3",
-      "Packege": "7LPA",
-      "id": "2"
-    },
-    {
-      "id": "3",
       "name": "berlin",
       "email": "berlin@in.com",
       "phone": "908908767",
       "address": "palghar",
       "Designation": "backend dev",
-      "Packege": "17LPA"
+      "Packege": "19LPA",
+      "id": "3",
+      "password": "punesh123"
     },
     {
       "id": "5",
@@ -34,223 +27,38 @@
       "phone": "908933767",
       "address": "navi mumbai",
       "Designation": "web dev",
-      "Packege": "16LPA"
+      "Packege": "16LPA",
+      "password": "punesh123"
     },
     {
-      "id": "6",
       "name": "Harry",
       "email": "harry@in.com",
       "phone": "33338767",
-      "address": "palghar",
+      "address": "boisar",
       "Designation": "helper",
-      "Packege": "11LPA"
+      "Packege": "11LPA",
+      "id": "6",
+      "password": "punesh123"
     },
     {
-      "id": "120f",
-      "name": "noh",
-      "email": "punesh1709@gmail.com",
-      "phone": "4444544444",
-      "address": "Mumbai",
-      "Designation": "hdoh",
-      "Packege": "5LPA"
-    },
-    {
-      "id": "fd03",
       "name": "punesh",
-      "email": "punesh***@gial.com",
-      "phone": "4555556446",
-      "address": "nhdnf",
-      "Designation": "bfvb",
-      "Packege": "5LPA"
-    },
-    {
-      "id": "1221",
-      "name": "punesh",
-      "email": "punesh***@gial.com",
-      "phone": "4555556446",
-      "address": "nhdnf",
-      "Designation": "bfvb",
-      "Packege": "5LPA"
-    },
-    {
-      "id": "19e0",
-      "name": "punesh",
-      "email": "punesh@gial.com",
-      "phone": "4555556446",
-      "address": "nhdnf",
-      "Designation": "bfvb",
-      "Packege": "5LPA"
-    },
-    {
-      "id": "2801",
-      "name": "Puneshwar Londhe",
-      "email": "punesh1709@gmail.com",
-      "phone": "1234567890",
-      "address": "Mumbai",
-      "Designation": "ff",
-      "Packege": "6LPA"
-    },
-    {
-      "id": "1ce5",
-      "name": "Puneshwar Londhe",
-      "email": "punesh1709@gmail.com",
-      "phone": "6447758",
-      "address": "boisar pasthal maharashtra 401504",
-      "Designation": "ndkb",
-      "Packege": "4LPA"
-    },
-    {
-      "id": "4f99",
-      "name": "hifeif",
-      "email": "mefj@gmail.com",
-      "phone": "44555",
-      "address": "fjfh",
-      "Designation": "fof",
-      "Packege": "10LPA"
-    },
-    {
-      "name": "groza",
-      "email": "groza@gmail.com",
-      "phone": "231564",
-      "address": "fs",
-      "Designation": "gfs",
-      "Packege": "9LPA",
-      "id": "2bcb"
-    },
-    {
-      "id": "7bb7",
-      "name": "m",
-      "email": "m@gmail.com",
-      "phone": "1234567892",
-      "address": "hh",
-      "Designation": "gifg",
-      "Packege": "9LPA"
-    },
-    {
-      "id": "af2f",
-      "name": "nbrvb",
-      "email": "bfbk@gmail.com",
-      "phone": "4556669789",
-      "address": "shs",
-      "Designation": "mu",
-      "Packege": "9LPA"
-    },
-    {
-      "id": "107a",
-      "name": "bdwbkd",
-      "email": "bv@gmail.com",
-      "phone": "4649921949",
-      "address": " cj",
-      "Designation": "bvjc",
-      "Packege": "12LPA"
-    },
-    {
-      "id": "241c",
-      "name": "Puneshwar Londhe",
-      "email": "punesh1709@gmail.com",
-      "phone": "1234568897",
-      "address": "Mumbai",
-      "Designation": "jjs",
-      "Packege": "8LPA"
-    },
-    {
-      "id": "c44f",
-      "name": "Puneshwar Londhe",
-      "email": "punesh1709@gmail.com",
-      "phone": "1646497946",
-      "address": "Mumbai",
-      "Designation": "bgfwg",
-      "Packege": "5LPA"
-    },
-    {
-      "id": "449e",
-      "name": "three",
-      "email": "thre@gmail.com",
-      "phone": "1123648975",
-      "address": "bb",
-      "Designation": "hvkh",
-      "Packege": "19LPA"
-    },
-    {
-      "id": "b0c6",
-      "name": "gwdig",
-      "email": "bdjkb@gmail.com",
-      "phone": "4455555555",
-      "address": "bdi",
-      "Designation": "bdigd",
-      "Packege": "13LPA"
-    },
-    {
-      "id": "c147",
-      "name": "four",
-      "email": "punesh1709@gmail.com",
+      "email": "punesh@gmail.com",
       "phone": "4444444444",
-      "address": "Mumbai",
-      "Designation": "hfhf",
-      "Packege": "8LPA"
+      "address": "mumbai",
+      "Designation": "SDE",
+      "Packege": "9LPA",
+      "id": "fd04",
+      "password": "punesh123"
     },
     {
-      "id": "ae3f",
-      "name": "hkwhf",
-      "email": "kd@gmail.com",
-      "phone": "4455555555",
-      "address": "five",
-      "Designation": "six",
-      "Packege": "10LPA"
-    },
-    {
-      "id": "b384",
-      "name": "hritidk",
-      "email": "ggigi@gmail.com",
-      "phone": "1222200000",
-      "address": "h3",
-      "Designation": "bfj",
-      "Packege": "12LPA"
-    },
-    {
-      "name": "anuja",
-      "email": "yog@gmail.com",
-      "phone": "4556666666",
-      "address": "goa bb",
-      "Designation": "second",
-      "Packege": "24LPA",
-      "id": "7eca"
-    },
-    {
-      "id": "3a4a",
-      "name": "naruto",
-      "email": "n@gmail.com",
-      "phone": "4564444444",
-      "address": "ejgf",
-      "Designation": "djg",
-      "Packege": "13LPA"
-    },
-    {
-      "id": "38f1",
-      "name": "rahul",
-      "email": "r@gmail.com",
-      "phone": "4564444464",
-      "address": "hh",
-      "Designation": "kb",
-      "Packege": "7LPA"
-    },
-    {
-      "name": "sohit",
-      "email": "s@gmail.com",
-      "phone": "8888888888",
-      "address": "ll",
-      "Designation": "nb",
-      "Packege": "8LPA",
-      "id": "f303"
-    },
-    {
-      "id": "5118",
-      "name": "toxic ",
-      "email": "toxic@gmail.com",
-      "phone": "1112446854",
-      "address": "punr",
+      "name": "punesh",
+      "email": "p@gmail.com",
+      "phone": "1245684949",
+      "address": "MP",
       "Designation": "gg",
-      "Packege": "12LPA"
+      "Packege": "5LPA",
+      "id": "0374",
+      "password": "punesh123"
     }
   ]
 }

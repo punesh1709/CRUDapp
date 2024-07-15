@@ -1,22 +1,44 @@
+// import React, { useState } from "react";
+// import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+// import EmpListing from './EmpListing';
+// import Login from './Login';
+
+// function App() {
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+//   return (
+//     <div className="App">
+//       <h1 className='text-center fw-bold text-danger'>React JS CRUD Operations</h1>
+//       <BrowserRouter>
+//         <Routes>
+//           <Route path="/" element={<Navigate to={isLoggedIn ? "/employees" : "/login"} />} />
+//           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+//           <Route path="/employees" element={isLoggedIn ? <EmpListing /> : <Navigate to="/login" />} />
+//         </Routes>
+//       </BrowserRouter>
+//     </div>
+//   );
+// }
+
+// export default App;
 
 
-
-import './App.css';
-import "./../node_modules/bootstrap/dist/css/bootstrap.min.css"
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import React, { useState } from "react";
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import EmpListing from './EmpListing';
-import EmpDeatails from './EmpDeatails';
-import EmpEidit from './EmpEidit';
+import Login from './Login';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <div className="App">
-      <h1 className='text-center fw-bold text-danger'>React JS CRUD Operatations</h1>
+      <h1 className='text-center fw-bold text-danger'>React JS CRUD Operations</h1>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<EmpListing />}></Route>
-          <Route path='/employee/detail/:empid' element={<EmpDeatails />}></Route>
-          <Route path='/employee/edit/:empid' element={<EmpEidit />}></Route>
+          <Route path="/" element={<Navigate to={isLoggedIn ? "/employees" : "/login"} />} />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/employees" element={isLoggedIn ? <EmpListing /> : <EmpListing />} />
         </Routes>
       </BrowserRouter>
     </div>
@@ -24,3 +46,5 @@ function App() {
 }
 
 export default App;
+
+
