@@ -7,58 +7,68 @@
       "address": "mumbai",
       "Designation": "officer",
       "Packege": "20LPA",
-      "id": "1",
+      "id": "12",
       "password": "punesh123"
     },
     {
-      "name": "berlin",
-      "email": "berlin@in.com",
+      "name": "Cody Fisher",
+      "email": "superadmin@gmail.com",
       "phone": "908908767",
-      "address": "palghar",
-      "Designation": "backend dev",
-      "Packege": "19LPA",
+      "roll": "superadmin",
+      "rollId": "1",
+      "password": "12345678",
+      "id": "631b"
+    },
+    {
+      "name": "Akash palav",
+      "email": "Ak@gmail.com",
+      "phone": "1255655989",
+      "address": "hariyan",
+      "Designation": "SD",
+      "Packege": "17LPA",
+      "id": "9a17"
+    }
+  ],
+  "company": [
+    {
+      "id": "1",
+      "companyName": "Alpha beta Goods Inc.",
+      "contact": "98562187",
+      "address": "mumbai pune",
+      "section": "Consumer Goods",
+      "industry": "Retail"
+    },
+    {
+      "id": "2",
+      "companyName": "Beta Bank",
+      "contact": "98562187",
+      "address": "pune",
+      "section": "Banking",
+      "industry": "Finance"
+    },
+    {
       "id": "3",
-      "password": "punesh123"
+      "companyName": "Gamma Motors",
+      "contact": "98562187",
+      "address": "thane",
+      "section": "Investment",
+      "industry": "Finance"
     },
     {
-      "id": "5",
-      "name": "Gannu",
-      "email": "gannu@in.com",
-      "phone": "908933767",
-      "address": "navi mumbai",
-      "Designation": "web dev",
-      "Packege": "16LPA",
-      "password": "punesh123"
+      "id": "4",
+      "companyName": "Zeta Bank",
+      "contact": "98562187",
+      "address": "US",
+      "section": "Retail Banking",
+      "industry": "Banking"
     },
     {
-      "name": "Harry",
-      "email": "harry@in.com",
-      "phone": "33338767",
-      "address": "boisar",
-      "Designation": "helper",
-      "Packege": "11LPA",
-      "id": "6",
-      "password": "punesh123"
-    },
-    {
-      "name": "punesh",
-      "email": "punesh@gmail.com",
-      "phone": "4444444444",
-      "address": "mumbai",
-      "Designation": "SDE",
-      "Packege": "9LPA",
-      "id": "fd04",
-      "password": "punesh123"
-    },
-    {
-      "name": "punesh",
-      "email": "p@gmail.com",
-      "phone": "1245684949",
-      "address": "MP",
-      "Designation": "gg",
-      "Packege": "5LPA",
-      "id": "0374",
-      "password": "punesh123"
+      "id": "9310",
+      "companyName": "bvkwdvg",
+      "contact": "mvefjk",
+      "address": "vjvwj",
+      "section": "bfkeb",
+      "industry": "bkfbk"
     }
   ]
 }
