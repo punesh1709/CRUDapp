@@ -64,6 +64,7 @@ function AdminPanel() {
         <div className='border MainContent'>
           {renderContent()}
         </div>
+        
       </div>
     </div>
   );

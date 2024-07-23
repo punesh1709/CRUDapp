@@ -34,17 +34,19 @@
       "id": "1",
       "companyName": "Alpha beta Goods Inc.",
       "contact": "98562187",
-      "address": "mumbai pune",
+      "address": "mumbai punes nashik",
       "section": "Consumer Goods",
-      "industry": "Retail"
+      "industry": "Retail",
+      "email": "My@gmail.com0"
     },
     {
       "id": "2",
-      "companyName": "Beta Bank",
+      "companyName": "Beta Bank 1",
       "contact": "98562187",
       "address": "pune",
-      "section": "Banking",
-      "industry": "Finance"
+      "section": "Bankings",
+      "industry": "Finance",
+      "email": "Beta@.com"
     },
     {
       "id": "3",
@@ -52,7 +54,8 @@
       "contact": "98562187",
       "address": "thane",
       "section": "Investment",
-      "industry": "Finance"
+      "industry": "Finance",
+      "email": "gamm@gmail.com"
     },
     {
       "id": "4",
@@ -60,15 +63,8 @@
       "contact": "98562187",
       "address": "US",
       "section": "Retail Banking",
-      "industry": "Banking"
-    },
-    {
-      "id": "9310",
-      "companyName": "bvkwdvg",
-      "contact": "mvefjk",
-      "address": "vjvwj",
-      "section": "bfkeb",
-      "industry": "bkfbk"
+      "industry": "Banking",
+      "email": "zeta@gmail.com"
     }
   ]
 }

@@ -70,18 +70,6 @@ function AdminData() {
         </h1>
 
 
-
-        {/* <div className='w-50 d-flex gap-8 mt-4 mb-2 menu-title text-sm font-semibold text-gray-700 menu-item-active:text-primary menu-link-hover:!text-primary MyNavBar'>
-
-          <div className='  hover:rounded hover:cursor-pointer 
-         hover:text-black'>Home</div>
-          <div className='  hover:rounded hover:cursor-pointer 
-         hover:text-black'>Public Profile</div>
-          <div className='  hover:rounded hover:cursor-pointer 
-         hover:text-black'>My Accout</div>
-          <div className='  hover:rounded hover:cursor-pointer 
-         hover:text-black'>NetWork</div>
-        </div> */}
         <div style={{ position: 'relative', display: 'inline-block' }} className='my-div mb-2'>
           <img
             src="https://tse4.mm.bing.net/th?id=OIP.1X6Z47Z1amraaATab0wWSAHaHa&pid=Api&P=0&h=220"
