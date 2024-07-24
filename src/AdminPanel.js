@@ -33,6 +33,7 @@ import AdminData from './AdminData';
 import SideBar from './SideBar';
 import MainContent from './MainContent';
 import './MainContent.css';
+import Admin from './Admin';
 
 function AdminPanel() {
   const [activeMenu, setActiveMenu] = useState('Dashboard');
@@ -44,7 +45,7 @@ function AdminPanel() {
       case 'Public Profile':
         return <div>Public Profile Content</div>;
       case 'Admin':
-        return <div>Admin Content</div>;
+        return <Admin/>;
       case 'Company':
         return <MainContent />;
       case 'Settings':
@@ -61,7 +62,7 @@ function AdminPanel() {
         <div className='dashboard'>
           <SideBar setActiveMenu={setActiveMenu} />
         </div>
-        <div className='border MainContent'>
+        <div className='MainContent'>
           {renderContent()}
         </div>
         

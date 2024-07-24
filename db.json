@@ -27,6 +27,15 @@
       "Designation": "SD",
       "Packege": "17LPA",
       "id": "9a17"
+    },
+    {
+      "id": "6ef7",
+      "name": "Puneshwar Londhe",
+      "email": "punesh1709@gmail.com",
+      "phone": "1226446796",
+      "address": "Mumbai",
+      "Designation": "gagag",
+      "Packege": "22LPA"
     }
   ],
   "company": [
@@ -37,8 +46,8 @@
       "address": "mumbai punes nashik",
       "section": "Consumer Goods",
       "industry": "Retail",
-      "email": "My@gmail.com0"
-    },
+      "email": "h@gmail.com"
+    },  
     {
       "id": "2",
       "companyName": "Beta Bank 1",
@@ -65,6 +74,44 @@
       "section": "Retail Banking",
       "industry": "Banking",
       "email": "zeta@gmail.com"
+    }
+  ],
+  "admin": [
+    {
+      "id": "1",
+      "Name": "tushar ss1",
+      "rollId": "2",
+      "companyName": "Alpha beta Goods Inc.",
+      "email": "tushar@gmail.com",
+      "contact": "98562187",
+      "password": "admin@123"
+    },
+    {
+      "id": "2",
+      "Name": "satish",
+      "rollId": "2",
+      "companyName": "Gamma Motors",
+      "email": "satish@gmail.com",
+      "contact": "98562187",
+      "password": "admin@123"
+    },
+    {
+      "id": "3",
+      "Name": "shivam",
+      "rollId": "2",
+      "companyName": "Beta Bank 1",
+      "email": "shivam@gmail.com",
+      "contact": "98562187",
+      "password": "admin@123"
+    },
+    {
+      "id": "f111",
+      "Name": "yash",
+      "rollId": "",
+      "companyName": " kfek",
+      "email": "kbf@gmail.com",
+      "contact": "efef",
+      "password": "12345678"
     }
   ]
 }
