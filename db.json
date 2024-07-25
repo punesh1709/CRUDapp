@@ -47,7 +47,7 @@
       "section": "Consumer Goods",
       "industry": "Retail",
       "email": "h@gmail.com"
-    },  
+    },
     {
       "id": "2",
       "companyName": "Beta Bank 1",
@@ -79,11 +79,11 @@
   "admin": [
     {
       "id": "1",
-      "Name": "tushar ss1",
+      "Name": "jvvf",
       "rollId": "2",
       "companyName": "Alpha beta Goods Inc.",
       "email": "tushar@gmail.com",
-      "contact": "98562187",
+      "contact": "9856294444",
       "password": "admin@123"
     },
     {
@@ -103,15 +103,6 @@
       "email": "shivam@gmail.com",
       "contact": "98562187",
       "password": "admin@123"
-    },
-    {
-      "id": "f111",
-      "Name": "yash",
-      "rollId": "",
-      "companyName": " kfek",
-      "email": "kbf@gmail.com",
-      "contact": "efef",
-      "password": "12345678"
     }
   ]
 }

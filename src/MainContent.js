@@ -69,10 +69,25 @@ function MainContent() {
     setNewCompany({ ...newCompany, [e.target.name]: e.target.value });
   };
 
+
   const validateForm = () => {
     const errors = {};
-    if (!newCompany.companyName.trim()) errors.companyName = 'Company Name is required';
-    if (!newCompany.contact.trim()) errors.contact = 'Contact is required';
+
+    // Validate companyName
+    if (!newCompany.companyName.trim()) {
+      errors.companyName = 'Company Name is required';
+    } else if (!/^[A-Za-z\s]+$/.test(newCompany.companyName)) {
+      errors.companyName = 'Company Name can only contain letters and spaces';
+    }
+
+    // Validate contact
+    if (!newCompany.contact.trim()) {
+      errors.contact = 'Contact is required';
+    } else if (!/^\d{10}$/.test(newCompany.contact)) {
+      errors.contact = 'Contact must be exactly 10 digits';
+    }
+
+    // Additional validations for other fields
     if (!newCompany.address.trim()) errors.address = 'Address is required';
     if (!newCompany.section.trim()) errors.section = 'Section is required';
     if (!newCompany.industry.trim()) errors.industry = 'Industry is required';
@@ -82,6 +97,8 @@ function MainContent() {
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
+
+
 
   const handleSubmit = () => {
     if (!validateForm()) return; // Stop if validation fails
@@ -94,23 +111,23 @@ function MainContent() {
         },
         body: JSON.stringify(newCompany)
       })
-      .then(response => response.json())
-      .then(data => {
-        const updatedCompanies = companies.map(company =>
-          company.id === data.id ? data : company
-        );
-        setCompanies(updatedCompanies);
-        setFilteredCompanies(updatedCompanies.filter(company =>
-          company.companyName.toLowerCase().includes(searchText.toLowerCase()) ||
-          company.contact.toLowerCase().includes(searchText.toLowerCase()) ||
-          company.address.toLowerCase().includes(searchText.toLowerCase()) ||
-          company.section.toLowerCase().includes(searchText.toLowerCase()) ||
-          company.industry.toLowerCase().includes(searchText.toLowerCase()) ||
-          company.email.toLowerCase().includes(searchText.toLowerCase())
-        ));
-        handleClose();
-      })
-      .catch(error => console.error('Error updating company:', error));
+        .then(response => response.json())
+        .then(data => {
+          const updatedCompanies = companies.map(company =>
+            company.id === data.id ? data : company
+          );
+          setCompanies(updatedCompanies);
+          setFilteredCompanies(updatedCompanies.filter(company =>
+            company.companyName.toLowerCase().includes(searchText.toLowerCase()) ||
+            company.contact.toLowerCase().includes(searchText.toLowerCase()) ||
+            company.address.toLowerCase().includes(searchText.toLowerCase()) ||
+            company.section.toLowerCase().includes(searchText.toLowerCase()) ||
+            company.industry.toLowerCase().includes(searchText.toLowerCase()) ||
+            company.email.toLowerCase().includes(searchText.toLowerCase())
+          ));
+          handleClose();
+        })
+        .catch(error => console.error('Error updating company:', error));
     } else {
       fetch('http://localhost:8000/company', {
         method: 'POST',
@@ -119,56 +136,24 @@ function MainContent() {
         },
         body: JSON.stringify(newCompany)
       })
-      .then(response => response.json())
-      .then(data => {
-        const updatedCompanies = [...companies, data];
-        setCompanies(updatedCompanies);
-        setFilteredCompanies(updatedCompanies.filter(company =>
-          company.companyName.toLowerCase().includes(searchText.toLowerCase()) ||
-          company.contact.toLowerCase().includes(searchText.toLowerCase()) ||
-          company.address.toLowerCase().includes(searchText.toLowerCase()) ||
-          company.section.toLowerCase().includes(searchText.toLowerCase()) ||
-          company.industry.toLowerCase().includes(searchText.toLowerCase()) ||
-          company.email.toLowerCase().includes(searchText.toLowerCase())
-        ));
-        handleClose();
-      })
-      .catch(error => console.error('Error adding company:', error));
+        .then(response => response.json())
+        .then(data => {
+          const updatedCompanies = [...companies, data];
+          setCompanies(updatedCompanies);
+          setFilteredCompanies(updatedCompanies.filter(company =>
+            company.companyName.toLowerCase().includes(searchText.toLowerCase()) ||
+            company.contact.toLowerCase().includes(searchText.toLowerCase()) ||
+            company.address.toLowerCase().includes(searchText.toLowerCase()) ||
+            company.section.toLowerCase().includes(searchText.toLowerCase()) ||
+            company.industry.toLowerCase().includes(searchText.toLowerCase()) ||
+            company.email.toLowerCase().includes(searchText.toLowerCase())
+          ));
+          handleClose();
+        })
+        .catch(error => console.error('Error adding company:', error));
     }
   };
 
-  // const handleDelete = (id) => {
-  //   Swal.fire({
-  //     title: 'Do you want to remove this company?',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Remove',
-  //     cancelButtonText: 'Cancel'
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       fetch(`http://localhost:8000/company/${id}`, {
-  //         method: 'DELETE'
-  //       })
-  //       .then(() => {
-  //         Swal.fire('Removed successfully.', '', 'success');
-  //         const updatedCompanies = companies.filter(company => company.id !== id);
-  //         setCompanies(updatedCompanies);
-  //         setFilteredCompanies(updatedCompanies.filter(company =>
-  //           company.companyName.toLowerCase().includes(searchText.toLowerCase()) ||
-  //           company.contact.toLowerCase().includes(searchText.toLowerCase()) ||
-  //           company.address.toLowerCase().includes(searchText.toLowerCase()) ||
-  //           company.section.toLowerCase().includes(searchText.toLowerCase()) ||
-  //           company.industry.toLowerCase().includes(searchText.toLowerCase()) ||
-  //           company.email.toLowerCase().includes(searchText.toLowerCase())
-  //         ));
-  //       })
-  //       .catch(error => {
-  //         Swal.fire('Error', error.message, 'error');
-  //       });
-  //     } else if (result.isDismissed) {
-  //       Swal.fire('Deletion canceled', '', 'info');
-  //     }
-  //   });
-  // };
 
 
   const handleDelete = (id) => {
@@ -189,7 +174,7 @@ function MainContent() {
               throw new Error('Company not found');
             }
             const adminsToDelete = admins.filter(admin => admin.companyName === companyToDelete.companyName);
-  
+
             // Delete admins associated with the company
             return Promise.all(adminsToDelete.map(admin =>
               fetch(`http://localhost:8000/admin/${admin.id}`, { method: 'DELETE' })
@@ -200,33 +185,33 @@ function MainContent() {
                   return response.json();
                 })
             ))
-            .then(() => {
-              // Now delete the company itself
-              return fetch(`http://localhost:8000/company/${id}`, { method: 'DELETE' })
-                .then(response => {
-                  if (!response.ok) {
-                    throw new Error('Failed to delete company');
-                  }
-                  return response.json();
-                });
-            })
-            .then(() => {
-              Swal.fire('Removed successfully.', '', 'success');
-              const updatedCompanies = companies.filter(company => company.id !== id);
-              setCompanies(updatedCompanies);
-              setFilteredCompanies(updatedCompanies.filter(company =>
-                company.companyName.toLowerCase().includes(searchText.toLowerCase()) ||
-                company.contact.toLowerCase().includes(searchText.toLowerCase()) ||
-                company.address.toLowerCase().includes(searchText.toLowerCase()) ||
-                company.section.toLowerCase().includes(searchText.toLowerCase()) ||
-                company.industry.toLowerCase().includes(searchText.toLowerCase()) ||
-                company.email.toLowerCase().includes(searchText.toLowerCase())
-              ));
-            })
-            .catch(error => {
-              console.error('Error during deletion:', error);
-              Swal.fire('Error', error.message, 'error');
-            });
+              .then(() => {
+                // Now delete the company itself
+                return fetch(`http://localhost:8000/company/${id}`, { method: 'DELETE' })
+                  .then(response => {
+                    if (!response.ok) {
+                      throw new Error('Failed to delete company');
+                    }
+                    return response.json();
+                  });
+              })
+              .then(() => {
+                Swal.fire('Removed successfully.', '', 'success');
+                const updatedCompanies = companies.filter(company => company.id !== id);
+                setCompanies(updatedCompanies);
+                setFilteredCompanies(updatedCompanies.filter(company =>
+                  company.companyName.toLowerCase().includes(searchText.toLowerCase()) ||
+                  company.contact.toLowerCase().includes(searchText.toLowerCase()) ||
+                  company.address.toLowerCase().includes(searchText.toLowerCase()) ||
+                  company.section.toLowerCase().includes(searchText.toLowerCase()) ||
+                  company.industry.toLowerCase().includes(searchText.toLowerCase()) ||
+                  company.email.toLowerCase().includes(searchText.toLowerCase())
+                ));
+              })
+              .catch(error => {
+                console.error('Error during deletion:', error);
+                Swal.fire('Error', error.message, 'error');
+              });
           })
           .catch(error => {
             console.error('Error fetching admins:', error);
@@ -237,7 +222,7 @@ function MainContent() {
       }
     });
   };
-  
+
   useEffect(() => {
     fetch('http://localhost:8000/company')
       .then(response => response.json())
@@ -363,7 +348,7 @@ function MainContent() {
         </div>
       </div>
 
-<Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{isEditing ? 'Edit Company' : isViewing ? 'Company Details' : 'Add New Company'}</Modal.Title>
         </Modal.Header>
@@ -400,6 +385,42 @@ function MainContent() {
           )}
           {!isViewing && (
             <Form className="container row g-3">
+              {/* <div className="col-lg-6">
+                <Form.Group controlId="formCompanyName">
+                  <Form.Label>Company Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="companyName"
+                    value={newCompany.companyName}
+                    onChange={handleChange}
+                    placeholder="Enter company name"
+                    className={`form-control ${validationErrors.companyName ? 'is-invalid' : ''}`}
+                  />
+                  {validationErrors.companyName && (
+                    <div className="invalid-feedback">
+                      {validationErrors.companyName}
+                    </div>
+                  )}
+                </Form.Group>
+              </div>
+              <div className="col-lg-6">
+                <Form.Group controlId="formContact">
+                  <Form.Label>Contact</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="contact"
+                    value={newCompany.contact}
+                    onChange={handleChange}
+                    placeholder="Enter contact"
+                    className={`form-control ${validationErrors.contact ? 'is-invalid' : ''}`}
+                  />
+                  {validationErrors.contact && (
+                    <div className="invalid-feedback">
+                      {validationErrors.contact}
+                    </div>
+                  )}
+                </Form.Group>
+              </div> */}
               <div className="col-lg-6">
                 <Form.Group controlId="formCompanyName">
                   <Form.Label>Company Name</Form.Label>
@@ -436,6 +457,7 @@ function MainContent() {
                   )}
                 </Form.Group>
               </div>
+
               <div className="col-lg-6">
                 <Form.Group controlId="formAddress">
                   <Form.Label>Address</Form.Label>
@@ -518,10 +540,9 @@ function MainContent() {
             </Form>
           )}
         </Modal.Body>
-      </Modal>      
+      </Modal>
     </div>
   );
 }
 
 export default MainContent;
-  

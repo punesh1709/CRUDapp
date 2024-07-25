@@ -1,5 +1,4 @@
 
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -38,7 +37,7 @@ function Admin() {
 
   // Pagination States
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10); // You can adjust the number of items per page
+  const [itemsPerPage] = useState(10);
 
   useEffect(() => {
     axios.get('http://localhost:8000/admin')
@@ -106,7 +105,11 @@ function Admin() {
   const validateForm = (data) => {
     const errors = {};
     if (!data.Name.trim()) errors.Name = "Name is required.";
-    if (!data.contact.trim()) errors.contact = "Contact is required.";
+    if (!data.contact.trim()) {
+      errors.contact = "Contact is required.";
+    } else if (data.contact.length !== 10) {
+      errors.contact = "Contact must be exactly 10 digits.";
+    }
     if (!data.email.trim()) {
       errors.email = "Email is required.";
     } else if (!/\S+@\S+\.\S+/.test(data.email)) {
@@ -122,7 +125,7 @@ function Admin() {
       setErrors(prevErrors => ({ ...prevErrors, edit: validationErrors }));
       return;
     }
-    
+
     axios.put(`http://localhost:8000/admin/${selectedAdmin.id}`, formData)
       .then(response => {
         const updatedData = adminData.map(admin =>
@@ -142,12 +145,12 @@ function Admin() {
       setErrors(prevErrors => ({ ...prevErrors, add: validationErrors }));
       return;
     }
-    
+
     const adminDataWithPassword = {
       ...newAdminData,
-      password: '12345678' // **Added default password here**
+      password: '12345678'
     };
-    
+
     axios.post('http://localhost:8000/admin', adminDataWithPassword)
       .then(response => {
         setAdminData([...adminData, response.data]);
@@ -159,16 +162,30 @@ function Admin() {
   };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'Name' && !/^[a-zA-Z\s]*$/.test(value)) {
+      return;
+    }
+    if (name === 'contact' && !/^\d{0,10}$/.test(value)) {
+      return;
+    }
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
   const handleNewChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'Name' && !/^[a-zA-Z\s]*$/.test(value)) {
+      return;
+    }
+    if (name === 'contact' && !/^\d{0,10}$/.test(value)) {
+      return;
+    }
     setNewAdminData({
       ...newAdminData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -195,19 +212,24 @@ function Admin() {
     });
   };
 
-  // Calculate the index range for pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Render page numbers
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(filteredData.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < pageNumbers.length) setCurrentPage(currentPage + 1);
+  };
 
   return (
     <div className="table-responsive m-2">
@@ -233,24 +255,22 @@ function Admin() {
             <th className="bg-black text-white">Contact</th>
             <th className="bg-black text-white">Email</th>
             <th className="bg-black text-white">Company Name</th>
-            <th className="text-center bg-black text-white">Action</th>
+            <th className="bg-black text-white text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
           {currentItems.map((admin, index) => (
             <tr key={admin.id}>
-              <td>{index + 1 + indexOfFirstItem}</td>
+              <td>{index + 1}</td>
               <td>{admin.Name}</td>
               <td>{admin.contact}</td>
               <td>{admin.email}</td>
               <td>{admin.companyName}</td>
-              <td className="d-flex justify-content-evenly">
-                <button
-                  className="btn btn-success"
-                  onClick={() => handleEditClick(admin)}
-                >
-                  <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
-                </button>
+              <td className="d-flex justify-content-evenly">               <button
+                className="btn btn-success"
+                onClick={() => handleEditClick(admin)}              >
+                <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
+              </button>
                 <button
                   className="btn btn-danger"
                   onClick={() => handleDelete(admin.id)}
@@ -268,10 +288,19 @@ function Admin() {
           ))}
         </tbody>
       </table>
+
       <nav>
-        <ul className="pagination">
+        <ul className="pagination justify-content-center">
+          <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+            <button
+              onClick={handlePreviousPage}
+              className="page-link"
+            >
+              Previous
+            </button>
+          </li>
           {pageNumbers.map(number => (
-            <li key={number} className="page-item">
+            <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
               <button
                 onClick={() => paginate(number)}
                 className="page-link"
@@ -280,6 +309,14 @@ function Admin() {
               </button>
             </li>
           ))}
+          <li className={`page-item ${currentPage === pageNumbers.length ? 'disabled' : ''}`}>
+            <button
+              onClick={handleNextPage}
+              className="page-link"
+            >
+              Next
+            </button>
+          </li>
         </ul>
       </nav>
 
@@ -293,80 +330,61 @@ function Admin() {
                 &times;
               </button>
             </div>
-            {/* Add Admin Modal */}
-<div className={`modal fade ${showAddModal ? 'show' : ''}`} style={{ display: showAddModal ? 'block' : 'none' }} tabIndex="-1" role="dialog">
-  <div className="modal-dialog" role="document">
-    <div className="modal-content">
-      <div className="modal-header">
-        <h5 className="modal-title">Add New Admin</h5>
-        <button type="button" className="close" onClick={handleCloseAddModal}>
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div className="modal-body">
-        <form className='container row g-3'>
-          <div className="form-group col-lg-6">
-            <label>Name</label>
-            <input
-              type="text"
-              className={`form-control ${errors.add.Name ? 'is-invalid' : ''}`}
-              name="Name"
-              value={newAdminData.Name}
-              onChange={handleNewChange}
-            />
-            {errors.add.Name && <div className="invalid-feedback">{errors.add.Name}</div>}
-          </div>
-          <div className="form-group col-lg-6">
-            <label>Contact</label>
-            <input
-              type="text"
-              className={`form-control ${errors.add.contact ? 'is-invalid' : ''}`}
-              name="contact"
-              value={newAdminData.contact}
-              onChange={handleNewChange}
-            />
-            {errors.add.contact && <div className="invalid-feedback">{errors.add.contact}</div>}
-          </div>
-          <div className="form-group col-lg-6">
-            <label>Company Name</label>
-            <select
-              className={`form-control ${errors.add.companyName ? 'is-invalid' : ''}`}
-              name="companyName"
-              value={newAdminData.companyName}
-              onChange={handleNewChange}
-            >
-              <option value="">Select Company</option>
-              {companyData.map(company => (
-                <option key={company.id} value={company.companyName}>
-                  {company.companyName}
-                </option>
-              ))}
-            </select>
-            {errors.add.companyName && <div className="invalid-feedback">{errors.add.companyName}</div>}
-          </div>
-          <div className="form-group col-lg-6">
-            <label>Email</label>
-            <input
-              type="email"
-              className={`form-control ${errors.add.email ? 'is-invalid' : ''}`}
-              name="email"
-              value={newAdminData.email}
-              onChange={handleNewChange}
-            />
-            {errors.add.email && <div className="invalid-feedback">{errors.add.email}</div>}
-          </div>
-        </form>
-      </div>
-      <div className="modal-footer d-flex justify-content-center">
-        {/* <Button variant="secondary" onClick={handleCloseAddModal}>Close</Button> */}
-        <Button variant="primary" onClick={handleAdd}>Add Admin</Button>
-      </div>
-    </div>
-  </div>
-</div>
-
-            <div className="modal-footer">
-              <Button variant="secondary" onClick={handleCloseAddModal}>Close</Button>
+            <div className="modal-body">
+              <form className='container row g-3'>
+                <div className="form-group col-lg-6">
+                  <label>Name</label>
+                  <input
+                    type="text"
+                    className={`form-control ${errors.add.Name ? 'is-invalid' : ''}`}
+                    name="Name"
+                    value={newAdminData.Name}
+                    onChange={handleNewChange}
+                  />
+                  {errors.add.Name && <div className="invalid-feedback">{errors.add.Name}</div>}
+                </div>
+                <div className="form-group col-lg-6">
+                  <label>Contact</label>
+                  <input
+                    type="text"
+                    className={`form-control ${errors.add.contact ? 'is-invalid' : ''}`}
+                    name="contact"
+                    value={newAdminData.contact}
+                    onChange={handleNewChange}
+                  />
+                  {errors.add.contact && <div className="invalid-feedback">{errors.add.contact}</div>}
+                </div>
+                <div className="form-group col-lg-6">
+                  <label>Company Name</label>
+                  <select
+                    className={`form-control ${errors.add.companyName ? 'is-invalid' : ''}`}
+                    name="companyName"
+                    value={newAdminData.companyName}
+                    onChange={handleNewChange}
+                  >
+                    <option value="">Select Company</option>
+                    {companyData.map(company => (
+                      <option key={company.id} value={company.companyName}>
+                        {company.companyName}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.add.companyName && <div className="invalid-feedback">{errors.add.companyName}</div>}
+                </div>
+                <div className="form-group col-lg-6">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    className={`form-control ${errors.add.email ? 'is-invalid' : ''}`}
+                    name="email"
+                    value={newAdminData.email}
+                    onChange={handleNewChange}
+                  />
+                  {errors.add.email && <div className="invalid-feedback">{errors.add.email}</div>}
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer d-flex justify-content-center">
               <Button variant="primary" onClick={handleAdd}>Add Admin</Button>
             </div>
           </div>
@@ -440,14 +458,13 @@ function Admin() {
               </form>
             </div>
             <div className="modal-footer d-flex justify-content-center">
-              {/* <Button variant="secondary" onClick={handleCloseEditModal}>Close</Button> */}
               <Button variant="primary" onClick={handleSave}>Save Changes</Button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Admin Details Modal */}
+      {/* Details Admin Modal */}
       <div className={`modal ${showDetailsModal ? 'show' : ''}`} style={{ display: showDetailsModal ? 'block' : 'none' }}>
         <div className="modal-dialog">
           <div className="modal-content">
@@ -460,22 +477,33 @@ function Admin() {
             <div className="modal-body">
               {selectedAdmin && (
                 <div>
-                  <div className='d-flex justify-content-around m-2'>
-
-
-                  <p className='border px-4 rounded py-2'><strong>Name:</strong> {selectedAdmin.Name}</p>
-                  <p className='border px-4 rounded py-2'><strong>Email:</strong> {selectedAdmin.email}</p>
+                  <div className='d-flex gap-2'>
+                    <div className='col-lg-6'>
+                      <p><strong>Name:</strong></p>
+                      <div className='border rounded p-2'>{selectedAdmin.Name}</div>
+                    </div>
+                    <div className='col-lg-6'>
+                      <p><strong>Contact:</strong></p>
+                      <div className='border rounded p-2'>{selectedAdmin.contact}</div>
+                    </div>
                   </div>
-                  <div className='d-flex justify-content-around m-2'> 
-                  <p className='border px-4 rounded py-2 m-2'><strong>Contact:</strong> {selectedAdmin.contact}</p>
-                  <p className='border px-4 rounded py-2 m-2'><strong>Company Name:</strong> {selectedAdmin.companyName}</p>
-                </div>
+
+                  <div className='d-flex gap-2 mt-2'>
+                    <div className='col-lg-6'>
+                      <p><strong>Email</strong></p>
+                      <div className='border rounded p-2'>{selectedAdmin.email}</div>
+                    </div>
+                    <div className='col-lg-6'>
+                      <p><strong>Company name</strong></p>
+                      <div className='border rounded p-2'>{selectedAdmin.companyName}</div>
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
-            {/* <div className="modal-footer">
+            <div className="modal-footer d-flex justify-content-center">
               <Button variant="secondary" onClick={handleCloseDetailsModal}>Close</Button>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
