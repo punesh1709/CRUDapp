@@ -40,74 +40,28 @@
   ],
   "company": [
     {
-      "id": "1",
+      "id": "0f68",
       "companyName": "Alpha beta Goods Inc",
-      "contact": "9021515230",
-      "address": "mumbai punes nashik",
-      "section": "Consumer Goods",
-      "industry": "Retail",
-      "email": "h@gmail.com"
+      "contact": "9856218746",
+      "address": "Mumbai",
+      "section": "real estate",
+      "email": "punesh1709@gmail.com"
     },
     {
-      "id": "2",
-      "companyName": "Beta Bank 1",
-      "contact": "98562187",
-      "address": "pune",
-      "section": "Bankings",
-      "industry": "Finance",
-      "email": "Beta@.com"
-    },
-    {
-      "id": "3",
-      "companyName": "Gamma Motors",
-      "contact": "98562187",
-      "address": "thane",
-      "section": "Investment",
-      "industry": "Finance",
-      "email": "gamm@gmail.com"
-    },
-    {
-      "id": "4",
-      "companyName": "Zeta Bank",
-      "contact": "98562187",
-      "address": "US",
-      "section": "Retail Banking",
-      "industry": "Banking",
-      "email": "zeta@gmail.com"
+      "id": "c5c4",
+      "companyName": "Alpha beta Goods ",
+      "contact": "9856218755",
+      "address": "Mumbai",
+      "section": "banking",
+      "email": "punesh1709@gmail.com"
     }
   ],
   "admin": [
     {
-      "Name": "jvvf k",
-      "contact": "9856294888",
-      "email": "tushar@gmail.com",
-      "companyName": "Alpha beta Goods Inc.",
-      "password": "12345678",
-      "id": "1"
-    },
-    {
-      "id": "2",
+      "id": "813b",
       "Name": "satish",
-      "rollId": "2",
-      "companyName": "Gamma Motors",
-      "email": "satish@gmail.com",
-      "contact": "98562187",
-      "password": "admin@123"
-    },
-    {
-      "id": "3",
-      "Name": "shivam",
-      "rollId": "2",
-      "companyName": "Beta Bank 1",
-      "email": "shivam@gmail.com",
-      "contact": "98562187",
-      "password": "admin@123"
-    },
-    {
-      "id": "6ffd",
-      "Name": "punesh",
-      "contact": "6646445555",
-      "email": "xy@gmail.com",
+      "contact": "9021515239",
+      "email": "punesh1709@gmail.com",
       "companyName": "Alpha beta Goods Inc",
       "password": "12345678"
     }

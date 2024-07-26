@@ -456,7 +456,7 @@ function Admin() {
     ) : (
       <Form className='container row g-3'>
         <Form.Group controlId="formAdminName" className='col-lg-6'>
-          <Form.Label>Name</Form.Label>
+          <h6>Name</h6>
           <Form.Control
             type="text"
             placeholder="Enter name"
@@ -472,7 +472,7 @@ function Admin() {
         </Form.Group>
 
         <Form.Group controlId="formAdminContact" className='col-lg-6'>
-          <Form.Label>Contact</Form.Label>
+          <h6>Contact</h6>
           <Form.Control
             type="text"
             placeholder="Enter contact"
@@ -488,7 +488,7 @@ function Admin() {
         </Form.Group>
 
         <Form.Group controlId="formAdminEmail" className='col-lg-6'>
-          <Form.Label>Email</Form.Label>
+          <h6>Email</h6>
           <Form.Control
             type="email"
             placeholder="Enter email"
@@ -505,7 +505,7 @@ function Admin() {
 
         {modalMode === 'edit' ? (
           <Form.Group controlId="formAdminCompanyName" className='col-lg-6'>
-            <Form.Label>Company Name</Form.Label>
+            <h6>Company Name</h6>
             <Form.Control
               type="text"
               name="companyName"
