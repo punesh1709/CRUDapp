@@ -41,8 +41,8 @@
   "company": [
     {
       "id": "1",
-      "companyName": "Alpha beta Goods Inc.",
-      "contact": "98562187",
+      "companyName": "Alpha beta Goods Inc",
+      "contact": "9021515230",
       "address": "mumbai punes nashik",
       "section": "Consumer Goods",
       "industry": "Retail",
@@ -78,13 +78,12 @@
   ],
   "admin": [
     {
-      "id": "1",
-      "Name": "jvvf",
-      "rollId": "2",
-      "companyName": "Alpha beta Goods Inc.",
+      "Name": "jvvf k",
+      "contact": "9856294888",
       "email": "tushar@gmail.com",
-      "contact": "9856294444",
-      "password": "admin@123"
+      "companyName": "Alpha beta Goods Inc.",
+      "password": "12345678",
+      "id": "1"
     },
     {
       "id": "2",
@@ -103,6 +102,14 @@
       "email": "shivam@gmail.com",
       "contact": "98562187",
       "password": "admin@123"
+    },
+    {
+      "id": "6ffd",
+      "Name": "punesh",
+      "contact": "6646445555",
+      "email": "xy@gmail.com",
+      "companyName": "Alpha beta Goods Inc",
+      "password": "12345678"
     }
   ]
 }

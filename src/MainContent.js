@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './fontAwesome';
@@ -11,6 +8,8 @@ import Swal from 'sweetalert2';
 
 function MainContent() {
   const [companies, setCompanies] = useState([]);
+  const [viewingCompany, setViewingCompany] = useState(null);
+
   const [filteredCompanies, setFilteredCompanies] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [show, setShow] = useState(false);
@@ -22,7 +21,6 @@ function MainContent() {
     contact: '',
     address: '',
     section: '',
-    industry: '',
     email: ''
   });
   const [validationErrors, setValidationErrors] = useState({});
@@ -34,10 +32,17 @@ function MainContent() {
     contact: '',
     address: '',
     section: '',
-    industry: '',
     email: ''
   };
 
+
+  const handleViewShow = (company) => {
+    setViewingCompany(company);
+    setShow(true);
+    setIsViewing(true);
+    setIsEditing(false);
+  };
+  
   const handleClose = () => setShow(false);
 
   const handleShow = () => {
@@ -57,18 +62,35 @@ function MainContent() {
     setShow(true);
   };
 
-  const handleViewShow = (company) => {
-    setNewCompany(company);
-    setIsEditing(false);
-    setIsViewing(true);
-    setCurrentCompany(company);
-    setShow(true);
-  };
+
 
   const handleChange = (e) => {
-    setNewCompany({ ...newCompany, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // For contact field, only allow numeric values and restrict length to 10 digits
+    if (name === 'contact') {
+      if (/^\d{0,10}$/.test(value)) {
+        setNewCompany({ ...newCompany, [name]: value });
+      }
+    } else if (name === 'companyName') {
+      // For companyName field, allow only letters and spaces
+      if (/^[A-Za-z\s]*$/.test(value)) {
+        setNewCompany({ ...newCompany, [name]: value });
+      }
+    } else {
+      setNewCompany({ ...newCompany, [name]: value });
+    }
   };
 
+  const handleKeyPress = (e) => {
+    const charCode = e.which ? e.which : e.keyCode;
+    const charStr = String.fromCharCode(charCode);
+
+    // Allow only letters and spaces for companyName
+    if (e.target.name === 'companyName' && !/^[A-Za-z\s]+$/.test(charStr)) {
+      e.preventDefault();
+    }
+  };
 
   const validateForm = () => {
     const errors = {};
@@ -90,15 +112,12 @@ function MainContent() {
     // Additional validations for other fields
     if (!newCompany.address.trim()) errors.address = 'Address is required';
     if (!newCompany.section.trim()) errors.section = 'Section is required';
-    if (!newCompany.industry.trim()) errors.industry = 'Industry is required';
     if (!newCompany.email.trim()) errors.email = 'Email is required';
     else if (!/\S+@\S+\.\S+/.test(newCompany.email)) errors.email = 'Email format is invalid';
 
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
-
-
 
   const handleSubmit = () => {
     if (!validateForm()) return; // Stop if validation fails
@@ -122,7 +141,6 @@ function MainContent() {
             company.contact.toLowerCase().includes(searchText.toLowerCase()) ||
             company.address.toLowerCase().includes(searchText.toLowerCase()) ||
             company.section.toLowerCase().includes(searchText.toLowerCase()) ||
-            company.industry.toLowerCase().includes(searchText.toLowerCase()) ||
             company.email.toLowerCase().includes(searchText.toLowerCase())
           ));
           handleClose();
@@ -145,7 +163,6 @@ function MainContent() {
             company.contact.toLowerCase().includes(searchText.toLowerCase()) ||
             company.address.toLowerCase().includes(searchText.toLowerCase()) ||
             company.section.toLowerCase().includes(searchText.toLowerCase()) ||
-            company.industry.toLowerCase().includes(searchText.toLowerCase()) ||
             company.email.toLowerCase().includes(searchText.toLowerCase())
           ));
           handleClose();
@@ -153,8 +170,6 @@ function MainContent() {
         .catch(error => console.error('Error adding company:', error));
     }
   };
-
-
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -204,7 +219,6 @@ function MainContent() {
                   company.contact.toLowerCase().includes(searchText.toLowerCase()) ||
                   company.address.toLowerCase().includes(searchText.toLowerCase()) ||
                   company.section.toLowerCase().includes(searchText.toLowerCase()) ||
-                  company.industry.toLowerCase().includes(searchText.toLowerCase()) ||
                   company.email.toLowerCase().includes(searchText.toLowerCase())
                 ));
               })
@@ -217,8 +231,6 @@ function MainContent() {
             console.error('Error fetching admins:', error);
             Swal.fire('Error', error.message, 'error');
           });
-      } else if (result.isDismissed) {
-        Swal.fire('Deletion canceled', '', 'info');
       }
     });
   };
@@ -245,7 +257,6 @@ function MainContent() {
       company.contact.toLowerCase().includes(value.toLowerCase()) ||
       company.address.toLowerCase().includes(value.toLowerCase()) ||
       company.section.toLowerCase().includes(value.toLowerCase()) ||
-      company.industry.toLowerCase().includes(value.toLowerCase()) ||
       company.email.toLowerCase().includes(value.toLowerCase())
     ));
   };
@@ -277,14 +288,13 @@ function MainContent() {
           />
         </div>
         <table className="table table-bordered">
-          <thead className="text-white ">
+          <thead className="text-white">
             <tr>
               <th className="bg-black text-white">Sr No</th>
               <th className="bg-black text-white">Company Name</th>
               <th className="bg-black text-white">Contact</th>
               <th className="bg-black text-white">Address</th>
-              <th className="bg-black text-white">Section</th>
-              <th className="bg-black text-white">Industry</th>
+              <th className="bg-black text-white">Sector</th>
               <th className="bg-black text-white">Email</th>
               <th className="text-center bg-black text-white">Action</th>
             </tr>
@@ -297,7 +307,6 @@ function MainContent() {
                 <td>{company.contact}</td>
                 <td>{company.address}</td>
                 <td>{company.section}</td>
-                <td>{company.industry}</td>
                 <td>{company.email}</td>
                 <td className="d-flex justify-content-evenly">
                   <button
@@ -323,224 +332,163 @@ function MainContent() {
             ))}
           </tbody>
         </table>
-        <div className="pagination-container">
-          <Button
-            disabled={currentPage === 1}
-            onClick={() => handlePageChange(currentPage - 1)}
-          >
-            Previous
-          </Button>
-          {[...Array(totalPages)].map((_, i) => (
-            <Button
-              key={i + 1}
-              onClick={() => handlePageChange(i + 1)}
-              active={i + 1 === currentPage}
-            >
-              {i + 1}
-            </Button>
-          ))}
-          <Button
-            disabled={currentPage === totalPages}
-            onClick={() => handlePageChange(currentPage + 1)}
-          >
-            Next
-          </Button>
+        <div className="d-flex justify-content-center">
+          <nav>
+            <ul className="pagination">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <li
+                  key={index}
+                  className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => handlePageChange(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
-      </div>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{isEditing ? 'Edit Company' : isViewing ? 'Company Details' : 'Add New Company'}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {isViewing && currentCompany && (
-            <div className="company-details-modal">
-              <div className="row">
-                <div className="col-md-6 mb-4">
-                  <p className='mb-0'><strong>Company Name</strong></p>
-                  <div className='border p-2 mt-0 rounded'>{currentCompany.companyName}</div>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <p className='mb-0'><strong>Contact</strong></p>
-                  <div className='border p-2 rounded'>{currentCompany.contact}</div>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <p className='mb-0'><strong>Address</strong></p>
-                  <div className='border p-2 rounded'>{currentCompany.address}</div>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <p className='mb-0'><strong>Section</strong></p>
-                  <div className='border p-2 rounded'>{currentCompany.section}</div>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <p className='mb-0'><strong>Industry</strong></p>
-                  <div className='border p-2 rounded'>{currentCompany.industry}</div>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <p className='mb-0'><strong>Email</strong></p>
-                  <div className='border p-2 rounded'>{currentCompany.email}</div>
-                </div>
-              </div>
+
+<Modal show={show} onHide={handleClose} className='mt-20'>
+  <Modal.Header closeButton>
+    <Modal.Title>{isEditing ? 'Edit Company' : isViewing ? 'View Company Details' : 'Add New Company'}</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <div className="container row g-3">
+      <div className="col-lg-6">
+        <Form.Group controlId="formCompanyName">
+          <h6>Company Name</h6>
+          {isViewing ? (
+            <p className='border rounded p-2'>{viewingCompany?.companyName}</p>
+          ) : (
+            <Form.Control
+              type="text"
+              name="companyName"
+              value={newCompany.companyName}
+              onChange={handleChange}
+              onKeyPress={handleKeyPress}
+              placeholder="Enter company name"
+              className={`form-control ${validationErrors.companyName ? 'is-invalid' : ''}`}
+            />
+          )}
+          {validationErrors.companyName && !isViewing && (
+            <div className="invalid-feedback">
+              {validationErrors.companyName}
             </div>
           )}
-          {!isViewing && (
-            <Form className="container row g-3">
-              {/* <div className="col-lg-6">
-                <Form.Group controlId="formCompanyName">
-                  <Form.Label>Company Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="companyName"
-                    value={newCompany.companyName}
-                    onChange={handleChange}
-                    placeholder="Enter company name"
-                    className={`form-control ${validationErrors.companyName ? 'is-invalid' : ''}`}
-                  />
-                  {validationErrors.companyName && (
-                    <div className="invalid-feedback">
-                      {validationErrors.companyName}
-                    </div>
-                  )}
-                </Form.Group>
-              </div>
-              <div className="col-lg-6">
-                <Form.Group controlId="formContact">
-                  <Form.Label>Contact</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="contact"
-                    value={newCompany.contact}
-                    onChange={handleChange}
-                    placeholder="Enter contact"
-                    className={`form-control ${validationErrors.contact ? 'is-invalid' : ''}`}
-                  />
-                  {validationErrors.contact && (
-                    <div className="invalid-feedback">
-                      {validationErrors.contact}
-                    </div>
-                  )}
-                </Form.Group>
-              </div> */}
-              <div className="col-lg-6">
-                <Form.Group controlId="formCompanyName">
-                  <Form.Label>Company Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="companyName"
-                    value={newCompany.companyName}
-                    onChange={handleChange}
-                    placeholder="Enter company name"
-                    className={`form-control ${validationErrors.companyName ? 'is-invalid' : ''}`}
-                  />
-                  {validationErrors.companyName && (
-                    <div className="invalid-feedback">
-                      {validationErrors.companyName}
-                    </div>
-                  )}
-                </Form.Group>
-              </div>
-              <div className="col-lg-6">
-                <Form.Group controlId="formContact">
-                  <Form.Label>Contact</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="contact"
-                    value={newCompany.contact}
-                    onChange={handleChange}
-                    placeholder="Enter contact"
-                    className={`form-control ${validationErrors.contact ? 'is-invalid' : ''}`}
-                  />
-                  {validationErrors.contact && (
-                    <div className="invalid-feedback">
-                      {validationErrors.contact}
-                    </div>
-                  )}
-                </Form.Group>
-              </div>
-
-              <div className="col-lg-6">
-                <Form.Group controlId="formAddress">
-                  <Form.Label>Address</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="address"
-                    value={newCompany.address}
-                    onChange={handleChange}
-                    placeholder="Enter address"
-                    className={`form-control ${validationErrors.address ? 'is-invalid' : ''}`}
-                  />
-                  {validationErrors.address && (
-                    <div className="invalid-feedback">
-                      {validationErrors.address}
-                    </div>
-                  )}
-                </Form.Group>
-              </div>
-              <div className="col-lg-6">
-                <Form.Group controlId="formSection">
-                  <Form.Label>Section</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="section"
-                    value={newCompany.section}
-                    onChange={handleChange}
-                    placeholder="Enter section"
-                    className={`form-control ${validationErrors.section ? 'is-invalid' : ''}`}
-                  />
-                  {validationErrors.section && (
-                    <div className="invalid-feedback">
-                      {validationErrors.section}
-                    </div>
-                  )}
-                </Form.Group>
-              </div>
-              <div className="col-lg-6">
-                <Form.Group controlId="formIndustry">
-                  <Form.Label>Industry</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="industry"
-                    value={newCompany.industry}
-                    onChange={handleChange}
-                    placeholder="Enter industry"
-                    className={`form-control ${validationErrors.industry ? 'is-invalid' : ''}`}
-                  />
-                  {validationErrors.industry && (
-                    <div className="invalid-feedback">
-                      {validationErrors.industry}
-                    </div>
-                  )}
-                </Form.Group>
-              </div>
-              <div className="col-lg-6">
-                <Form.Group controlId="formEmail">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    name="email"
-                    value={newCompany.email}
-                    onChange={handleChange}
-                    placeholder="Enter email"
-                    className={`form-control ${validationErrors.email ? 'is-invalid' : ''}`}
-                  />
-                  {validationErrors.email && (
-                    <div className="invalid-feedback">
-                      {validationErrors.email}
-                    </div>
-                  )}
-                </Form.Group>
-              </div>
-              <div className="col-lg-12">
-                <div className="form-group d-flex justify-content-center">
-                  <Button variant="primary" onClick={handleSubmit} className="btn btn-success px-4 my-4">
-                    Save Changes
-                  </Button>
-                </div>
-              </div>
-            </Form>
+        </Form.Group>
+      </div>
+      <div className="col-lg-6">
+        <Form.Group controlId="formContact">
+          <h6>Contact</h6>
+          {isViewing ? (
+            <p className='border rounded p-2'>{viewingCompany?.contact}</p>
+          ) : (
+            <Form.Control
+              type="text"
+              name="contact"
+              value={newCompany.contact}
+              onChange={handleChange}
+              placeholder="Enter contact"
+              className={`form-control ${validationErrors.contact ? 'is-invalid' : ''}`}
+            />
           )}
-        </Modal.Body>
-      </Modal>
+          {validationErrors.contact && !isViewing && (
+            <div className="invalid-feedback">
+              {validationErrors.contact}
+            </div>
+          )}
+        </Form.Group>
+      </div>
+      <div className="col-lg-6">
+        <Form.Group controlId="formAddress">
+          <h6>Address</h6>
+          {isViewing ? (
+            <p className='border rounded p-2'>{viewingCompany?.address}</p>
+          ) : (
+            <Form.Control
+              type="text"
+              name="address"
+              value={newCompany.address}
+              onChange={handleChange}
+              placeholder="Enter address"
+              className={`form-control ${validationErrors.address ? 'is-invalid' : ''}`}
+            />
+          )}
+          {validationErrors.address && !isViewing && (
+            <div className="invalid-feedback">
+              {validationErrors.address}
+            </div>
+          )}
+        </Form.Group>
+      </div>
+      <div className="col-lg-6">
+        <Form.Group controlId="formSection">
+          <h6>Sector</h6>
+          {isViewing ? (
+            <p className='border rounded p-2'>{viewingCompany?.section}</p>
+          ) : (
+            <Form.Select
+              name="section"
+              value={newCompany.section}
+              onChange={handleChange}
+              className={`form-control ${validationErrors.section ? 'is-invalid' : ''}`}
+            >
+              <option value="">Select a sector</option>
+              <option value="consumer goods">Consumer Goods</option>
+              <option value="banking">Banking</option>
+              <option value="real estate">Real Estate</option>
+              <option value="IT">IT</option>
+            </Form.Select>
+          )}
+          {validationErrors.section && !isViewing && (
+            <div className="invalid-feedback">
+              {validationErrors.section}
+            </div>
+          )}
+        </Form.Group>
+      </div>
+      <div className="col-lg-6">
+        <Form.Group controlId="formEmail">
+          <h6>Email</h6>
+          {isViewing ? (
+            <p className='border rounded p-2'>{viewingCompany?.email}</p>
+          ) : (
+            <Form.Control
+              type="email"
+              name="email"
+              value={newCompany.email}
+              onChange={handleChange}
+              placeholder="Enter email"
+              className={`form-control ${validationErrors.email ? 'is-invalid' : ''}`}
+            />
+          )}
+          {validationErrors.email && !isViewing && (
+            <div className="invalid-feedback">
+              {validationErrors.email}
+            </div>
+          )}
+        </Form.Group>
+      </div>
+      {!isViewing && (
+        <div className="col-lg-12">
+          <div className="form-group d-flex justify-content-center">
+            <Button variant="primary" onClick={handleSubmit} className="btn btn-success px-4 my-4">
+              Save Changes
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+  </Modal.Body>
+</Modal>
+
+
+      </div>
     </div>
   );
 }

@@ -1,6 +1,5 @@
 // import React from 'react'
 import './AdminData.css'
-import { RiFolderUserLine } from 'react-icons/ri';
 import { CgProfile } from 'react-icons/cg';
 import { HiOutlineUserAdd } from 'react-icons/hi';
 import { PiUserList } from 'react-icons/pi';
@@ -98,11 +97,11 @@ function AdminData() {
 
 
                 <ul className='MyAdminss'>
-                  <li className='flex items-center py-3 px-2 space-x-4 hover:rounded hover:cursor-pointer 
+                  {/* <li className='flex items-center py-3 px-2 space-x-4 hover:rounded hover:cursor-pointer 
         hover:bg-blue-600 hover:text-white Myli'>
                     <RiFolderUserLine className='fs-5 MyCon' />
                     <span >Public Profile</span>
-                  </li>
+                  </li> */}
 
                   <li className='flex items-center py-3 px-2 space-x-4 hover:rounded hover:cursor-pointer 
         hover:bg-blue-600 hover:text-white Myli'>
@@ -131,7 +130,7 @@ function AdminData() {
                     <span className="hidden md:inline">{storedAdminData.rollId}</span>
                   </li>
                 </ul>
-                <hr className='MyBorder'></hr>
+                {/* <hr className='MyBorder'></hr> */}
                 <div type="button" className="MyBtn" onClick={handleLogout} > Log out</div>
 
 
