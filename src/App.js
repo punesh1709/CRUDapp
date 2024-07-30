@@ -53,6 +53,7 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import EmpListing from './EmpListing';
 import Login from './Login';
 import AdminPanel from "./AdminPanel";
+import MyAdmin from "./MyAdmin";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -66,7 +67,7 @@ function App() {
           <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/admin" element={<AdminPanel />} />
           <Route path="/employees" element={isLoggedIn ? <EmpListing /> : <EmpListing />} />
-       
+          <Route path="/MyAdmin" element={<MyAdmin />} />
         </Routes>
       </BrowserRouter>
       

@@ -1,31 +1,3 @@
-// import './fontAwesome';
-// import './AdminPanel.css'
-// import AdminData from './AdminData';
-// import SideBar from './SideBar'
-// import './MainContent.css'
-// function AdminPanel() {
-//   return (
-//     <div>
-
-//       <div><AdminData /></div>
-//     <div className='m-4 '>
-
-//       <div className='dashboard'>
-//         <SideBar />
-//       </div>
-//       {/* <div className='border  h-100'><MainContent/></div> */}
-
-     
-//     </div>
-//     {/* <div className='border MainContent'><MainContent/></div> */}
-//     <div className='border MainContent'></div>
-//     </div>
-//   );
-// }
-
-// export default AdminPanel;
-
-
 import React, { useState } from 'react';
 import './fontAwesome';
 import './AdminPanel.css';

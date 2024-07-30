@@ -1,11 +1,9 @@
 
 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-function EmpCreate() {
+function EmpCreate({ onClose }) {
   const [id, idchange] = useState("");
   const [name, namechange] = useState("");
   const [email, emailchange] = useState("");
@@ -16,8 +14,16 @@ function EmpCreate() {
   const [phoneValidationMessage, setPhoneValidationMessage] = useState("");
   const [emailValidationMessage, setEmailValidationMessage] = useState("");
   const [addressValidationMessage, setAddressValidationMessage] = useState("");
+  const [companyName, setCompanyName] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedCompanyData = JSON.parse(localStorage.getItem('companyData'));
+    if (storedCompanyData) {
+      setCompanyName(storedCompanyData.companyName);
+    }
+  }, []);
 
   const phoneChange = (value) => {
     const digitOnlyValue = value.replace(/\D/g, "");
@@ -111,6 +117,7 @@ function EmpCreate() {
       address,
       Designation,
       Packege: `${Packege}LPA`,
+      companyName
     };
 
     fetch("http://localhost:8000/employee", {
@@ -118,10 +125,9 @@ function EmpCreate() {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(empdata),
     })
-      .then((res) => {
-        alert("Saved successfully.");
-        // Reload the page after successful save
-        window.location.reload();
+      .then((res) => res.json())
+      .then(() => {
+        onClose();
       })
       .catch((err) => {
         console.log(err.message);

@@ -1,15 +1,87 @@
 {
   "employee": [
     {
-      "name": "vaibhav",
-      "email": "robert@in.com",
-      "phone": "908908767",
-      "address": "mumbai",
-      "Designation": "officer",
-      "Packege": "20LPA",
-      "id": "12",
-      "password": "punesh123"
+      "name": "Puneshwar Londhe",
+      "email": "punes1709@gmail.com",
+      "phone": "5565555555",
+      "address": "Mumbai",
+      "Designation": "dmvd",
+      "Packege": "12LPA",
+      "companyName": "wipro",
+      "id": "7688"
     },
+    {
+      "name": "nikhil",
+      "email": "ni@gmail.com",
+      "phone": "5556555555",
+      "address": "pune",
+      "Designation": "hh",
+      "Packege": "11LPA",
+      "companyName": "kotak",
+      "id": "5cd3"
+    },
+    {
+      "id": "635b",
+      "name": "rajty",
+      "email": "r@gmai.com",
+      "phone": "5665556655",
+      "address": "kg",
+      "Designation": "bg",
+      "Packege": "5LPA",
+      "companyName": "kotak"
+    },
+    {
+      "name": "rakesh",
+      "email": "ra@gmail.com",
+      "phone": "5565544999",
+      "address": "nashik",
+      "Designation": "ufubkdwb",
+      "Packege": "7LPA",
+      "companyName": "TCS",
+      "id": "26ac"
+    }
+  ],
+  "company": [
+    {
+      "id": "460d",
+      "companyName": "kotak",
+      "contact": "9856218746",
+      "address": "mumbai",
+      "section": "banking",
+      "email": "kotak@gmail.com"
+    },
+    {
+      "id": "17af",
+      "companyName": "TCS",
+      "contact": "9856294444",
+      "address": "pune",
+      "section": "IT",
+      "email": "tcs@gmail.com"
+    }
+  ],
+  "admin": [
+    {
+      "id": "8c7b",
+      "Name": "akshy",
+      "contact": "9021515230",
+      "email": "admin1@gmail.com",
+      "companyName": "kotak",
+      "password": "12345678",
+      "roll": "admin",
+      "rollId": "2"
+    },
+    {
+      "id": "b228",
+      "Name": "punesh",
+      "contact": "9856294444",
+      "email": "admin2@gmail.com",
+      "companyName": "TCS",
+      "password": "12345678",
+      "roll": "admin",
+      "rollId": "2"
+    }
+  ],
+  "superadmin": [
     {
       "name": "Cody Fisher",
       "email": "superadmin@gmail.com",
@@ -18,52 +90,6 @@
       "rollId": "1",
       "password": "12345678",
       "id": "631b"
-    },
-    {
-      "name": "Akash palav",
-      "email": "Ak@gmail.com",
-      "phone": "1255655989",
-      "address": "hariyan",
-      "Designation": "SD",
-      "Packege": "17LPA",
-      "id": "9a17"
-    },
-    {
-      "id": "6ef7",
-      "name": "Puneshwar Londhe",
-      "email": "punesh1709@gmail.com",
-      "phone": "1226446796",
-      "address": "Mumbai",
-      "Designation": "gagag",
-      "Packege": "22LPA"
-    }
-  ],
-  "company": [
-    {
-      "id": "0f68",
-      "companyName": "Alpha beta Goods Inc",
-      "contact": "9856218746",
-      "address": "Mumbai",
-      "section": "real estate",
-      "email": "punesh1709@gmail.com"
-    },
-    {
-      "id": "c5c4",
-      "companyName": "Alpha beta Goods ",
-      "contact": "9856218755",
-      "address": "Mumbai",
-      "section": "banking",
-      "email": "punesh1709@gmail.com"
-    }
-  ],
-  "admin": [
-    {
-      "id": "813b",
-      "Name": "satish",
-      "contact": "9021515239",
-      "email": "punesh1709@gmail.com",
-      "companyName": "Alpha beta Goods Inc",
-      "password": "12345678"
     }
   ]
 }

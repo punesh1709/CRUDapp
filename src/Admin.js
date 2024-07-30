@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -117,10 +114,10 @@ function Admin() {
       // Update existing admin
       axios.put(`http://localhost:8000/admin/${currentAdmin.id}`, { ...formData, password })
         .then(() => {
-          setAdminData(adminData.map(admin => 
+          setAdminData(adminData.map(admin =>
             admin.id === currentAdmin.id ? { ...formData, id: currentAdmin.id, password } : admin
           ));
-          setFilteredData(adminData.map(admin => 
+          setFilteredData(adminData.map(admin =>
             admin.id === currentAdmin.id ? { ...formData, id: currentAdmin.id, password } : admin
           ));
           setShowModal(false);
@@ -176,6 +173,7 @@ function Admin() {
       email: admin.email,
       companyName: admin.companyName,
       password: '12345678' // Automatically set password
+
     });
     setCurrentAdmin(admin);
     setModalMode('edit');
@@ -215,21 +213,23 @@ function Admin() {
   };
 
   // Filter companies that already have an admin
-  const availableCompanies = companyData.filter(company => 
+  const availableCompanies = companyData.filter(company =>
     !adminData.some(admin => admin.companyName === company.companyName)
   );
 
   return (
     <div className="table-responsive m-2">
       <h2>Admin List</h2>
-      <div className="d-flex justify-content-between flex-row-reverse m-2">
+      <div className="d-flex justify-content-between flex-row-reverse mb-2">
         <Button variant="success" onClick={() => {
           setFormData({
             Name: '',
             contact: '',
             email: '',
             companyName: '',
-            password: '12345678' // Automatically set password
+            password: '12345678', // Automatically set password
+             roll : 'admin',
+             rollId : '2'
           });
           setCurrentAdmin(null);
           setModalMode('add');
@@ -320,232 +320,126 @@ function Admin() {
           </li>
         </ul>
       </nav>
+      <Modal show={showModal} onHide={() => setShowModal(false)} className='mt-24'>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {modalMode === 'view' ? 'View Admin' : modalMode === 'edit' ? 'Edit Admin' : 'Add New Admin'}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {modalMode === 'view' ? (
+            <div className='container row g-3'>
+              <div className='col-lg-6'>
+                <p><strong>Name:</strong></p>
+                <p className='border rounded p-2'>{formData.Name}</p>
+              </div>
+              <div className='col-lg-6'>
+                <p><strong>Contact:</strong></p>
+                <p className='border rounded p-2'>{formData.contact}</p>
+              </div>
+              <div className='col-lg-6 mt-0'>
+                <p><strong>Email:</strong></p>
+                <p className='border rounded p-2'>{formData.email}</p>
+              </div>
+              <div className='col-lg-6 mt-0'>
+                <p><strong>Company Name:</strong></p>
+                <p className='border rounded p-2'>{formData.companyName}</p>
+              </div>
+            </div>
+          ) : (
+            <Form className='container row g-3'>
+              <Form.Group controlId="formAdminName" className='col-lg-6'>
+                <h6>Name</h6>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter name"
+                  name="Name"
+                  value={formData.Name}
+                  onChange={handleInputChange}
+                  isInvalid={!!errors.Name}
+                  readOnly={modalMode === 'view'}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.Name}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-      {/* Modal for Add/Edit/View Admin */}
-{/* <Modal show={showModal} onHide={() => setShowModal(false)} className='mt-24'>
-  <Modal.Header closeButton>
-    <Modal.Title>
-      {modalMode === 'view' ? 'View Admin' : modalMode === 'edit' ? 'Edit Admin' : 'Add New Admin'}
-    </Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-    {modalMode === 'view' ? (
-      <div className='container row g-3'>
-        <div className='col-lg-6'>
-          <p><strong>Name:</strong></p>
-          <p className='border rounded p-2'>{formData.Name}</p>
-        </div>
-        <div className='col-lg-6'>
-          <p><strong>Contact:</strong></p>
-          <p className='border rounded p-2'>{formData.contact}</p>
-        </div>
-        <div className='col-lg-6 mt-0'>
-          <p><strong>Email:</strong></p>
-          <p className='border rounded p-2'>{formData.email}</p>
-        </div>
-        <div className='col-lg-6 mt-0'>
-          <p><strong>Company Name:</strong></p>
-          <p className='border rounded p-2'>{formData.companyName}</p>
-        </div>
-      </div>
-    ) : (
-      <Form className='container row g-3'>
-        <Form.Group controlId="formAdminName" className='col-lg-6'>
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter name"
-            name="Name"
-            value={formData.Name}
-            onChange={handleInputChange}
-            isInvalid={!!errors.Name}
-            readOnly={modalMode === 'view'}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.Name}
-          </Form.Control.Feedback>
-        </Form.Group>
+              <Form.Group controlId="formAdminContact" className='col-lg-6'>
+                <h6>Contact</h6>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter contact"
+                  name="contact"
+                  value={formData.contact}
+                  onChange={handleInputChange}
+                  isInvalid={!!errors.contact}
+                  readOnly={modalMode === 'view'}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.contact}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-        <Form.Group controlId="formAdminContact" className='col-lg-6'>
-          <Form.Label>Contact</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter contact"
-            name="contact"
-            value={formData.contact}
-            onChange={handleInputChange}
-            isInvalid={!!errors.contact}
-            readOnly={modalMode === 'view'}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.contact}
-          </Form.Control.Feedback>
-        </Form.Group>
+              <Form.Group controlId="formAdminEmail" className='col-lg-6'>
+                <h6>Email</h6>
+                <Form.Control
+                  type="email"
+                  placeholder="Enter email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  isInvalid={!!errors.email}
+                  readOnly={modalMode === 'view'}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.email}
+                </Form.Control.Feedback>
+              </Form.Group>
 
-        <Form.Group controlId="formAdminEmail" className='col-lg-6'>
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            isInvalid={!!errors.email}
-            readOnly={modalMode === 'view'}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.email}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group controlId="formAdminCompanyName" className='col-lg-6'>
-          <Form.Label>Company Name</Form.Label>
-          <Form.Control
-            as="select"
-            name="companyName"
-            value={formData.companyName}
-            onChange={handleInputChange}
-            disabled={modalMode === 'edit'}
-          >
-            <option value="">Select a company</option>
-            {availableCompanies.map(company => (
-              <option key={company.id} value={company.companyName}>
-                {company.companyName}
-              </option>
-            ))}
-          </Form.Control>
-        </Form.Group>
-      </Form>
-    )}
-  </Modal.Body>
-  <Modal.Footer className='d-flex justify-content-center'>
-    {modalMode !== 'view' && (
-      <Button variant="success" onClick={handleAddOrUpdateAdmin}>
-        Save Changes
-      </Button>
-    )}
-  </Modal.Footer>
-</Modal> */}
-
-<Modal show={showModal} onHide={() => setShowModal(false)} className='mt-24'>
-  <Modal.Header closeButton>
-    <Modal.Title>
-      {modalMode === 'view' ? 'View Admin' : modalMode === 'edit' ? 'Edit Admin' : 'Add New Admin'}
-    </Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-    {modalMode === 'view' ? (
-      <div className='container row g-3'>
-        <div className='col-lg-6'>
-          <p><strong>Name:</strong></p>
-          <p className='border rounded p-2'>{formData.Name}</p>
-        </div>
-        <div className='col-lg-6'>
-          <p><strong>Contact:</strong></p>
-          <p className='border rounded p-2'>{formData.contact}</p>
-        </div>
-        <div className='col-lg-6 mt-0'>
-          <p><strong>Email:</strong></p>
-          <p className='border rounded p-2'>{formData.email}</p>
-        </div>
-        <div className='col-lg-6 mt-0'>
-          <p><strong>Company Name:</strong></p>
-          <p className='border rounded p-2'>{formData.companyName}</p>
-        </div>
-      </div>
-    ) : (
-      <Form className='container row g-3'>
-        <Form.Group controlId="formAdminName" className='col-lg-6'>
-          <h6>Name</h6>
-          <Form.Control
-            type="text"
-            placeholder="Enter name"
-            name="Name"
-            value={formData.Name}
-            onChange={handleInputChange}
-            isInvalid={!!errors.Name}
-            readOnly={modalMode === 'view'}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.Name}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group controlId="formAdminContact" className='col-lg-6'>
-          <h6>Contact</h6>
-          <Form.Control
-            type="text"
-            placeholder="Enter contact"
-            name="contact"
-            value={formData.contact}
-            onChange={handleInputChange}
-            isInvalid={!!errors.contact}
-            readOnly={modalMode === 'view'}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.contact}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group controlId="formAdminEmail" className='col-lg-6'>
-          <h6>Email</h6>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            isInvalid={!!errors.email}
-            readOnly={modalMode === 'view'}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.email}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        {modalMode === 'edit' ? (
-          <Form.Group controlId="formAdminCompanyName" className='col-lg-6'>
-            <h6>Company Name</h6>
-            <Form.Control
-              type="text"
-              name="companyName"
-              value={formData.companyName}
-              readOnly
-            />
-          </Form.Group>
-        ) : (
-          <Form.Group controlId="formAdminCompanyName" className='col-lg-6'>
-            <Form.Label>Company Name</Form.Label>
-            <Form.Control
-              as="select"
-              name="companyName"
-              value={formData.companyName}
-              onChange={handleInputChange}
-              isInvalid={!!errors.companyName}
-            >
-              <option value="">Select a company</option>
-              {availableCompanies.map(company => (
-                <option key={company.id} value={company.companyName}>
-                  {company.companyName}
-                </option>
-              ))}
-            </Form.Control>
-            <Form.Control.Feedback type="invalid">
-              {errors.companyName}
-            </Form.Control.Feedback>
-          </Form.Group>
-        )}
-      </Form>
-    )}
-  </Modal.Body>
-  <Modal.Footer className='d-flex justify-content-center'>
-    {modalMode !== 'view' && (
-      <Button variant="success" onClick={handleAddOrUpdateAdmin}>
-        Save Changes
-      </Button>
-    )}
-  </Modal.Footer>
-</Modal>
+              {modalMode === 'edit' ? (
+                <Form.Group controlId="formAdminCompanyName" className='col-lg-6'>
+                  <h6>Company Name</h6>
+                  <Form.Control
+                    type="text"
+                    name="companyName"
+                    value={formData.companyName}
+                    
+                    readOnly
+                  />
+                </Form.Group>
+              ) : (
+                <Form.Group controlId="formAdminCompanyName" className='col-lg-6'>
+                  <Form.Label>Company Name</Form.Label>
+                  <Form.Control
+                    as="select"
+                    name="companyName"
+                    value={formData.companyName}
+                    onChange={handleInputChange}
+                    isInvalid={!!errors.companyName}
+                  >
+                    <option value="">Select a company</option>
+                    {availableCompanies.map(company => (
+                      <option key={company.id} value={company.companyName}>
+                        {company.companyName}
+                      </option>
+                    ))}
+                  </Form.Control>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.companyName}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              )}
+            </Form>
+          )}
+        </Modal.Body>
+        <Modal.Footer className='d-flex justify-content-center'>
+          {modalMode !== 'view' && (
+            <Button variant="success" onClick={handleAddOrUpdateAdmin}>
+              Save Changes
+            </Button>
+          )}
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

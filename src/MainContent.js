@@ -273,8 +273,8 @@ function MainContent() {
   return (
     <div className="table-responsive m-2">
       <div className='MyContent'>
-        <h2 className='text-center'>Companies</h2>
-        <div className="d-flex justify-content-between flex-row-reverse m-2">
+        <h2>Companies</h2>
+        <div className="d-flex justify-content-between flex-row-reverse mb-2">
           <Button variant="success" onClick={handleShow}>
             Add New (+)
           </Button>

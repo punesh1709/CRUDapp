@@ -1,37 +1,57 @@
 
 
 
-
-
 import React, { useState, useEffect } from 'react';
 
-function EmpEidit({ id, onClose }) {
+function EmpEdit({ id, onClose }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
   const [designation, setDesignation] = useState('');
   const [packageAmount, setPackageAmount] = useState('');
+  const [companyName, setCompanyName] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:8000/employee/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setName(data.name);
-        setEmail(data.email);
-        setPhone(data.phone);
-        setAddress(data.address);
-        setDesignation(data.Designation);
-        setPackageAmount(data.Packege);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    const storedEmployee = JSON.parse(localStorage.getItem(`employee-${id}`));
+    if (storedEmployee) {
+      setName(storedEmployee.name);
+      setEmail(storedEmployee.email);
+      setPhone(storedEmployee.phone);
+      setAddress(storedEmployee.address);
+      setDesignation(storedEmployee.Designation);
+      setPackageAmount(storedEmployee.Packege);
+      setCompanyName(storedEmployee.companyName);
+    } else {
+      fetch(`http://localhost:8000/employee/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setName(data.name);
+          setEmail(data.email);
+          setPhone(data.phone);
+          setAddress(data.address);
+          setDesignation(data.Designation);
+          setPackageAmount(data.Packege);
+          setCompanyName(data.companyName);
+          localStorage.setItem(`employee-${id}`, JSON.stringify(data));
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
   }, [id]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const updatedEmployee = { name, email, phone, address, Designation: designation, Packege: packageAmount };
+    const updatedEmployee = {
+      name,
+      email,
+      phone,
+      address,
+      Designation: designation,
+      Packege: packageAmount,
+      companyName
+    };
 
     fetch(`http://localhost:8000/employee/${id}`, {
       method: 'PUT',
@@ -40,6 +60,7 @@ function EmpEidit({ id, onClose }) {
     })
       .then((res) => res.json())
       .then(() => {
+        localStorage.setItem(`employee-${id}`, JSON.stringify(updatedEmployee));
         onClose();
       })
       .catch((err) => {
@@ -79,7 +100,6 @@ function EmpEidit({ id, onClose }) {
           required
         />
       </div>
-      
       <div className="form-group col-lg-6">
         <label>Designation</label>
         <input
@@ -110,21 +130,25 @@ function EmpEidit({ id, onClose }) {
           required
         />
       </div>
-      {/* <button type="submit" className="btn btn-primary mt-3">Save</button> */}
+      {/* <div className="form-group col-lg-6">
+        <label>Company Name</label>
+        <input
+          type="text"
+          className="form-control"
+          value={companyName}
+          onChange={(e) => setCompanyName(e.target.value)}
+          required
+        />
+      </div> */}
       <div className="col-lg-12">
-                  <div className="form-group d-flex justify-content-center">
-                    <button className="btn btn-success px-4 my-4" type="submit">
-                      Save
-                    </button>
-                    {/* <Link to="/" className="btn btn-danger m-3 px-4">
-                      Back
-                    </Link> */}
-                  </div>
-                </div>
+        <div className="form-group d-flex justify-content-center">
+          <button className="btn btn-success px-4 my-4" type="submit">
+            Save
+          </button>
+        </div>
+      </div>
     </form>
   );
 }
 
-export default EmpEidit;
-
-
+export default EmpEdit;

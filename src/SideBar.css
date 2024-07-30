@@ -1,5 +1,4 @@
 .MySideBar{
-  /* background-color: rgba(0, 0, 0, 0.953); */
   background-color: white;
   margin-top: -40px;
   margin-left: -20px;
@@ -11,11 +10,10 @@
 }
 
 .MyAdminss{
-  
     font-family: "Inter", sans-serif;
     font-optical-sizing: auto;
     font-weight: 600;
     font-size: 16px;
     color: rgba(0, 0, 0, 0.588);
-  
 }
+

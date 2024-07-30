@@ -25,10 +25,8 @@
 .AdminData{
  border: 0.5px solid rgba(255, 255, 255, 0.145);
  margin-left: -30px;
- 
  width: 14vw;
  border-radius: 10px;
- height: 17.5vw;
  background-color: white!important;
 }
 
@@ -76,7 +74,7 @@
 .MyAdminsss{
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
   color: rgba(0, 0, 0, 0.453);
   
@@ -85,8 +83,7 @@
 .Myli{
   color: rgba(0, 0, 0, 0.575);
   font-size: 14px;
-  margin-top: -14px !important;
-  margin-left: -15px;
+  margin-bottom: 2px;
 }
 
 .MyBtn{
@@ -99,3 +96,7 @@
 }
 
 
+.MyImgs{
+  padding-left: 83.5px;
+ 
+}
