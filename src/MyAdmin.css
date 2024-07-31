@@ -1,11 +1,16 @@
 .Home{
- width: 83vw;
- border-bottom: 1px solid rgba(0, 0, 0, 0.045);
- border-left: 1px solid rgba(0, 0, 0, 0.041);
+ width: 82.5vw;
+ border-bottom: 1px solid rgba(0, 0, 0, 0.080);
+ border-left: 1px solid rgba(0, 0, 0, 0.080);
 }
 
 .Table{
   width: 83vw;
   height: 95vh;
-  border-left: 1px solid rgba(0, 0, 0, 0.04);
+  border-left: 1px solid rgba(0, 0, 0, 0.080);
+}
+
+.my-sidebar{
+  /* background-color: red; */
+  margin-top: -30px;
 }

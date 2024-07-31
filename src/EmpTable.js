@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from 'react-bootstrap';
 import Swal from 'sweetalert2';
@@ -7,6 +8,7 @@ import './EmpListing.css';
 import EmpCreate from './EmpCreate';
 import EmpDeatails from "./EmpDeatails"; // Fixed typo in the component name
 import EmpEidit from "./EmpEidit";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 function EmpTable() {
   const [empdata, setEmpdata] = useState(null);
@@ -23,8 +25,7 @@ function EmpTable() {
   const [detailsEmpId, setDetailsEmpId] = useState(null);
   const [companyName, setCompanyName] = useState("");
 
-
-   useEffect(() => {
+  useEffect(() => {
     const storedCompanyData = JSON.parse(localStorage.getItem('companyData'));
     if (storedCompanyData) {
       setCompanyName(storedCompanyData.companyName);
@@ -35,7 +36,6 @@ function EmpTable() {
   const fetchData = () => {
     const adminEmail = localStorage.getItem('adminEmail');
   
-    // Fetch company name of the logged-in admin
     fetch("http://localhost:8000/admin")
       .then((res) => res.json())
       .then((admins) => {
@@ -44,7 +44,6 @@ function EmpTable() {
           const companyName = loggedInAdmin.companyName;
           setCompanyName(companyName);
   
-          // Fetch employees of the logged-in admin's company
           fetch("http://localhost:8000/employee")
             .then((res) => res.json())
             .then((employees) => {
@@ -60,7 +59,6 @@ function EmpTable() {
         console.log(err.message);
       });
   };
-  
 
   const RemoveFunction = (id) => {
     Swal.fire({
@@ -80,8 +78,8 @@ function EmpTable() {
           .catch((err) => {
             Swal.fire('Error', err.message, 'error');
           });
-      } else if (result.isDismissed) {
-        Swal.fire('Employee not removed', '', 'info');
+      
+        
       }
     });
   };
@@ -186,138 +184,160 @@ function EmpTable() {
     fetchData();
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="m-4">
-      
-        <div className="card-title">
-        <h2 className="d-flex justify-content-center fw-bold text-danger">Employee Listing for {companyName}</h2>
+      <div className="card-title">
+        <h2 className="d-flex justify-content-center fw-bold text-danger">{companyName}</h2>
+      </div>
+      <div className="card-body">
+        <div className="mb-3">
+          <div className="d-flex justify-content-between flex-row-reverse">
+            <Button variant="success" onClick={handleShowCreateModal}>
+              Add New (+)
+            </Button>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search"
+              value={searchQuery}
+              onChange={handleSearch}
+              style={{ marginTop: "10px", width: "300px" }}
+            />
+          </div>
         </div>
-        <div className="card-body">
-          <div className="mb-3">
-            <div className="d-flex justify-content-between flex-row-reverse">
-              <Button variant="success" onClick={handleShowCreateModal}>
-                Add New (+)
-              </Button>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search"
-                value={searchQuery}
-                onChange={handleSearch}
-                style={{ marginTop: "10px", width: "300px" }}
-              />
-            </div>
-          </div>
-          <div className="table-responsive">
-            <table className="table table-bordered">
-              <thead className="text-white">
-                <tr>
-                  <th className="bg-black text-white">Serial No.</th>
-                  <th className="bg-black text-white table-header">
-                    Name
+        <div className="table-responsive">
+          <table className="table table-bordered">
+            <thead className="text-white">
+              <tr>
+                <th className="bg-black text-white">Serial No.</th>
+                <th className="bg-black text-white table-header">
+                  Name
+                  <button
+                    className="btn btn-secondary bg-black border-black sort-button"
+                    onClick={handleSort}
+                  >
+                    {sortOrder === "asc" ? (
+                      <FontAwesomeIcon icon="arrow-up" />
+                    ) : (
+                      <FontAwesomeIcon icon="arrow-down" />
+                    )}
+                  </button>
+                </th>
+                <th className="bg-black text-white">Email</th>
+                <th className="bg-black text-white">Phone</th>
+                <th className="bg-black text-white">Address</th>
+                <th className="bg-black text-white">Designation</th>
+                <th className="bg-black text-white table-header">
+                  Package
+                  <button
+                    className="btn btn-secondary bg-black border-black sort-button"
+                    onClick={handleSortPackage}
+                  >
+                    {sortPackageOrder === "asc" ? (
+                      <FontAwesomeIcon icon="arrow-down" />
+                    ) : (
+                      <FontAwesomeIcon icon="arrow-up" />
+                    )}
+                  </button>
+                </th>
+                <th className="text-center bg-black text-white">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentData.map((item, index) => (
+                <tr key={item.id}>
+                  <td>{filteredData.findIndex(emp => emp.id === item.id) + 1}</td>
+                  <td>{item.name}</td>
+                  <td className="mytd">{item.email}</td>
+                  <td>{item.phone}</td>
+                  <td>{item.address}</td>
+                  <td>{item.Designation}</td>
+                  <td>{item.Packege}</td>
+                  <td className="d-flex justify-content-evenly">
                     <button
-                      className="btn btn-secondary bg-black border-black sort-button"
-                      onClick={handleSort}
+                      onClick={() => handleShowEditModal(item.id)}
+                      className="btn btn-success"
                     >
-                      {sortOrder === "asc" ? (
-                        <FontAwesomeIcon icon="arrow-up" />
-                      ) : (
-                        <FontAwesomeIcon icon="arrow-down" />
-                      )}
+                      <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
                     </button>
-                  </th>
-                  <th className="bg-black text-white">Email</th>
-                  <th className="bg-black text-white">Phone</th>
-                  <th className="bg-black text-white">Address</th>
-                  <th className="bg-black text-white">Designation</th>
-                  <th className="bg-black text-white table-header">
-                    Package
                     <button
-                      className="btn btn-secondary bg-black border-black sort-button"
-                      onClick={handleSortPackage}
+                      onClick={() => RemoveFunction(item.id)}
+                      className="btn btn-danger"
                     >
-                      {sortPackageOrder === "asc" ? (
-                        <FontAwesomeIcon icon="arrow-down" />
-                      ) : (
-                        <FontAwesomeIcon icon="arrow-up" />
-                      )}
+                      <FontAwesomeIcon icon="fa-solid fa-trash" />
                     </button>
-                  </th>
-                  <th className="text-center bg-black text-white">Action</th>
+                    <button
+                      onClick={() => handleShowDetailsModal(item.id)}
+                      className="btn btn-primary"
+                    >
+                      <FontAwesomeIcon icon="fa-solid fa-circle-info" />
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {currentData.map((item, index) => (
-                  <tr key={item.id}>
-                    <td>{filteredData.findIndex(emp => emp.id === item.id) + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.email}</td>
-                    <td>{item.phone}</td>
-                    <td>{item.address}</td>
-                    <td>{item.Designation}</td>
-                    <td>{item.Packege}</td>
-                    <td className="d-flex justify-content-evenly">
-                      <button
-                        onClick={() => handleShowEditModal(item.id)}
-                        className="btn btn-success"
-                      >
-                        <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
-                      </button>
-                      <button
-                        onClick={() => RemoveFunction(item.id)}
-                        className="btn btn-danger"
-                      >
-                        <FontAwesomeIcon icon="fa-solid fa-trash" />
-                      </button>
-                      <button
-                        onClick={() => handleShowDetailsModal(item.id)}
-                        className="btn btn-primary"
-                      >
-                        <FontAwesomeIcon icon="fa-solid fa-circle-info" />
-                      </button>
-                    </td>
-                  </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="d-flex justify-content-between MyMianDiv">
+          <div className="d-flex">
+            <div className="mt-2 mr-2">Show:</div>
+            <div>
+              <select
+                className="form-select"
+                value={itemsPerPage}
+                onChange={handleItemsPerPageChange}
+              >
+                {availablePerPageOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
                 ))}
-              </tbody>
-            </table>
+              </select>
+            </div>
+            <div className="mt-2 ml-2">per page</div>
           </div>
-          <div className="d-flex justify-content-between">
-            <button
-              className="btn btn-primary"
+
+          <div className="textsName d-flex align-items-center">
+          <span>
+              {currentPage} of {totalPages}
+            </span>
+            <div
+              type="button"
+              className="btn btn-outline-secondary border-0"
               onClick={handlePrevPage}
               disabled={currentPage === 1}
             >
-              Previous
-            </button>
-            <span>
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              className="btn btn-primary"
+              <FaArrowLeft className="textsName" />
+            </div>
+            {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+              <button
+                key={page}
+                type="button"
+                className={`btn btn-outline-secondary border-0 mx-1 MyBTN ${currentPage === page ? 'active' : ''}`}
+                onClick={() => handlePageChange(page)}
+              >
+                {page}
+              </button>
+            ))}
+            <div
+              type="button"
+              className="btn btn-outline-secondary border-0"
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
             >
-              Next
-            </button>
-          </div>
-          <div className="mb-3">
-            <span>Show:</span>
-            <select
-              className="form-select"
-              value={itemsPerPage}
-              onChange={handleItemsPerPageChange}
-            >
-              {availablePerPageOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option} per page
-                </option>
-              ))}
-            </select>
+              <FaArrowRight className="textsName" />
+            </div>
+    
           </div>
         </div>
-   
+      </div>
 
-      <Modal show={showCreateModal} onHide={handleCloseCreateModal}  className="mt-20">
+      <Modal show={showCreateModal} onHide={handleCloseCreateModal} className="mt-20">
         <Modal.Header closeButton>
           <Modal.Title>Add New Employee</Modal.Title>
         </Modal.Header>

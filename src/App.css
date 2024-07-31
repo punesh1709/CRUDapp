@@ -1,3 +1,40 @@
-.MyMianAdmin{
-  margin-bottom: -20px;
+.MyMianDiv{
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.588);
+}
+
+.btn-hover:hover {
+  background-color: black;
+  color: white; /* Optional: to ensure the text color remains readable */
+}
+
+table{
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+
+ 
+}
+
+td{
+  color: rgba(0, 0, 0, 0.588) !important;
+}
+
+.MyBTN {
+  background-color: rgb(196, 196, 196) !important;
+  color: rgba(0, 0, 0, 0.373) !important;
+}
+.MyBTN:hover{
+  background-color: rgb(246, 246, 246) !important;
+  color: black;
+}
+.textsName{
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.373) !important;
 }

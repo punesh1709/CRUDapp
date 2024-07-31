@@ -291,8 +291,8 @@ function EmpListing() {
               Next
             </button>
           </div>
-          <div className="mb-3">
-            <span>Show:</span>
+          <div className="mb-3 border">
+            <span className="border">Show:</span>
             <select
               className="form-select"
               value={itemsPerPage}

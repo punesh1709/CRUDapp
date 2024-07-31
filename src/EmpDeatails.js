@@ -144,26 +144,27 @@ const EmpDetails = ({ id }) => {
       <form>
         <div className="form-row d-flex p-2">
           <div className="form-group col-md-6 px-2">
-            <div className='px-2'>Name</div>
-            <h6 className='border rounded p-2'>{empdata.name}</h6>
+            <h6
+             className='px-2'>Name</h6>
+            <p className='border rounded p-2'>{empdata.name}</p>
           </div>
           <div className="form-group col-md-6 px-2">
-            <div className='px-2'>Email</div>
-            <h6 className='border rounded p-2'>{empdata.email}</h6>
+            <h6 className='px-2'>Email</h6>
+            <p className='border rounded p-2'>{empdata.email}</p>
           </div>
         </div>
 
 
         <div className="form-row d-flex p-2">
           <div className="form-group col-md-6 px-2">
-            <div className='px-2'>Phone</div>
-           <h6 className='border rounded p-2'>{empdata.phone}</h6>
+            <h6 className='px-2'>Phone</h6>
+           <p className='border rounded p-2'>{empdata.phone}</p>
           </div>
 
 
           <div className="form-group col-md-6 px-2">
-            <div className='px-2'>Designation</div>
-            <h6 className='border rounded p-2'>{empdata.Designation} </h6>
+            <h6 className='px-2'>Designation</h6>
+            <p className='border rounded p-2'>{empdata.Designation} </p>
           </div>
 
 
@@ -172,12 +173,12 @@ const EmpDetails = ({ id }) => {
 
         <div className="form-row d-flex p-2">
           <div className="form-group col-md-6 px-2">
-            <div className='px-2'>Package</div>
-            <h6 className='border rounded p-2'>{empdata.Packege}</h6>
+            <h6 className='px-2'>Package</h6>
+            <p className='border rounded p-2'>{empdata.Packege}</p>
           </div>
           <div className="form-group col-md-6 px-2">
-            <div className='px-2' >Address</div>
-            <h6 className='border rounded p-2'>{empdata.address}</h6>
+            <h6 className='px-2' >Address</h6>
+            <p className='border rounded p-2'>{empdata.address}</p>
           </div>
         </div>
       </form>

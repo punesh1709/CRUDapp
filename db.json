@@ -15,7 +15,7 @@
       "email": "ni@gmail.com",
       "phone": "5556555555",
       "address": "pune",
-      "Designation": "hh",
+      "Designation": "hhs",
       "Packege": "11LPA",
       "companyName": "kotak",
       "id": "5cd3"
@@ -39,6 +39,36 @@
       "Packege": "7LPA",
       "companyName": "TCS",
       "id": "26ac"
+    },
+    {
+      "id": "0316",
+      "name": "roshan",
+      "email": "roshan@gmail.com",
+      "phone": "7878878778",
+      "address": "pune",
+      "Designation": "SDE",
+      "Packege": "8LPA",
+      "companyName": "TCS"
+    },
+    {
+      "id": "1cd7",
+      "name": "Puneshwar Londhe",
+      "email": "punesh1709@gmail.com",
+      "phone": "5665565565",
+      "address": "Mumbai",
+      "Designation": "iglgfigf",
+      "Packege": "5LPA",
+      "companyName": "TCS"
+    },
+    {
+      "id": "9606",
+      "name": "Puneshwar Londhe",
+      "email": "punesh1709@gmail.com",
+      "phone": "5665556655",
+      "address": "Mumbai",
+      "Designation": "jf",
+      "Packege": "8LPA",
+      "companyName": "TCS"
     }
   ],
   "company": [
@@ -61,14 +91,12 @@
   ],
   "admin": [
     {
-      "id": "8c7b",
-      "Name": "akshy",
+      "Name": "akshyy",
       "contact": "9021515230",
       "email": "admin1@gmail.com",
       "companyName": "kotak",
       "password": "12345678",
-      "roll": "admin",
-      "rollId": "2"
+      "id": "8c7b"
     },
     {
       "id": "b228",
