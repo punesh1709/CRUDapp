@@ -118,7 +118,7 @@ function EmpListing() {
           return nameB.localeCompare(nameA);
         }
       }
-    })
+    }) 
     : [];
 
   const filteredData = sortedData.filter((item) => {

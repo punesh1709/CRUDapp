@@ -219,7 +219,7 @@ function Admin() {
 
   return (
     <div className="table-responsive m-2">
-      <h2>Admin List</h2>
+      <h2 className='companies'>Admin List</h2>
       <div className="d-flex justify-content-between flex-row-reverse mb-2">
         <Button variant="success" onClick={() => {
           setFormData({

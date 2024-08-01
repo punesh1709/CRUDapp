@@ -78,8 +78,6 @@ function EmpTable() {
           .catch((err) => {
             Swal.fire('Error', err.message, 'error');
           });
-      
-        
       }
     });
   };

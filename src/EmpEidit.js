@@ -152,3 +152,4 @@ function EmpEdit({ id, onClose }) {
 }
 
 export default EmpEdit;
+

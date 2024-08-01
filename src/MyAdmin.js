@@ -28,11 +28,11 @@ function MyAdmin() {
           </svg>
         </div>
 
-        <div className='Home d-flex justify-content-between p-4'>
+        <div className='Home d-flex justify-content-between p-2'>
           <div className=''>
             {/* Home */}
           </div>
-          <div className='ml-2'><AdminProfile/></div>
+          <div className='my-AdminProfile'><AdminProfile/></div>
         </div>
       </div>
       <div className='d-flex justify-content-between ml-6'>
