@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './fontAwesome';
 import './Admin.css';
 import { Button, Modal, Form } from 'react-bootstrap';
-
+import { BsArrowLeft } from "react-icons/bs";
+import { BsArrowRight } from "react-icons/bs";
 function Admin() {
   const [adminData, setAdminData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -293,30 +294,32 @@ function Admin() {
       <nav>
         <ul className="pagination justify-content-center">
           <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-            <button
+            <div
               onClick={handlePreviousPage}
-              className="page-link"
+               type="button"
+              className="btn " 
             >
-              Previous
-            </button>
+             <BsArrowLeft className="textsName FaArrowLeft" />
+            </div>
           </li>
           {pageNumbers.map(number => (
             <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
               <button
                 onClick={() => paginate(number)}
-                className="page-link"
+                className="btn btn-outline-secondary border-0  MyBTN"
               >
                 {number}
               </button>
             </li>
           ))}
           <li className={`page-item ${currentPage === pageNumbers.length ? 'disabled' : ''}`}>
-            <button
+            <div
               onClick={handleNextPage}
-              className="page-link"
+               type="button"
+              className="btn " 
             >
-              Next
-            </button>
+             < BsArrowRight  className="textsName FaArrowLeft"/>
+            </div>
           </li>
         </ul>
       </nav>

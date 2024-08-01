@@ -1,145 +1,86 @@
 {
   "employee": [
     {
-      "name": "Puneshwar Londhe",
-      "email": "punes1709@gmail.com",
-      "phone": "5565555555",
-      "address": "Mumbai",
-      "Designation": "dmvd",
-      "Packege": "12LPA",
-      "companyName": "wipro",
-      "id": "7688"
-    },
-    {
-      "name": "nikhil",
-      "email": "ni@gmail.com",
-      "phone": "5556555555",
-      "address": "pune",
-      "Designation": "hhs",
-      "Packege": "11LPA",
-      "companyName": "kotak",
-      "id": "5cd3"
-    },
-    {
-      "id": "635b",
-      "name": "rajty",
-      "email": "r@gmai.com",
-      "phone": "5665556655",
-      "address": "kg",
-      "Designation": "bg",
-      "Packege": "5LPA",
-      "companyName": "kotak"
-    },
-    {
-      "name": "rakesh",
+      "id": "eb31",
+      "name": "raghav",
       "email": "ra@gmail.com",
-      "phone": "5565544999",
-      "address": "nashik",
-      "Designation": "ufubkdwb",
-      "Packege": "7LPA",
-      "companyName": "TCS",
-      "id": "26ac"
-    },
-    {
-      "id": "0316",
-      "name": "roshan",
-      "email": "roshan@gmail.com",
-      "phone": "7878878778",
-      "address": "pune",
-      "Designation": "SDE",
+      "phone": "8998988988",
+      "address": "Mumbai",
+      "Designation": "ek",
       "Packege": "8LPA",
-      "companyName": "TCS"
+      "companyName": "TCS",
+      "password": "12345678"
     },
     {
-      "id": "dba7",
-      "name": " jfejb",
-      "email": "nbk@gmail.com",
-      "phone": " e k kk",
-      "address": "nekn",
-      "designation": "nnel",
-      "packege": "5",
-      "password": "12345678",
-      "companyName": null
-    },
-    {
+      "id": "d564",
       "name": "roshan",
       "email": "roshan@gmail.com",
-      "phone": "9898989898",
+      "phone": "9898898989",
+      "address": "pune ",
+      "Designation": "ll",
+      "Packege": "9LPA",
+      "companyName": "TCS",
+      "password": "12345678"
+    },
+    {
+      "id": "368e",
+      "name": "tushar",
+      "email": "t@gmail.com",
+      "phone": "9889898989",
       "address": "nashik",
-      "Designation": "SDE 2",
-      "Packege": "5LPA",
-      "companyName": "HTC",
-      "id": "65c5"
-    },
-    {
-      "id": "4ef4",
-      "name": "pratik",
-      "email": "pratik@gmail.com",
-      "phone": "8998989898",
-      "address": "Mumbai",
-      "Designation": "SDE 1",
-      "Packege": "4LPA",
-      "companyName": "HTC",
+      "Designation": "kk",
+      "Packege": "9LPA",
+      "companyName": "kotak",
       "password": "12345678"
     },
     {
-      "id": "e4b0",
-      "name": "nitin",
-      "email": "mitin@gmail.com",
-      "phone": "8998898888",
-      "address": "Mumbai",
-      "Designation": "support",
-      "Packege": "7LPA",
-      "companyName": "BRFL",
+      "id": "88d6",
+      "name": "navin ",
+      "email": "na@gmail.com",
+      "phone": "9889989889",
+      "address": "palghar",
+      "Designation": "gg",
+      "Packege": "8LPA",
+      "companyName": "kotak",
       "password": "12345678"
-    },
-    {
-      "name": "rakesh",
-      "email": "rakesh1@gmail.com",
-      "phone": "9889988888",
-      "address": "Mumbai",
-      "Designation": "intern",
-      "Packege": "3LPA",
-      "companyName": "BRFL",
-      "id": "8fc2"
     }
   ],
   "company": [
     {
-      "id": "1bda",
-      "companyName": "HTC",
-      "contact": "8989889988",
-      "address": "mubai",
+      "id": "eafa",
+      "companyName": "TCS",
+      "contact": "9021515239",
+      "address": "pune",
       "section": "IT",
-      "email": "htc@gmail.com"
+      "email": "tcs@gmail.com"
     },
     {
-      "id": "81a4",
-      "companyName": "BRFL",
-      "contact": "9889898989",
-      "address": "pune",
-      "section": "real estate",
-      "email": "brfl@gmail.com"
+      "id": "e1b8",
+      "companyName": "kotak",
+      "contact": "9021515239",
+      "address": "Mumbai",
+      "section": "banking",
+      "email": "kotak@gmail.com"
     }
   ],
   "admin": [
     {
-      "id": "015f",
-      "Name": "punesh",
+      "Name": "satish",
       "contact": "9856294444",
       "email": "admin1@gmail.com",
-      "companyName": "HTC",
+      "companyName": "TCS",
+      "password": "12345678",
+      "id": "eeea"
+    },
+    {
+      "id": "e9f2",
+      "Name": "yogesh",
+      "contact": "9021515239",
+      "email": "admin2@gmail.com",
+      "companyName": "kotak",
       "password": "12345678",
       "roll": "admin",
       "rollId": "2"
-    },
-    {
-      "Name": "toxic",
-      "contact": "8989889888",
-      "email": "admin2@gmail.com",
-      "companyName": "BRFL",
-      "password": "12345678",
-      "id": "5ed6"
     }
   ],
   "superadmin": [

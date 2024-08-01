@@ -15,8 +15,6 @@ table{
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
-
- 
 }
 
 td{
@@ -24,8 +22,9 @@ td{
 }
 
 .MyBTN {
-  background-color: rgb(196, 196, 196) !important;
-  color: rgba(0, 0, 0, 0.373) !important;
+  background-color: rgba(0, 0, 0, 0.067) !important;
+  color: rgba(21, 21, 21, 0.373) !important;
+  font-weight: 800;
 }
 .MyBTN:hover{
   background-color: rgb(246, 246, 246) !important;
@@ -34,7 +33,25 @@ td{
 .textsName{
   font-family: "Inter", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 16px;
   color: rgba(0, 0, 0, 0.373) !important;
+}
+
+.companyName{
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  color: rgba(0, 0, 0, 0.373);
+}
+
+.FaArrowLeft{
+  height: 27px;
+  width: 27px;
+  border-radius: 5px;
+  padding: 3px;
+  background-color: none;
+}
+
+.FaArrowLeft:hover{
+  background-color: rgba(0, 0, 0, 0.046);
 }

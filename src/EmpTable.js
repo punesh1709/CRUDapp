@@ -8,12 +8,12 @@ import './EmpListing.css';
 import EmpCreate from './EmpCreate';
 import EmpDeatails from "./EmpDeatails"; // Fixed typo in the component name
 import EmpEidit from "./EmpEidit";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 function EmpTable() {
   const [empdata, setEmpdata] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortOrder, setSortOrder] = useState("asc"); 
   const [sortPackageOrder, setSortPackageOrder] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -189,7 +189,7 @@ function EmpTable() {
   return (
     <div className="m-4">
       <div className="card-title">
-        <h2 className="d-flex justify-content-center fw-bold text-danger">{companyName}</h2>
+        <h2 className="d-flex justify-content-center fw-bold companyName ">{companyName}</h2>
       </div>
       <div className="card-body">
         <div className="mb-3">
@@ -281,9 +281,9 @@ function EmpTable() {
           </table>
         </div>
 
-        <div className="d-flex justify-content-between MyMianDiv">
+        <div className="d-flex justify-content-between MyMianDiv fw-semibold">
           <div className="d-flex">
-            <div className="mt-2 mr-2">Show:</div>
+            <div className="mt-2 mr-2 fw-semibold">Show:</div>
             <div>
               <select
                 className="form-select"
@@ -297,7 +297,7 @@ function EmpTable() {
                 ))}
               </select>
             </div>
-            <div className="mt-2 ml-2">per page</div>
+            <div className="mt-2 ml-2 ">per page</div>
           </div>
 
           <div className="textsName d-flex align-items-center">
@@ -306,17 +306,17 @@ function EmpTable() {
             </span>
             <div
               type="button"
-              className="btn btn-outline-secondary border-0"
+              className="btn "
               onClick={handlePrevPage}
               disabled={currentPage === 1}
             >
-              <FaArrowLeft className="textsName" />
+              <BsArrowLeft className="textsName FaArrowLeft" />
             </div>
             {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
               <button
                 key={page}
                 type="button"
-                className={`btn btn-outline-secondary border-0 mx-1 MyBTN ${currentPage === page ? 'active' : ''}`}
+                className={`btn btn-outline-secondary border-0  MyBTN ${currentPage === page ? 'active' : ''}`}
                 onClick={() => handlePageChange(page)}
               >
                 {page}
@@ -324,11 +324,11 @@ function EmpTable() {
             ))}
             <div
               type="button"
-              className="btn btn-outline-secondary border-0"
+              className="btn"
               onClick={handleNextPage}
               disabled={currentPage === totalPages}
             >
-              <FaArrowRight className="textsName" />
+              <BsArrowRight className="textsName FaArrowLeft" />
             </div>
     
           </div>

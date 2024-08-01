@@ -96,6 +96,7 @@ function EmpListing() {
   const handleSortPackage = () => {
     const newOrder = sortPackageOrder === "asc" ? "desc" : "asc";
     setSortPackageOrder(newOrder);
+    
     setSortOrder(null);
   };
 
