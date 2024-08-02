@@ -43,6 +43,16 @@
       "Packege": "8LPA",
       "companyName": "kotak",
       "password": "12345678"
+    },
+    {
+      "name": "rohan",
+      "email": "rohan@gmail.com",
+      "phone": "8998898899",
+      "address": "andheri east",
+      "Designation": "hhhh",
+      "Packege": "6LPA",
+      "companyName": "wipro",
+      "id": "af27"
     }
   ],
   "company": [
@@ -61,6 +71,14 @@
       "address": "Mumbai",
       "section": "banking",
       "email": "kotak@gmail.com"
+    },
+    {
+      "id": "452b",
+      "companyName": "wipro",
+      "contact": "9898898999",
+      "address": "virar",
+      "section": "IT",
+      "email": "wipro@gmail.com"
     }
   ],
   "admin": [
@@ -78,6 +96,16 @@
       "contact": "9021515239",
       "email": "admin2@gmail.com",
       "companyName": "kotak",
+      "password": "12345678",
+      "roll": "admin",
+      "rollId": "2"
+    },
+    {
+      "id": "42f8",
+      "Name": "sachin",
+      "contact": "5655665566",
+      "email": "admin3@gmail.com",
+      "companyName": "wipro",
       "password": "12345678",
       "roll": "admin",
       "rollId": "2"

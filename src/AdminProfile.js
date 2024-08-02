@@ -67,7 +67,7 @@ function AdminProfile() {
   return (
     <div style={{ position: 'relative', display: 'inline-block' }} className='MyMianAdmin'>
       <img
-        src="https://tse4.mm.bing.net/th?id=OIP.1X6Z47Z1amraaATab0wWSAHaHa&pid=Api&P=0&h=220"
+        src="https://images.pexels.com/photos/1288182/pexels-photo-1288182.jpeg?auto=compress&cs=tinysrgb&w=600"
         alt="Admin Profile"
         style={{ width: '45px', height: '45px', objectFit: 'cover', cursor: 'pointer' }}
         onClick={handleProfileClick}
@@ -78,7 +78,7 @@ function AdminProfile() {
           <div className=''>
             <div className='d-flex'>
               <img
-                src="https://tse4.mm.bing.net/th?id=OIP.1X6Z47Z1amraaATab0wWSAHaHa&pid=Api&P=0&h=220"
+                src="https://images.pexels.com/photos/1288182/pexels-photo-1288182.jpeg?auto=compress&cs=tinysrgb&w=600"
                 alt="Admin Profile"
                 style={{ width: '45px', height: '45px', objectFit: 'cover', cursor: 'pointer' }}
                 onClick={handleProfileClick}
