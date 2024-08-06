@@ -34,7 +34,11 @@ function AdminPanel() {
         <div className='dashboard'>
           <SideBar setActiveMenu={setActiveMenu} />
         </div>
-        <div className='MainContent'>
+        <div className='d-none d-md-block MainContent'>
+          {renderContent()}
+        </div>
+        <div className='d-block d-md-none'>
+          {/* Content for mobile view can be placed here if different */}
           {renderContent()}
         </div>
         

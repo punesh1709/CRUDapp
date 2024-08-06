@@ -406,7 +406,7 @@
 //                     type="text"
 //                     name="companyName"
 //                     value={formData.companyName}
-                    
+
 //                     readOnly
 //                   />
 //                 </Form.Group>
@@ -459,6 +459,7 @@ import './Admin.css';
 import { Button, Modal, Form } from 'react-bootstrap';
 import { BsArrowLeft } from "react-icons/bs";
 import { BsArrowRight } from "react-icons/bs";
+import { IoAddOutline } from "react-icons/io5";
 function Admin() {
   const [adminData, setAdminData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -476,7 +477,7 @@ function Admin() {
     setItemsPerPage(parseInt(e.target.value));
     setCurrentPage(1); // Reset to first page whenever items per page changes
   };
-  
+
   // Modal States
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState('add'); // 'add', 'edit', 'view'
@@ -496,9 +497,9 @@ function Admin() {
   });
 
   const indexOfLastItem = currentPage * itemsPerPage;
-const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
-const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
 
   useEffect(() => {
@@ -695,14 +696,14 @@ const totalPages = Math.ceil(filteredData.length / itemsPerPage);
             email: '',
             companyName: '',
             password: '12345678', // Automatically set password
-             roll : 'admin',
-             rollId : '2'
+            roll: 'admin',
+            rollId: '2'
           });
           setCurrentAdmin(null);
           setModalMode('add');
           setShowModal(true);
         }}>
-          Add New (+)
+          <IoAddOutline />
         </Button>
         <input
           type="text"
@@ -758,49 +759,53 @@ const totalPages = Math.ceil(filteredData.length / itemsPerPage);
       </table>
 
       <nav>
- <div className="pagination d-flex justify-content-between MyMianDiv fw-semibold">
+        <div className="pagination d-flex justify-content-between MyMianDiv fw-semibold  Myflex">
 
- <div className='d-flex '>
-        <div className='mt-2 mr-2'>Show:</div>
-    <select value={itemsPerPage} onChange={handleItemsPerPageChange} className="form-select w-auto">
-      <option value={5}>5 </option>
-      <option value={10}>10</option>
-      <option value={15}>15</option>
-    </select>
-    <div className='mt-2 ml-2'>per page</div>
+          <div className='d-flex mb-4 ml-4'>
+            <div className='mt-2 mr-2'>Show:</div>
+            <select value={itemsPerPage} onChange={handleItemsPerPageChange} className="form-select w-auto">
+              <option value={5}>5 </option>
+              <option value={10}>10</option>
+              <option value={15}>15</option>
+            </select>
+            <div className='mt-2 ml-2'>per page</div>
           </div>
 
           <div className='d-flex'>
-     
-          <div className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-            <div
-              onClick={handlePreviousPage}
-               type="button"
-              className="btn " 
-            >
-             <BsArrowLeft className="textsName FaArrowLeft" />
-            </div>
-          </div>
-          {pageNumbers.map(number => (
-            <div key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
-              <button
-                onClick={() => paginate(number)}
-                className="btn btn-outline-secondary border-0 mx-1 MyBTN"
+            <li className="page-item mt-2">
+              <span className=''>{currentPage} of {totalPages}</span>
+            </li>
+            <div className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+
+              <div
+                onClick={handlePreviousPage}
+                type="button"
+                className="btn "
               >
-                {number}
-              </button>
+                <BsArrowLeft className="textsName FaArrowLeft" />
+              </div>
             </div>
-          ))}
-          <div className={`page-item ${currentPage === pageNumbers.length ? 'disabled' : ''}`}>
-            <div
-              onClick={handleNextPage}
-               type="button"
-              className="btn " 
-            >
-             < BsArrowRight  className="textsName FaArrowLeft"/>
+            {pageNumbers.map(number => (
+              <div key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                <button 
+                  onClick={() => paginate(number)}
+                  className="btn btn-outline-secondary border-0 mx-1 MyBTN"
+                >
+                  {number}
+                </button>
+              </div>
+            ))}
+            <div className={`page-item ${currentPage === pageNumbers.length ? 'disabled' : ''}`}>
+              <div
+                onClick={handleNextPage}
+                type="button"
+                className="btn "
+              >
+                < BsArrowRight className="textsName FaArrowLeft" />
+              </div>
             </div>
-          </div>
-          </div> </div>
+          </div> 
+        </div>
       </nav>
       <Modal show={showModal} onHide={() => setShowModal(false)} className='mt-24'>
         <Modal.Header closeButton>
@@ -885,7 +890,7 @@ const totalPages = Math.ceil(filteredData.length / itemsPerPage);
                     type="text"
                     name="companyName"
                     value={formData.companyName}
-                    
+
                     readOnly
                   />
                 </Form.Group>

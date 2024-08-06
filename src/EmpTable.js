@@ -9,7 +9,7 @@ import EmpCreate from './EmpCreate';
 import EmpDeatails from "./EmpDeatails"; // Fixed typo in the component name
 import EmpEidit from "./EmpEidit";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-
+import { IoAddOutline } from "react-icons/io5";
 function EmpTable() {
   const [empdata, setEmpdata] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -195,7 +195,7 @@ function EmpTable() {
         <div className="mb-3">
           <div className="d-flex justify-content-between flex-row-reverse">
             <Button variant="success" onClick={handleShowCreateModal}>
-              Add New (+)
+            <IoAddOutline />
             </Button>
             <input
               type="text"
@@ -281,8 +281,8 @@ function EmpTable() {
           </table>
         </div>
 
-        <div className="d-flex justify-content-between MyMianDiv fw-semibold">
-          <div className="d-flex">
+        <div className="d-flex justify-content-between MyMianDiv fw-semibold Myflex">
+          <div className="d-flex mb-2">
             <div className="mt-2 mr-2 fw-semibold">Show:</div>
             <div>
               <select

@@ -1,0 +1,42 @@
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .AdminSideBar {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+    width: 0; /* Initially hidden */
+    transition: width 0.3s ease;
+    background-color: white;
+
+  }
+
+  .AdminSideBar.w-64 {
+    width: 16rem; /* Width when expanded */
+  }
+
+  .AdminSideBar .ml-2 {
+    display: none;
+  }
+
+  .AdminSideBar.w-64 .ml-2 {
+    display: inline;
+  }
+  .MyManu{
+   margin-top: 30px;
+   margin-left: -20px ;
+  }
+
+  .myham{
+    margin-top: -15px;
+  }
+}
+
+
+.MySidebar{
+  margin-left: 13px;
+  margin-top: -20px;
+}

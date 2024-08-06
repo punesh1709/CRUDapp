@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -50,13 +52,12 @@ function Login({ setIsLoggedIn }) {
       setError("Error occurred during login");
     });
   };
-  
 
   return (
-    <div className="container mt-5 w-25">
+    <div className="container mt-5 w-25 MyLoginPage">
       <div className="card">
         <div className="card-body">
-          <h3 className="card-title">Login</h3>
+          <h3 className="card-title text-center">Login</h3>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">Email</label>
             <input
@@ -69,13 +70,22 @@ function Login({ setIsLoggedIn }) {
           </div>
           <div className="mb-3">
             <label htmlFor="password" className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <div className="input-group">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
           {error && <div className="alert alert-danger">{error}</div>}
           <div className="d-flex justify-content-evenly">

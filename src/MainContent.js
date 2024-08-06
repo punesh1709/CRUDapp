@@ -8,6 +8,7 @@ import './App.css';
 import { BsArrowLeft } from "react-icons/bs";
 import { BsArrowRight } from "react-icons/bs";
 import Swal from 'sweetalert2';
+import { IoAddOutline } from "react-icons/io5";
 
 function MainContent() {
   const [companies, setCompanies] = useState([]);
@@ -38,12 +39,12 @@ function MainContent() {
     section: '',
     email: ''
   };
-  
+
   const handleCompaniesPerPageChange = (e) => {
     setCompaniesPerPage(parseInt(e.target.value));
     setCurrentPage(1); // Reset to first page whenever items per page changes
   };
-  
+
 
 
   const handleViewShow = (company) => {
@@ -52,7 +53,7 @@ function MainContent() {
     setIsViewing(true);
     setIsEditing(false);
   };
-  
+
   const handleClose = () => setShow(false);
 
   const handleShow = () => {
@@ -73,9 +74,9 @@ function MainContent() {
   };
 
   const indexOfLastCompany = currentPage * companiesPerPage;
-const indexOfFirstCompany = indexOfLastCompany - companiesPerPage;
-const currentCompanies = filteredCompanies.slice(indexOfFirstCompany, indexOfLastCompany);
-const totalPages = Math.ceil(filteredCompanies.length / companiesPerPage);
+  const indexOfFirstCompany = indexOfLastCompany - companiesPerPage;
+  const currentCompanies = filteredCompanies.slice(indexOfFirstCompany, indexOfLastCompany);
+  const totalPages = Math.ceil(filteredCompanies.length / companiesPerPage);
 
 
   const handleChange = (e) => {
@@ -265,11 +266,6 @@ const totalPages = Math.ceil(filteredCompanies.length / companiesPerPage);
     ));
   };
 
-  // const indexOfLastCompany = currentPage * itemsPerPage;
-  // const indexOfFirstCompany = indexOfLastCompany - itemsPerPage;
-  // const currentCompanies = filteredCompanies.slice(indexOfFirstCompany, indexOfLastCompany);
-  // const totalPages = Math.ceil(filteredCompanies.length / itemsPerPage);
-
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -292,7 +288,7 @@ const totalPages = Math.ceil(filteredCompanies.length / companiesPerPage);
         <h2 className='companies'>Company</h2>
         <div className="d-flex justify-content-between flex-row-reverse mb-2">
           <Button variant="success" onClick={handleShow}>
-            Add New (+)
+            <IoAddOutline />
           </Button>
           <input
             type="text"
@@ -349,51 +345,51 @@ const totalPages = Math.ceil(filteredCompanies.length / companiesPerPage);
           </tbody>
         </table>
 
-     <div className='d-flex justify-content-between MyMianDiv fw-semibold'>
-     <div className='d-flex '>
-        <div className='mt-2 mr-2'>Show:</div>
-        <select value={companiesPerPage} onChange={handleCompaniesPerPageChange} className="form-select w-auto">
-        <option value={5}>5 </option> 
-        <option value={10}>10 </option>
-        <option value={15}>15</option>
-        </select>
-        <div className='mt-2 ml-2'>per page</div>
-  </div>
-        <div className="textsName d-flex align-items-center">
-              
+        <div className='d-flex justify-content-between MyMianDiv fw-semibold Myflex'>
+          <div className='d-flex mb-4 ml-4 '>
+            <div className='mt-2 mr-2'>Show:</div>
+            <select value={companiesPerPage} onChange={handleCompaniesPerPageChange} className="form-select w-auto">
+              <option value={5}>5 </option>
+              <option value={10}>10 </option>
+              <option value={15}>15</option>
+            </select>
+            <div className='mt-2 ml-2'>per page</div>
+          </div>
+          <div className="textsName d-flex align-items-center">
+
             <span>
               {currentPage} of {totalPages}
             </span>
-              <div className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                <div
-              type="button"
-              className="btn " onClick={handlePreviousPage}>
-                  <BsArrowLeft className="textsName FaArrowLeft" />
-                </div>
-              </div>
-              {Array.from({ length: totalPages }, (_, index) => (
-                <div
-                  key={index}
-                  className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
-                >
-                  <button
-                    className="btn btn-outline-secondary border-0  MyBTN"
-                    onClick={() => handlePageChange(index + 1)}
-                  >
-                    {index + 1}
-                  </button>
-                </div>
-              ))}
-              <div className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+            <div className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
               <div
-              type="button"
-              className="btn" onClick={handleNextPage}>
-                  <BsArrowRight className="textsName FaArrowLeft" />
-                </div>
+                type="button"
+                className="btn " onClick={handlePreviousPage}>
+                <BsArrowLeft className="textsName FaArrowLeft" />
               </div>
-           
-          
-        </div>
+            </div>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <div
+                key={index}
+                className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
+              >
+                <button
+                  className="btn btn-outline-secondary border-0  MyBTN"
+                  onClick={() => handlePageChange(index + 1)}
+                >
+                  {index + 1}
+                </button>
+              </div>
+            ))}
+            <div className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+              <div
+                type="button"
+                className="btn" onClick={handleNextPage}>
+                <BsArrowRight className="textsName FaArrowLeft" />
+              </div>
+            </div>
+
+
+          </div>
         </div>
 
         <Modal show={show} onHide={handleClose} className='mt-20'>
@@ -481,8 +477,8 @@ const totalPages = Math.ceil(filteredCompanies.length / companiesPerPage);
                       onChange={handleChange}
                       className={`form-control ${validationErrors.section ? 'is-invalid' : ''}`}
                     >
-                      <option value="">Select a sector</option>
-                      <option value="consumer goods">Consumer Goods</option>
+                      <option  value="">Select a sector</option>
+                      <option className='' value="consumer goods">Consumer Goods</option>
                       <option value="banking">Banking</option>
                       <option value="real estate">Real Estate</option>
                       <option value="IT">IT</option>
@@ -490,16 +486,16 @@ const totalPages = Math.ceil(filteredCompanies.length / companiesPerPage);
                   )}
                   {validationErrors.section && !isViewing && (
                     <div className="invalid-feedback">
-                      {validationErrors.section}
+                      {validationErrors.section}  
                     </div>
                   )}
                 </Form.Group>
               </div>
 
 
-              
+
               <div className="col-lg-6">
-                <Form.Group controlId="formEmail">
+                <Form.Group controlId="formEmail">  
                   <h6>Email</h6>
                   {isViewing ? (
                     <p className='border rounded p-2'>{viewingCompany?.email}</p>

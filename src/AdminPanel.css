@@ -100,3 +100,10 @@
   padding-left: 83.5px;
  
 }
+
+@media (max-width: 576px) {
+  .AdminData{
+    box-sizing: border-box;
+    width: 55vw;
+  }
+}
