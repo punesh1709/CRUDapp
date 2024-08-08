@@ -10,10 +10,11 @@ import EmpDeatails from "./EmpDeatails"; // Fixed typo in the component name
 import EmpEidit from "./EmpEidit";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { IoAddOutline } from "react-icons/io5";
+
 function EmpTable() {
   const [empdata, setEmpdata] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortOrder, setSortOrder] = useState("asc"); 
+  const [sortOrder, setSortOrder] = useState("asc");
   const [sortPackageOrder, setSortPackageOrder] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -35,7 +36,7 @@ function EmpTable() {
 
   const fetchData = () => {
     const adminEmail = localStorage.getItem('adminEmail');
-  
+
     fetch("http://localhost:8000/admin")
       .then((res) => res.json())
       .then((admins) => {
@@ -43,7 +44,7 @@ function EmpTable() {
         if (loggedInAdmin) {
           const companyName = loggedInAdmin.companyName;
           setCompanyName(companyName);
-  
+
           fetch("http://localhost:8000/employee")
             .then((res) => res.json())
             .then((employees) => {
@@ -195,7 +196,7 @@ function EmpTable() {
         <div className="mb-3">
           <div className="d-flex justify-content-between flex-row-reverse">
             <Button variant="success" onClick={handleShowCreateModal}>
-            <IoAddOutline />
+              <IoAddOutline />
             </Button>
             <input
               type="text"
@@ -301,7 +302,7 @@ function EmpTable() {
           </div>
 
           <div className="textsName d-flex align-items-center">
-          <span>
+            <span>
               {currentPage} of {totalPages}
             </span>
             <div
@@ -330,7 +331,7 @@ function EmpTable() {
             >
               <BsArrowRight className="textsName FaArrowLeft" />
             </div>
-    
+
           </div>
         </div>
       </div>

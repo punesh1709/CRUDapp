@@ -1,5 +1,5 @@
 {
-  "employee": [
+  "users": [
     {
       "id": "eb31",
       "name": "raghav",
@@ -9,7 +9,8 @@
       "Designation": "ek",
       "Packege": "8LPA",
       "companyName": "TCS",
-      "password": "12345678"
+      "password": "12345678",
+      "type": "employee"
     },
     {
       "id": "d564",
@@ -20,7 +21,8 @@
       "Designation": "ll",
       "Packege": "9LPA",
       "companyName": "TCS",
-      "password": "12345678"
+      "password": "12345678",
+      "type": "employee"
     },
     {
       "id": "368e",
@@ -31,7 +33,8 @@
       "Designation": "kk",
       "Packege": "9LPA",
       "companyName": "kotak",
-      "password": "12345678"
+      "password": "12345678",
+      "type": "employee"
     },
     {
       "id": "88d6",
@@ -42,7 +45,8 @@
       "Designation": "gg",
       "Packege": "8LPA",
       "companyName": "kotak",
-      "password": "12345678"
+      "password": "12345678",
+      "type": "employee"
     },
     {
       "name": "rohan",
@@ -52,7 +56,58 @@
       "Designation": "hhhh",
       "Packege": "6LPA",
       "companyName": "wipro",
-      "id": "af27"
+      "id": "af27",
+      "type": "employee"
+    },
+    {
+      "id": "eeea",
+      "name": "satish",
+      "contact": "9856294499",
+      "email": "admin1@gmail.com",
+      "companyName": "TCS",
+      "password": "12345678",
+      "type": "admin"
+    },
+    {
+      "id": "e9f2",
+      "name": "yogesh",
+      "contact": "9021515239",
+      "email": "admin2@gmail.com",
+      "companyName": "kotak",
+      "password": "12345678",
+      "roll": "admin",
+      "rollId": "2",
+      "type": "admin"
+    },
+    {
+      "id": "42f8",
+      "name": "sachin",
+      "contact": "5655665566",
+      "email": "admin3@gmail.com",
+      "companyName": "wipro",
+      "password": "12345678",
+      "roll": "admin",
+      "rollId": "2",
+      "type": "admin"
+    },
+    {
+      "id": "1acb",
+      "name": "sonu ss",
+      "contact": "9856294444",
+      "email": "sonu@gmail.com",
+      "companyName": "tvs",
+      "password": "12345678",
+      "type": "admin"
+    },
+    {
+      "id": "631b",
+      "name": "Cody Fisher",
+      "email": "superadmin@gmail.com",
+      "phone": "908908767",
+      "roll": "superadmin",
+      "rollId": "1",
+      "password": "12345678",
+      "type": "superadmin"
     }
   ],
   "company": [
@@ -79,47 +134,22 @@
       "address": "virar",
       "section": "IT",
       "email": "wipro@gmail.com"
-    }
-  ],
-  "admin": [
-    {
-      "Name": "satish",
-      "contact": "9856294444",
-      "email": "admin1@gmail.com",
-      "companyName": "TCS",
-      "password": "12345678",
-      "id": "eeea"
     },
     {
-      "id": "e9f2",
-      "Name": "yogesh",
+      "id": "ebb5",
+      "companyName": "tvs",
       "contact": "9021515239",
-      "email": "admin2@gmail.com",
-      "companyName": "kotak",
-      "password": "12345678",
-      "roll": "admin",
-      "rollId": "2"
+      "address": "Mumbai",
+      "section": "banking",
+      "email": "punesh1709@gmail.com"
     },
     {
-      "id": "42f8",
-      "Name": "sachin",
-      "contact": "5655665566",
-      "email": "admin3@gmail.com",
-      "companyName": "wipro",
-      "password": "12345678",
-      "roll": "admin",
-      "rollId": "2"
-    }
-  ],
-  "superadmin": [
-    {
-      "name": "Cody Fisher",
-      "email": "superadmin@gmail.com",
-      "phone": "908908767",
-      "roll": "superadmin",
-      "rollId": "1",
-      "password": "12345678",
-      "id": "631b"
+      "id": "f9c3",
+      "companyName": "fmg",
+      "contact": "9021515239",
+      "address": "Mumbai",
+      "section": "banking",
+      "email": "punesh1709@gmail.com"
     }
   ]
 }
