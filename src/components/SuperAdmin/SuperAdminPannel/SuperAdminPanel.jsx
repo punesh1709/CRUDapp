@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import './fontAwesome';
-import './AdminPanel.css';
-import AdminData from './AdminData';
-import SideBar from './SideBar';
-import MainContent from './MainContent';
-import './MainContent.css';
-import Admin from './Admin';
+
+import './SuperAdminPanel.css';
+import AdminData from '../SuperAdminProfile/SuperAdminData';
+import SideBar from '../SuperAdminSidebar/SideBar';
+import Company from '../../CompanyData/Company';
+import '../../CompanyData/Company.css';
+import AdminTable from '../../Admin/AdminTable/AdminTable';
 
 function AdminPanel() {
   const [activeMenu, setActiveMenu] = useState('Dashboard');
@@ -17,9 +17,9 @@ function AdminPanel() {
       case 'Public Profile':
         return <div>Public Profile Content</div>;
       case 'Admin':
-        return <Admin/>;
+        return <AdminTable/>;
       case 'Company':
-        return <MainContent />;
+        return <Company />;
       case 'Settings':
         return <div>Settings Content</div>;
       default:
@@ -40,6 +40,7 @@ function AdminPanel() {
         <div className='d-block d-md-none'>
           {/* Content for mobile view can be placed here if different */}
           {renderContent()}
+
         </div>
         
       </div>

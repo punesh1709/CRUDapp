@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './fontAwesome';
+import '../../../fontAwesome';
 import './EmpListing.css';
 import EmpCreate from './EmpCreate';
 import EmpEidit from './EmpEidit';
@@ -203,6 +203,7 @@ function EmpListing() {
           <div class="table-responsive">
             <table className="table table-bordered">
               <thead className="text-white">
+                
                 <tr>
                   <th className="bg-black text-white">Serial No.</th>
                   <th className="bg-black text-white table-header">

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import './MyAdmin.css'
-import './fontAwesome';
-import EmpTable from './EmpTable';
-import AdminSidebar from './AdminSidebar';
-import AdminProfile from './AdminProfile';
+import './MyAdmin.jsx'
+//import SuperAdminPanel from "../../SuperAdmin/SuperAdminPannel/SuperAdminPanel.jsx";
+import EmpTable from '../../Employee/EmployeeTable/EmpTable.jsx';
+import AdminProfile from '../AdminProfile/AdminProfile.jsx';
+import AdminSidebar from '../AdminSideBar/AdminSidebar.jsx';
 function MyAdmin() {
   const [activeMenu, setActiveMenu] = useState('Dashboard');
   const renderContent = () => {
@@ -11,14 +11,14 @@ function MyAdmin() {
       case 'Dashboard':
         return <div className='ml-2'>Dashboard Content</div>;
       case 'Admin':
-        return <EmpTable />;
+        return < EmpTable />;
       default:
         return <div>Dashboard Content</div>;
     }
   };
   return (
     <div>
-      <div className=''><AdminProfile /></div>
+      <div className=''><AdminProfile/></div>
       <div className='m-4'>
         <div className='dashboard'>
           <AdminSidebar setActiveMenu={setActiveMenu} />
@@ -26,8 +26,7 @@ function MyAdmin() {
         <div className='d-none d-md-block MainContent'>
           {renderContent()}
         </div>
-        <div className='d-block d-md-none MyBlock'>
-          {/* Content for mobile view can be placed here if different */}
+        <div className='d-block d-md-none MyBlock mt-4'>
           {renderContent()}
         </div>
 

@@ -103,7 +103,7 @@
 
 @media (max-width: 576px) {
   .AdminData{
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     width: 55vw;
   }
 }
