@@ -26,8 +26,7 @@ function Login({ setIsLoggedIn }) {
       })
       .then(users => {
         // Find the user in the fetched data
-        const user = users.find(user => user.email === email && user.password === password);
-        
+        const user = users.find(user => user.email === email && user.password === password); 
         if (user) {
           // Store login status and user details in localStorage
           localStorage.setItem("isLoggedIn", "true");

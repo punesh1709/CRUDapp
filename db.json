@@ -10,11 +10,75 @@
       "password": "12345678"
     },
     {
-      "id": "bfb1",
-      "Name": "rana",
-      "contact": "3213131313",
+      "id": "eb31",
+      "name": "raghav",
+      "email": "ra@gmail.com",
+      "contact": "8998988988",
+      "address": "Mumbai",
+      "Designation": "ek",
+      "Packege": "8LPA",
+      "companyName": "TCS",
+      "password": "12345678",
+      "role": "employee",
+      "role_id": "3"
+    },
+    {
+      "id": "d564",
+      "name": "roshan",
+      "email": "roshan@gmail.com",
+      "contact": "9898898989",
+      "address": "pune ",
+      "Designation": "ll",
+      "Packege": "9LPA",
+      "companyName": "TCS",
+      "password": "12345678",
+      "role": "employee",
+      "role_id": "3"
+    },
+    {
+      "id": "368e",
+      "name": "tushar",
+      "email": "t@gmail.com",
+      "contact": "9889898989",
+      "address": "nashik",
+      "Designation": "kk",
+      "Packege": "9LPA",
+      "companyName": "kotak",
+      "password": "12345678",
+      "role": "employee",
+      "role_id": "3"
+    },
+    {
+      "id": "88d6",
+      "name": "navin ",
+      "email": "na@gmail.com",
+      "contact": "9889989889",
+      "address": "palghar",
+      "Designation": "gg",
+      "Packege": "8LPA",
+      "companyName": "kotak",
+      "password": "12345678",
+      "role": "employee",
+      "role_id": "3"
+    },
+    {
+      "name": "rohan",
+      "email": "rohan@gmail.com",
+      "contact": "8998898899",
+      "address": "andheri east",
+      "Designation": "hhhh",
+      "Packege": "6LPA",
+      "companyName": "wipro",
+      "id": "af27",
+      "role": "employee",
+      "role_id": "3"
+    },
+    {
+      "id": "c358",
+      "Name": "naman s",
+      "contact": "9021515239",
       "email": "admin1@gmail.com",
-      "companyName": "JSW",
+      "companyName": "kotak",
       "password": "12345678",
       "role": "admin",
       "role_id": "2"
@@ -22,12 +86,28 @@
   ],
   "company": [
     {
-      "id": "a084",
-      "companyName": "JSW",
-      "contact": "3213131313",
-      "address": "palghar",
-      "section": "real estate",
-      "email": "jsw@gmail.com"
+      "id": "eafa",
+      "companyName": "TCS",
+      "contact": "9021515239",
+      "address": "pune",
+      "section": "IT",
+      "email": "tcs@gmail.com"
+    },
+    {
+      "id": "e1b8",
+      "companyName": "kotak",
+      "contact": "9021515239",
+      "address": "Mumbai",
+      "section": "banking",
+      "email": "kotak@gmail.com"
+    },
+    {
+      "id": "452b",
+      "companyName": "wipro",
+      "contact": "9898898999",
+      "address": "virar",
+      "section": "IT",
+      "email": "wipro@gmail.com"
     }
   ]
 }
