@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
+import "./Login.css";
 function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -61,14 +61,14 @@ function Login({ setIsLoggedIn }) {
         }
       })
       .catch(err => {
-        console.error('Error fetching data:', err);
+        console.error('Error fetching data:',  err);
         setError("Error occurred during login");
       });
   };
 
   return (
-    <div className="container mt-5 w-25 MyLoginPage">
-      <div className="card">
+    
+      <div className="card mt-4 MyLoginPage">
         <div className="card-body">
           <h3 className="card-title text-center">Login</h3>
           <div className="mb-3">
@@ -108,7 +108,7 @@ function Login({ setIsLoggedIn }) {
           </div>
         </div>
       </div>
-    </div>
+ 
   );
 }
 export default Login;

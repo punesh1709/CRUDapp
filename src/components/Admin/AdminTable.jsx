@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../../../fontAwesome";
+import "../../fontAwesome";
 import "./AdminTable.css";
 import { Button, Modal, Form } from "react-bootstrap";
 import { BsArrowLeft } from "react-icons/bs";

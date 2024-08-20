@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "../../../fontAwesome";
+import "../../fontAwesome";
 import { Button, Modal, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Swal from "sweetalert2";
 import { IoAddOutline } from "react-icons/io5";
-import "../../../App.css";
+// import "../../../App.css";
+
 
 function EmpTable() {
   const [admins, setAdmins] = useState([]);
@@ -13,6 +14,7 @@ function EmpTable() {
   const [filteredAdmins, setFilteredAdmins] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [show, setShow] = useState(false);
+  const [Packege, Packegechange] = useState("");
   const [isViewing, setIsViewing] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [adminsPerPage, setAdminsPerPage] = useState(10);
@@ -20,7 +22,33 @@ function EmpTable() {
     name: "",
     email: "",
   });
-  
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:8000/users/${id}`, {
+          method: "DELETE",
+        })
+          .then(() => {
+            // Remove the deleted admin from the state
+            setAdmins(admins.filter((admin) => admin.id !== id));
+            setFilteredAdmins(
+              filteredAdmins.filter((admin) => admin.id !== id)
+            );
+            Swal.fire("Deleted!", "The employee has been deleted.", "success");
+          })
+          .catch((error) => console.error("Error deleting employee:", error));
+      }
+    });
+  };
 
   // State for add employee modal
   const [showAddModal, setShowAddModal] = useState(false);
@@ -31,14 +59,12 @@ function EmpTable() {
     contact: "",
     address: "",
     Designation: "",
-    Packege: "",
+    Packege: `${Packege}LPA`,
     companyName: "",
-    password: "",
+    password: "12345678",
     role: "employee",
     role_id: "3",
   });
-
-  
 
   const handleViewShow = (admin) => {
     setViewingAdmin(admin);
@@ -74,6 +100,7 @@ function EmpTable() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    const errors = {};
 
     // Name validation: only alphabetic characters and spaces
     if (name === "name") {
@@ -94,34 +121,27 @@ function EmpTable() {
 
     // Email validation: must start with a letter and end with '@gmail.com'
     if (name === "email") {
-      const emailStartRegex = /^[A-Za-z]/;
-      const emailEndRegex = /@gmail\.com$/;
-
-      // Check if the email starts with a letter
-      if (!emailStartRegex.test(value)) {
+      if (!value.trim()) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-          email: "Email must start with a letter.",
+          email: "Email is required.",
         }));
-        return; // Do not update the state if validation fails
+      } else if (!/\S+@\S+\.\S+/.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "Email format is invalid.",
+        }));
+      } else if (!value.endsWith("@gmail.com")) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "Email must end with '@gmail.com'.",
+        }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "",
+        }));
       }
-
-      // Check if the email ends with '@gmail.com'
-      if (value.includes("@")) {
-        if (!emailEndRegex.test(value)) {
-          setErrors((prevErrors) => ({
-            ...prevErrors,
-            email: "Email must end with '@gmail.com'.",
-          }));
-          return; // Do not update the state if validation fails
-        }
-      }
-
-      // Clear email error if valid
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: "",
-      }));
     }
 
     // Contact validation: Only digits, must be exactly 10 digits
@@ -138,23 +158,44 @@ function EmpTable() {
       }
     }
 
+    if (name === "Packege") {
+      const packageValue = parseInt(value, 10);
+
+      // Check if the value is a number and within the range
+      if (isNaN(packageValue) || packageValue < 3 || packageValue > 25) {
+        alert("Package value must be between 3 and 25.");
+        return; // Do not update state if validation fails
+      }
+
+      // Limit the input to two digits
+      if (value.length > 2) {
+        return; // Do not update state if more than two digits
+      }
+    }
+
     // Update state for the input field if it passes validation
-    setNewEmployee({
-      ...newEmployee,
+    setNewEmployee((prevState) => ({
+      ...prevState,
       [name]: value,
-    });
+    }));
   };
 
   useEffect(() => {
+    const loggedInAdminCompany = localStorage.getItem("userCompanyName");
+  
     fetch("http://localhost:8000/users")
       .then((response) => response.json())
       .then((data) => {
-        const adminUsers = data.filter((user) => user.role_id === "3");
-        setAdmins(adminUsers);
-        setFilteredAdmins(adminUsers);
+        // Filter employees whose companyName matches the logged-in admin's companyName
+        const filteredEmployees = data.filter(
+          (user) => user.role_id === "3" && user.companyName.toLowerCase() === loggedInAdminCompany?.toLowerCase()
+        );
+        setAdmins(filteredEmployees);
+        setFilteredAdmins(filteredEmployees);
       })
       .catch((error) => console.error("Error fetching admins:", error));
   }, []);
+  
 
   useEffect(() => {
     setCurrentPage(1);
@@ -182,27 +223,85 @@ function EmpTable() {
   const totalPages = Math.ceil(filteredAdmins.length / adminsPerPage);
 
   // Add new employee
+  const handleEditShow = (admin) => {
+    setNewEmployee({
+      ...admin, // Populate the form with the existing admin data
+    });
+    setShowAddModal(true); // Open the modal in edit mode
+  };
+
   const handleAddEmployee = () => {
-    fetch("http://localhost:8000/users", {
-      method: "POST",
+    const loggedInAdminCompany = localStorage.getItem("userCompanyName");
+  
+    const {
+      name,
+      email,
+      contact,
+      address,
+      Designation,
+      Packege,
+      password,
+    } = newEmployee;
+  
+    if (!name || !email || !contact || !address || !Designation || !Packege) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "All fields are mandatory. Please fill out all fields.",
+      });
+      return; // Prevent submission if any field is empty
+    }
+  
+    // Generate a unique ID if it's a new employee (i.e., no existing ID)
+    const uniqueId = newEmployee.id || `emp_${Date.now()}`;
+  
+    // Set the company name to the logged-in admin's company name
+    const employeeToSave = {
+      ...newEmployee,
+      id: uniqueId,
+      companyName: loggedInAdminCompany,
+    };
+  
+    // Determine if adding or editing based on the presence of an ID
+    const method = newEmployee.id ? "PUT" : "POST";
+    const url = newEmployee.id
+      ? `http://localhost:8000/users/${newEmployee.id}`
+      : `http://localhost:8000/users`;
+  
+    fetch(url, {
+      method,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newEmployee),
+      body: JSON.stringify(employeeToSave),
     })
       .then((response) => response.json())
       .then((data) => {
-        setAdmins([...admins, data]);
-        setFilteredAdmins([...filteredAdmins, data]);
+        if (newEmployee.id) {
+          // Editing case: Update the existing admin in the state
+          setAdmins(
+            admins.map((admin) => (admin.id === data.id ? data : admin))
+          );
+          setFilteredAdmins(
+            filteredAdmins.map((admin) => (admin.id === data.id ? data : admin))
+          );
+        } else {
+          // Adding case: Add the new admin to the state
+          setAdmins([...admins, data]);
+          setFilteredAdmins([...filteredAdmins, data]);
+        }
         handleClose();
         Swal.fire({
           icon: "success",
           title: "Success!",
-          text: "New employee added successfully!",
+          text: `Employee ${
+            newEmployee.id ? "updated" : "added"
+          } successfully!`,
         });
       })
-      .catch((error) => console.error("Error adding employee:", error));
+      .catch((error) => console.error("Error:", error));
   };
+  
 
   return (
     <div className="table-responsive m-2">
@@ -221,6 +320,7 @@ function EmpTable() {
             onChange={handleSearch}
           />
         </div>
+
         <table className="table table-bordered">
           <thead className="text-white">
             <tr>
@@ -247,6 +347,20 @@ function EmpTable() {
                 <td>{admin.Designation}</td>
                 <td>{admin.Packege}</td>
                 <td className="d-flex justify-content-evenly">
+                  <button
+                    className="btn btn-success"
+                    onClick={() => handleEditShow(admin)}
+                  >
+                    <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
+                  </button>
+
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleDelete(admin.id)}
+                  >
+                    <FontAwesomeIcon icon="fa-solid fa-trash" />
+                  </button>
+
                   <button
                     className="btn btn-primary"
                     onClick={() => handleViewShow(admin)}
@@ -278,7 +392,7 @@ function EmpTable() {
               {currentPage} of {totalPages}
             </span>
             <div className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-              <div type="button" className="btn " onClick={handlePreviousPage}>
+              <div type="button" className="btn btn-outline-secondary border-0  MyBTN " onClick={handlePreviousPage}>
                 <FontAwesomeIcon icon={["fas", "arrow-left"]} />
               </div>
             </div>
@@ -341,7 +455,9 @@ function EmpTable() {
         {/* Add Employee Modal */}
         <Modal show={showAddModal} onHide={handleClose} className="mt-20">
           <Modal.Header closeButton>
-            <Modal.Title>Add New Employee</Modal.Title>
+            <Modal.Title>
+              {newEmployee.id ? "Edit Employee" : "Add New Employee"}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="container row g-3">
@@ -392,51 +508,55 @@ function EmpTable() {
               </div>
 
               <div className="col-lg-6">
-              <Form.Group className="mb-3" controlId="formAddress">
-                <Form.Label>Address</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter address"
-                  name="address"
-                  value={newEmployee.address}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
+                <Form.Group className="mb-3" controlId="formAddress">
+                  <Form.Label>Address</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter address"
+                    name="address"
+                    value={newEmployee.address}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
               </div>
 
               <div className="col-lg-6">
-              <Form.Group className="mb-3" controlId="formDesignation">
-                <Form.Label>Designation</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter designation"
-                  name="Designation"
-                  value={newEmployee.Designation}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
+                <Form.Group className="mb-3" controlId="formDesignation">
+                  <Form.Label>Designation</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Enter designation"
+                    name="Designation"
+                    value={newEmployee.Designation}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
               </div>
 
               <div className="col-lg-6">
-              <Form.Group className="mb-3" controlId="formPackege">
-                <Form.Label>Packege</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter package"
-                  name="Packege"
-                  value={newEmployee.Packege}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
+                <Form.Group className="mb-3" controlId="formPackege">
+                  <Form.Label>Packege</Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder="Enter package"
+                    name="Packege"
+                    value={newEmployee.Packege}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
               </div>
 
-           
               <div className="d-flex justify-content-center">
-              <Button type="button"  variant="primary" onClick={handleAddEmployee} className="btn btn-success MyempBtn" >
-                Add
-              </Button>
+                <Button
+                  type="button"
+                  variant="primary"
+                  onClick={handleAddEmployee}
+                  className="btn btn-success MyempBtn"
+                >
+                  Add
+                </Button>
               </div>
-            </div>{" "}
+            </div>
           </Modal.Body>
         </Modal>
       </div>

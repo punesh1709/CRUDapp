@@ -1,0 +1,14 @@
+
+.MyLoginPage {
+  width: 25vw !important;
+  margin: auto;
+}
+
+
+ @media (max-width: 768px) {
+  .MyLoginPage {
+    width: 90vw !important;
+    margin: auto;
+  }
+} 
+

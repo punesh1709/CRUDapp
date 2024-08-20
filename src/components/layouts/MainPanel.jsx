@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 
 import "./SuperAdminPanel.css";
-import AdminData from "../SuperAdminProfile/SuperAdminData";
-import SideBar from "../SuperAdminSidebar/SideBar";
-import Company from "../../Company/Company";
-import "../../Company/Company.css";
-import AdminTable from "../../Admin/AdminTable/AdminTable";
-import EmpTable from "../../Employee/EmployeeTable/EmpTable";
+
+import SideBar from "./SideBar";
+import "../Company/Company.css";
+import Header from "./Header";
+import Company from "../Company/Company";
+import AdminTable from "../Admin/AdminTable";
+import EmpTable from "../Employee/EmpTable";
 
 function AdminPanel() {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
@@ -35,7 +36,7 @@ function AdminPanel() {
   return (
     <div>
       <div>
-        <AdminData />
+        <Header />
       </div>
       <div className="m-4">
         <div className="dashboard">

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Login from "./components/Login/Login";
-import EmpListing from "./components/Employee/EmpCRUD/EmpListing";
-import SuperAdminPanel from "./components/SuperAdmin/SuperAdminPannel/SuperAdminPanel";
+import MainPanel from "./components/layouts/MainPanel";
+// import SuperAdminPanel from "./components/layouts/SuperAdminPanel";
+//import EmpListing from "./components/Employee/EmpCRUD/EmpListing";
+//import SuperAdminPanel from "./components/SuperAdmin/SuperAdminPannel/SuperAdminPanel";
 // import MyAdmin from "./components/Admin/AdminPannel/MyAdmin.jsx";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,14 +18,14 @@ function App() {
           />
           <Route
             path="/login"
-            element={<Login setIsLoggedIn={setIsLoggedIn} />}
+            element={<Login setIsLoggedIn={setIsLoggedIn} className=" "/>}
           />
-          <Route path="/admin" element={<SuperAdminPanel />} />
-          <Route
+          <Route path="/admin" element={<MainPanel />} />
+          {/* <Route
             path="/employees"
             element={isLoggedIn ? <EmpListing /> : <EmpListing />}
-          />
-          <Route path="/MyAdmin" element={<SuperAdminPanel />} />
+          /> */}
+          <Route path="/MyAdmin" element={<MainPanel/>} />
         </Routes>
       </BrowserRouter>
     </div>
