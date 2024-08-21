@@ -5,11 +5,13 @@ import { Button, Modal, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Swal from "sweetalert2";
 import { IoAddOutline } from "react-icons/io5";
-// import "../../../App.css";
-
+import "./EmpTable.css";
 
 function EmpTable() {
+  const [sortDirection, setSortDirection] = useState("asc");
   const [admins, setAdmins] = useState([]);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [viewingAdmin, setViewingAdmin] = useState(null);
   const [filteredAdmins, setFilteredAdmins] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -18,10 +20,23 @@ function EmpTable() {
   const [isViewing, setIsViewing] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [adminsPerPage, setAdminsPerPage] = useState(10);
+  const [salary, setSalary] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [error, setError] = useState("");
   const [errors, setErrors] = useState({
     name: "",
     email: "",
   });
+
+  const handleSort = (key) => {
+    const sortedAdmins = [...filteredAdmins].sort((a, b) => {
+      if (a[key] < b[key]) return sortDirection === "asc" ? -1 : 1;
+      if (a[key] > b[key]) return sortDirection === "asc" ? 1 : -1;
+      return 0;
+    });
+    setFilteredAdmins(sortedAdmins);
+    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+  };
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -121,29 +136,16 @@ function EmpTable() {
 
     // Email validation: must start with a letter and end with '@gmail.com'
     if (name === "email") {
-      if (!value.trim()) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: "Email is required.",
-        }));
-      } else if (!/\S+@\S+\.\S+/.test(value)) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: "Email format is invalid.",
-        }));
-      } else if (!value.endsWith("@gmail.com")) {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: "Email must end with '@gmail.com'.",
-        }));
+      const value = e.target.value;
+      setEmail(value);
+
+      const emailRegex = /^[^\s@]+@Gmial\.com$/;
+      if (value === "" || emailRegex.test(value)) {
+        setEmailError("");
       } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          email: "",
-        }));
+        setEmailError("Email must end with @Gmial.com");
       }
     }
-
     // Contact validation: Only digits, must be exactly 10 digits
     if (name === "contact") {
       const contactRegex = /^\d{0,10}$/; // Allows up to 10 digits
@@ -159,12 +161,20 @@ function EmpTable() {
     }
 
     if (name === "Packege") {
+      const value = e.target.value;
+      setSalary(value);
       const packageValue = parseInt(value, 10);
 
       // Check if the value is a number and within the range
-      if (isNaN(packageValue) || packageValue < 3 || packageValue > 25) {
-        alert("Package value must be between 3 and 25.");
-        return; // Do not update state if validation fails
+      if (value === "" || (value >= 3 && value <= 25)) {
+        setInputValue(value);
+      } else {
+        setInputValue("");
+        Swal.fire({
+          icon: "error",
+          title: "Invalid Input",
+          text: "Please enter a number between 3 and 25.",
+        });
       }
 
       // Limit the input to two digits
@@ -182,20 +192,22 @@ function EmpTable() {
 
   useEffect(() => {
     const loggedInAdminCompany = localStorage.getItem("userCompanyName");
-  
+
     fetch("http://localhost:8000/users")
       .then((response) => response.json())
       .then((data) => {
         // Filter employees whose companyName matches the logged-in admin's companyName
         const filteredEmployees = data.filter(
-          (user) => user.role_id === "3" && user.companyName.toLowerCase() === loggedInAdminCompany?.toLowerCase()
+          (user) =>
+            user.role_id === "3" &&
+            user.companyName.toLowerCase() ===
+              loggedInAdminCompany?.toLowerCase()
         );
         setAdmins(filteredEmployees);
         setFilteredAdmins(filteredEmployees);
       })
       .catch((error) => console.error("Error fetching admins:", error));
   }, []);
-  
 
   useEffect(() => {
     setCurrentPage(1);
@@ -232,17 +244,10 @@ function EmpTable() {
 
   const handleAddEmployee = () => {
     const loggedInAdminCompany = localStorage.getItem("userCompanyName");
-  
-    const {
-      name,
-      email,
-      contact,
-      address,
-      Designation,
-      Packege,
-      password,
-    } = newEmployee;
-  
+
+    const { name, email, contact, address, Designation, Packege, password } =
+      newEmployee;
+
     if (!name || !email || !contact || !address || !Designation || !Packege) {
       Swal.fire({
         icon: "error",
@@ -251,23 +256,24 @@ function EmpTable() {
       });
       return; // Prevent submission if any field is empty
     }
-  
+
     // Generate a unique ID if it's a new employee (i.e., no existing ID)
     const uniqueId = newEmployee.id || `emp_${Date.now()}`;
-  
+
     // Set the company name to the logged-in admin's company name
     const employeeToSave = {
       ...newEmployee,
       id: uniqueId,
       companyName: loggedInAdminCompany,
+      Packege: `${Packege}LPA`,
     };
-  
+
     // Determine if adding or editing based on the presence of an ID
     const method = newEmployee.id ? "PUT" : "POST";
     const url = newEmployee.id
       ? `http://localhost:8000/users/${newEmployee.id}`
       : `http://localhost:8000/users`;
-  
+
     fetch(url, {
       method,
       headers: {
@@ -301,7 +307,6 @@ function EmpTable() {
       })
       .catch((error) => console.error("Error:", error));
   };
-  
 
   return (
     <div className="table-responsive m-2">
@@ -325,13 +330,35 @@ function EmpTable() {
           <thead className="text-white">
             <tr>
               <th className="bg-black text-white">#</th>
-              <th className="bg-black text-white">Name</th>
+              <th className="bg-black text-white">
+                Name{" "}
+                <Button
+                  variant="link"
+                  onClick={() => handleSort("name")}
+                  className="btn btn-secondary bg-black border-black sort-button"
+                >
+                  {sortDirection === "asc" ? (
+                    <FontAwesomeIcon icon="fa-solid fa-arrow-up Myicon" />
+                  ) : (
+                    <FontAwesomeIcon icon="fa-solid fa-arrow-down" />
+                  )}
+                </Button>
+              </th>
               <th className="bg-black text-white">Email</th>
               <th className="bg-black text-white">Contact</th>
               <th className="bg-black text-white">Company</th>
               <th className="bg-black text-white">Address</th>
               <th className="bg-black text-white">Designation</th>
-              <th className="bg-black text-white">Packege</th>
+              <th className="bg-black text-white">
+                Packege{" "}
+                <Button variant="link" onClick={() => handleSort("Packege")}>
+                  {sortDirection === "asc" ? (
+                    <FontAwesomeIcon icon="fa-solid fa-arrow-up" />
+                  ) : (
+                    <FontAwesomeIcon icon="fa-solid fa-arrow-down" />
+                  )}
+                </Button>
+              </th>
               <th className="text-center bg-black text-white">Action</th>
             </tr>
           </thead>
@@ -392,7 +419,11 @@ function EmpTable() {
               {currentPage} of {totalPages}
             </span>
             <div className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-              <div type="button" className="btn btn-outline-secondary border-0  MyBTN " onClick={handlePreviousPage}>
+              <div
+                type="button"
+                className="btn btn-outline-secondary border-0  MyBTN "
+                onClick={handlePreviousPage}
+              >
                 <FontAwesomeIcon icon={["fas", "arrow-left"]} />
               </div>
             </div>
@@ -483,6 +514,9 @@ function EmpTable() {
                   <Form.Control
                     type="email"
                     placeholder="Enter email"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
                     name="email"
                     value={newEmployee.email}
                     onChange={handleInputChange}

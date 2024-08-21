@@ -8,7 +8,6 @@ import { BsArrowLeft } from "react-icons/bs";
 import { BsArrowRight } from "react-icons/bs";
 import Swal from 'sweetalert2';
 import { IoAddOutline } from "react-icons/io5";
-
 function MainContent() {
   const [companies, setCompanies] = useState([]);
   const [viewingCompany, setViewingCompany] = useState(null);
@@ -18,7 +17,7 @@ function MainContent() {
   const [isEditing, setIsEditing] = useState(false);
   const [isViewing, setIsViewing] = useState(false);
   const [currentCompany, setCurrentCompany] = useState(null);
-  const [companiesPerPage, setCompaniesPerPage] = useState(10); // Initial items per page
+  const [companiesPerPage, setCompaniesPerPage] = useState(10); 
 
   const [newCompany, setNewCompany] = useState({
     companyName: '',

@@ -71,14 +71,27 @@
       "role_id": "2"
     },
     {
-      "id": "de06",
       "Name": "rajan",
       "contact": "9988988989",
       "email": "admin2@gmail.com",
       "companyName": "TCS",
       "password": "12345678",
       "role": "admin",
-      "role_id": "2"
+      "role_id": "2",
+      "id": "de06"
+    },
+    {
+      "id": "emp_1724216331675",
+      "name": "naman",
+      "email": "namn@gmail.com",
+      "contact": "8888888888",
+      "address": "palghar",
+      "Designation": "dvd",
+      "Packege": "8LPA",
+      "companyName": "kotak",
+      "password": "12345678",
+      "role": "employee",
+      "role_id": "3"
     }
   ],
   "company": [
@@ -102,9 +115,17 @@
       "id": "452b",
       "companyName": "wipro",
       "contact": "9898898999",
-      "address": "virar",
+      "address": "virar d",
       "section": "IT",
       "email": "wipro@gmail.com"
+    },
+    {
+      "id": "7507",
+      "companyName": "SBI",
+      "contact": "9898898999",
+      "address": "andheri",
+      "section": "banking",
+      "email": "sbi@gmail.com"
     }
   ]
 }
