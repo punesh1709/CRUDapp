@@ -23,19 +23,6 @@
       "role_id": "3"
     },
     {
-      "id": "d564",
-      "name": "roshan",
-      "email": "roshan@gmail.com",
-      "contact": "9898898989",
-      "address": "nahsik",
-      "Designation": "ll",
-      "Packege": "9LPA",
-      "companyName": "TCS",
-      "password": "12345678",
-      "role": "employee",
-      "role_id": "3"
-    },
-    {
       "id": "368e",
       "name": "tushar",
       "email": "t@gmail.com",
@@ -61,14 +48,14 @@
       "role_id": "3"
     },
     {
-      "id": "c358",
       "Name": "naman s",
       "contact": "9021515239",
       "email": "admin1@gmail.com",
       "companyName": "kotak",
       "password": "12345678",
       "role": "admin",
-      "role_id": "2"
+      "role_id": "2",
+      "id": "c358"
     },
     {
       "Name": "rajan",
@@ -92,6 +79,55 @@
       "password": "12345678",
       "role": "employee",
       "role_id": "3"
+    },
+    {
+      "id": "emp_1724241771374",
+      "name": "naman",
+      "email": "bdwkb",
+      "contact": "9988988989",
+      "address": "pune",
+      "Designation": "ble",
+      "Packege": "5LPA",
+      "companyName": "TCS",
+      "password": "12345678",
+      "role": "employee",
+      "role_id": "3"
+    },
+    {
+      "id": "emp_1724241802159",
+      "name": "naman s",
+      "email": "bdwkb",
+      "contact": "9988988989",
+      "address": "pune",
+      "Designation": "ble",
+      "Packege": "3LPA",
+      "companyName": "TCS",
+      "password": "12345678",
+      "role": "employee",
+      "role_id": "3"
+    },
+    {
+      "id": "emp_1724242630101",
+      "name": "raghav",
+      "email": "ra@gmail.com",
+      "contact": "9988988989",
+      "address": "pune",
+      "Designation": "bkb",
+      "Packege": "21LPA",
+      "companyName": "kotak",
+      "password": "12345678",
+      "role": "employee",
+      "role_id": "3"
+    },
+    {
+      "id": "92a2",
+      "Name": " mfvvf",
+      "contact": "1111111111",
+      "email": "admin3@gmail.com",
+      "companyName": "wipro",
+      "password": "12345678",
+      "role": "admin",
+      "role_id": "2"
     }
   ],
   "company": [
@@ -115,7 +151,7 @@
       "id": "452b",
       "companyName": "wipro",
       "contact": "9898898999",
-      "address": "virar d",
+      "address": "virar ",
       "section": "IT",
       "email": "wipro@gmail.com"
     },
@@ -123,8 +159,8 @@
       "id": "7507",
       "companyName": "SBI",
       "contact": "9898898999",
-      "address": "andheri",
-      "section": "banking",
+      "address": "andheri e",
+      "section": "consumer goods",
       "email": "sbi@gmail.com"
     }
   ]

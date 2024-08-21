@@ -8,6 +8,7 @@ import { Button, Modal, Form } from "react-bootstrap";
 import { BsArrowLeft } from "react-icons/bs";
 import { BsArrowRight } from "react-icons/bs";
 import { IoAddOutline } from "react-icons/io5";
+import { Dropdown } from "react-bootstrap";
 function AdminTable() {
   const [adminData, setAdminData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -40,6 +41,7 @@ function AdminTable() {
     Name: "",
     contact: "",
     email: "",
+    companyName: "",
   });
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -119,7 +121,7 @@ function AdminTable() {
 
     // Validation checks
     let isValid = true;
-    const newErrors = { Name: "", contact: "", email: "" };
+    const newErrors = { Name: "", contact: "", email: "", companyName: "" };
 
     if (!/^[a-zA-Z\s]+$/.test(Name)) {
       isValid = false;
@@ -134,6 +136,11 @@ function AdminTable() {
     if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       isValid = false;
       newErrors.email = "Invalid email format.";
+    }
+
+    if (!companyName) {
+      isValid = false;
+      newErrors.companyName = "Company must be selected.";
     }
 
     setErrors(newErrors);
@@ -253,10 +260,6 @@ function AdminTable() {
     setShowModal(true);
   };
 
-  // const indexOfLastItem = currentPage * itemsPerPage;
-  // const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  // const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
@@ -315,7 +318,7 @@ function AdminTable() {
           <tr>
             <th className="bg-black text-white">#</th>
             <th className="bg-black text-white">Name</th>
-            <th className="bg-black text-white">Contact</th>
+            <th className="bg-black text-white">Mobile No</th>
             <th className="bg-black text-white">Email</th>
             <th className="bg-black text-white">Company Name</th>
             <th className="bg-black text-white text-center">Actions</th>
@@ -331,22 +334,22 @@ function AdminTable() {
               <td>{admin.companyName}</td>
               <td className="d-flex justify-content-evenly">
                 <button
-                  className="btn btn-success"
-                  onClick={() => handleEdit(admin)}
-                >
-                  <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
-                </button>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => handleDelete(admin.id)}
-                >
-                  <FontAwesomeIcon icon="fa-solid fa-trash" />
-                </button>
-                <button
-                  className="btn btn-primary"
+                  className="text-primary fs-5"
                   onClick={() => handleView(admin)}
                 >
                   <FontAwesomeIcon icon="fa-solid fa-circle-info" />
+                </button>
+                <button
+                  className="text-success fs-5"
+                  onClick={() => handleEdit(admin)}
+                >
+                  <FontAwesomeIcon icon="fa-solid fa-pen-to-square " />
+                </button>
+                <button
+                  className="text-danger fs-5"
+                  onClick={() => handleDelete(admin.id)}
+                >
+                  <FontAwesomeIcon icon="fa-solid fa-trash" />
                 </button>
               </td>
             </tr>
@@ -429,11 +432,11 @@ function AdminTable() {
                 <p>
                   <strong>Name:</strong>
                 </p>
-                <p className="border rounded p-2">{formData.companyName}</p>
+                <p className="border rounded p-2">{formData.Name}</p>
               </div>
               <div className="col-lg-6">
                 <p>
-                  <strong>Contact:</strong>
+                  <strong>Mobile No:</strong>
                 </p>
                 <p className="border rounded p-2">{formData.contact}</p>
               </div>
@@ -469,7 +472,7 @@ function AdminTable() {
               </Form.Group>
 
               <Form.Group controlId="formAdminContact" className="col-lg-6">
-                <h6>Contact</h6>
+                <h6>Mobile No</h6>
                 <Form.Control
                   type="text"
                   placeholder="Enter contact"
@@ -484,7 +487,7 @@ function AdminTable() {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Form.Group controlId="formAdminEmail" className="col-lg-6">
+              <Form.Group controlId="formAdminEmail" className="col-lg-6 mt-4">
                 <h6>Email</h6>
                 <Form.Control
                   type="email"
@@ -505,37 +508,58 @@ function AdminTable() {
                   controlId="formAdminCompanyName"
                   className="col-lg-6"
                 >
-                  <h6>Company Name</h6>
-                  <Form.Control
-                    type="text"
-                    name="companyName"
-                    value={formData.companyName}
-                    readOnly
-                  />
+                  <Form.Label>
+                    <h6>Select Company</h6>
+                  </Form.Label>
+                  <Dropdown>
+                    <Form.Control
+                      as="select"
+                      name="companyName"
+                      required
+                      value={formData.companyName}
+                      onChange={handleInputChange}
+                      isInvalid={!!errors.companyName}
+                    >
+                      <option value="">Select a company</option>
+                      {availableCompanies.map((company) => (
+                        <option key={company.id} value={company.companyName}>
+                          {company.companyName}
+                        </option>
+                      ))}
+                    </Form.Control>
+                    <Form.Control.Feedback type="invalid">
+                      {errors.companyName}
+                    </Form.Control.Feedback>
+                  </Dropdown>
                 </Form.Group>
               ) : (
                 <Form.Group
                   controlId="formAdminCompanyName"
                   className="col-lg-6"
                 >
-                  <Form.Label>Company Name</Form.Label>
-                  <Form.Control
-                    as="select"
-                    name="companyName"
-                    value={formData.companyName}
-                    onChange={handleInputChange}
-                    isInvalid={!!errors.companyName}
-                  >
-                    <option value="">Select a company</option>
-                    {availableCompanies.map((company) => (
-                      <option key={company.id} value={company.companyName}>
-                        {company.companyName}
-                      </option>
-                    ))}
-                  </Form.Control>
-                  <Form.Control.Feedback type="invalid">
-                    {errors.companyName}
-                  </Form.Control.Feedback>
+                  <Form.Label>
+                    <h6>Select Company </h6>
+                  </Form.Label>
+                  <Dropdown>
+                    <Form.Control
+                      as="select"
+                      name="companyName"
+                      required
+                      value={formData.companyName}
+                      onChange={handleInputChange}
+                      isInvalid={!!errors.companyName}
+                    >
+                      <option value="">Select a company</option>
+                      {availableCompanies.map((company) => (
+                        <option key={company.id} value={company.companyName}>
+                          {company.companyName}
+                        </option>
+                      ))}
+                    </Form.Control>
+                    <Form.Control.Feedback type="invalid">
+                      {errors.companyName}
+                    </Form.Control.Feedback>
+                  </Dropdown>
                 </Form.Group>
               )}
             </Form>

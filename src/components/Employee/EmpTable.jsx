@@ -15,7 +15,7 @@ function EmpTable() {
   const [viewingAdmin, setViewingAdmin] = useState(null);
   const [filteredAdmins, setFilteredAdmins] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false);  
   const [Packege, Packegechange] = useState("");
   const [isViewing, setIsViewing] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,10 +30,30 @@ function EmpTable() {
 
   const handleSort = (key) => {
     const sortedAdmins = [...filteredAdmins].sort((a, b) => {
-      if (a[key] < b[key]) return sortDirection === "asc" ? -1 : 1;
-      if (a[key] > b[key]) return sortDirection === "asc" ? 1 : -1;
+      let aValue = a[key];
+      let bValue = b[key];
+
+      // Handle undefined or null values
+      if (aValue === undefined || aValue === null) aValue = "";
+      if (bValue === undefined || bValue === null) bValue = "";
+
+      // Handle sorting by numbers
+      if (!isNaN(aValue) && !isNaN(bValue)) {
+        aValue = parseFloat(aValue);
+        bValue = parseFloat(bValue);
+      }
+
+      // Handle case insensitive string comparison
+      if (typeof aValue === "string" && typeof bValue === "string") {
+        aValue = aValue.toLowerCase();
+        bValue = bValue.toLowerCase();
+      }
+
+      if (aValue < bValue) return sortDirection === "asc" ? -1 : 1;
+      if (aValue > bValue) return sortDirection === "asc" ? 1 : -1;
       return 0;
     });
+
     setFilteredAdmins(sortedAdmins);
     setSortDirection(sortDirection === "asc" ? "desc" : "asc");
   };
@@ -375,24 +395,23 @@ function EmpTable() {
                 <td>{admin.Packege}</td>
                 <td className="d-flex justify-content-evenly">
                   <button
-                    className="btn btn-success"
+                    className="text-primary fs-5"
+                    onClick={() => handleViewShow(admin)}
+                  >
+                    <FontAwesomeIcon icon="fa-solid fa-circle-info" />
+                  </button>
+                  <button
+                    className="text-success fs-5"
                     onClick={() => handleEditShow(admin)}
                   >
                     <FontAwesomeIcon icon="fa-solid fa-pen-to-square" />
                   </button>
 
                   <button
-                    className="btn btn-danger"
+                    className="text-danger fs-5"
                     onClick={() => handleDelete(admin.id)}
                   >
                     <FontAwesomeIcon icon="fa-solid fa-trash" />
-                  </button>
-
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => handleViewShow(admin)}
-                  >
-                    <FontAwesomeIcon icon="fa-solid fa-circle-info" />
                   </button>
                 </td>
               </tr>
@@ -447,7 +466,7 @@ function EmpTable() {
                 currentPage === totalPages ? "disabled" : ""
               }`}
             >
-              <div type="button" className="btn" onClick={handleNextPage}>
+              <div type="button" className="btn MyBTN" onClick={handleNextPage}>
                 <FontAwesomeIcon icon={["fas", "arrow-right"]} />
               </div>
             </div>
